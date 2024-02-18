@@ -8,6 +8,7 @@ import {
   RouterProvider,
 } from "react-router-dom";
 import RegisterPage from './compo/RegisterPage';
+import Profile from './compo/Profile'; 
 
 const router = createBrowserRouter([
   {
@@ -17,6 +18,10 @@ const router = createBrowserRouter([
   {
     path: "/register",
     element: <RegisterPage/>,
+  },
+  {
+    path : "/profile",
+    element: <Profile/>,
   },
 ]);
 

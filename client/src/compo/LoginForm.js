@@ -37,8 +37,7 @@ const LoginForm = () => {
             const userResponse = await axios.get('http://localhost:1337/api/users/me?populate=role');
             console.log('User response:', userResponse);
 
-
-
+            console.log("User role:", userResponse.data.role.name);
             //Session Storage
             sessionStorage.setItem('jwt', token);
             sessionStorage.setItem('username', userResponse.data.username);
@@ -47,8 +46,8 @@ const LoginForm = () => {
 
             if (userResponse.data.role.name === 'Admin') {
                 navigate('/admin');
-            } else if (userResponse.data.role.name === 'Authenticate-User') {
-                navigate('/authenticate');
+            } else if (userResponse.data.role.name === 'Authenticated-User') {
+                navigate('/profile');
             }
         } catch (error) {
             console.error(error);
@@ -63,7 +62,7 @@ const LoginForm = () => {
         <Container className="d-flex flex-column align-items-center justify-content-center login-container">
             <div className="Top-purple-label"></div>
             <div className="purple-label-with-image">
-                <div className="purple-label">Purple Label</div> {/* Purple label */}
+                <div className="purple-label">Purple Label</div>
             </div>
             <Form onSubmit={handleSubmit} className="w-100" style={{ maxWidth: '320px' }}>
                 {errMsg && (

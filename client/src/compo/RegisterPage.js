@@ -7,7 +7,6 @@ const axiosInstance = axios.create({
 });
 
 const RegisterPage = () => {
-    const history = useHistory();
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -19,9 +18,16 @@ const RegisterPage = () => {
     const handlePasswordChange = (e) => setPassword(e.target.value);
     const togglePasswordVisibility = () => setShowPassword(!showPassword);
 
+    const handleGoback = () => {
+        window.location.href = 'http://localhost:3000/';
+      };
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
+            sessionStorage.removeItem('jwt');
+            sessionStorage.removeItem('username');
+            sessionStorage.removeItem('role');
             const response = await axiosInstance.post("/auth/local/register", {
                 username: username,
                 email: email,
@@ -40,9 +46,7 @@ const RegisterPage = () => {
         }
     };
 
-    const handleGoBack = () => {
-        history.goBack();
-    };
+
     return (
         <Container className="d-flex flex-column align-items-center justify-content-center login-container" style={{ marginTop: '50px' }}>
             <h2>Register</h2>
@@ -88,7 +92,7 @@ const RegisterPage = () => {
                 <Button variant="primary" type="submit" className="w-100">
                     Register
                 </Button>
-                <Button variant="secondary" className="w-100 mt-3" onClick={handleGoBack}>
+                <Button variant="secondary" className="w-100 mt-3" onClick={handleGoback}>
                     Back
                 </Button>
             </Form>

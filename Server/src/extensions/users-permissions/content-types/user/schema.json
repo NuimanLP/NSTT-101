@@ -65,14 +65,20 @@
       "inversedBy": "users",
       "configurable": false
     },
-    "PersonaInfo": {
-      "type": "json"
-    },
     "BookedTours": {
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::booking.booking",
       "mappedBy": "BookingDetail"
+    },
+    "profile": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::profile.profile",
+      "mappedBy": "propinfo"
+    },
+    "personalInfo": {
+      "type": "json"
     }
   }
 }

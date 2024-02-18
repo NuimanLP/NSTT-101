@@ -61,7 +61,10 @@ const LoginForm = () => {
 
     return (
         <Container className="d-flex flex-column align-items-center justify-content-center login-container">
-            <img src="/psu-passport.png" alt="PSU Passport" className="login-logo mb-4" />
+            <div className="Top-purple-label"></div>
+            <div className="purple-label-with-image">
+                <div className="purple-label">Purple Label</div> {/* Purple label */}
+            </div>
             <Form onSubmit={handleSubmit} className="w-100" style={{ maxWidth: '320px' }}>
                 {errMsg && (
                     <Alert variant="danger">{errMsg}</Alert>

@@ -2,12 +2,19 @@ import React, { useState } from 'react';
 import { Form, Button, Container } from 'react-bootstrap';
 import axios from 'axios';
 
+const axiosInstance = axios.create({
+    baseURL: 'http://localhost:1337/api'
+});
+
 const RegisterPage = () => {
+    const history = useHistory();
+    const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [showPassword, setShowPassword] = useState(false);
     const [errorMsg, setErrorMsg] = useState('');
 
+    const handleUsernameChange = (e) => setUsername(e.target.value);
     const handleEmailChange = (e) => setEmail(e.target.value);
     const handlePasswordChange = (e) => setPassword(e.target.value);
     const togglePasswordVisibility = () => setShowPassword(!showPassword);
@@ -15,21 +22,42 @@ const RegisterPage = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post('http://localhost:1337/api/register', {
+            const response = await axiosInstance.post("/auth/local/register", {
+                username: username,
                 email: email,
-                password: password
+                password: password,
+            });
+            const roleset = await axiosInstance.put("/users-permissions/roles", {
+                username: username,
+                role: "authenticate-User",
             });
             console.log('Registration successful:', response.data);
+            console.log('Role set:', roleset.data);
+            sessionStorage.setItem('username', username);
         } catch (error) {
             console.error('Registration failed:', error);
             setErrorMsg('Registration failed. Please try again.');
         }
     };
 
+    const handleGoBack = () => {
+        history.goBack();
+    };
     return (
-        <Container className="d-flex flex-column align-items-center justify-content-center login-container">
+        <Container className="d-flex flex-column align-items-center justify-content-center login-container" style={{ marginTop: '50px' }}>
             <h2>Register</h2>
             <Form onSubmit={handleSubmit} className="w-100" style={{ maxWidth: '320px' }}>
+                <Form.Group controlId="formBasicUsername">
+                    <Form.Label>Username</Form.Label>
+                    <Form.Control
+                        type="text"
+                        placeholder="Enter username"
+                        value={username}
+                        onChange={handleUsernameChange}
+                        required
+                    />
+                </Form.Group>
+
                 <Form.Group controlId="formBasicEmail">
                     <Form.Label>Email address</Form.Label>
                     <Form.Control
@@ -50,17 +78,18 @@ const RegisterPage = () => {
                         onChange={handlePasswordChange}
                         required
                     />
-                    <Form.Text className="text-muted">
-                        <Button variant="link" onClick={togglePasswordVisibility}>
-                            {showPassword ? "Hide" : "Show"} Password
-                        </Button>
-                    </Form.Text>
+                    <Button variant="link" onClick={togglePasswordVisibility} className="p-0 mb-3">
+                        {showPassword ? "Hide" : "Show"} Password
+                    </Button>
                 </Form.Group>
 
                 {errorMsg && <p className="text-danger">{errorMsg}</p>}
 
-                <Button variant="primary" type="submit">
+                <Button variant="primary" type="submit" className="w-100">
                     Register
+                </Button>
+                <Button variant="secondary" className="w-100 mt-3" onClick={handleGoBack}>
+                    Back
                 </Button>
             </Form>
         </Container>

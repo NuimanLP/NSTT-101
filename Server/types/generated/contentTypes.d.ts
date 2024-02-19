@@ -368,16 +368,27 @@ export interface ApiBookingBooking extends Schema.CollectionType {
     singularName: 'booking';
     pluralName: 'bookings';
     displayName: 'Booking';
+    description: '';
   };
   options: {
     draftAndPublish: false;
   };
   attributes: {
-    PeopleAmount: Attribute.Integer;
-    BookingDetail: Attribute.Relation<
+    Amount: Attribute.Integer;
+    users: Attribute.Relation<
       'api::booking.booking',
       'manyToOne',
       'plugin::users-permissions.user'
+    >;
+    Booking_Date: Attribute.DateTime;
+    Total_Price: Attribute.Decimal;
+    Payment_Method: Attribute.String;
+    Payment_Status: Attribute.String;
+    Receipt: Attribute.Media;
+    tour: Attribute.Relation<
+      'api::booking.booking',
+      'manyToOne',
+      'api::tour.tour'
     >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
@@ -392,6 +403,39 @@ export interface ApiBookingBooking extends Schema.CollectionType {
       'oneToOne',
       'admin::user'
     > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiTourTour extends Schema.CollectionType {
+  collectionName: 'tours';
+  info: {
+    singularName: 'tour';
+    pluralName: 'tours';
+    displayName: 'Tour';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    EventName: Attribute.String;
+    EventDescription: Attribute.Text;
+    TourDate: Attribute.DateTime;
+    Price: Attribute.Decimal;
+    AvailableSeat: Attribute.Integer;
+    Image: Attribute.Media;
+    Categories: Attribute.String;
+    bookings: Attribute.Relation<
+      'api::tour.tour',
+      'oneToMany',
+      'api::booking.booking'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<'api::tour.tour', 'oneToOne', 'admin::user'> &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<'api::tour.tour', 'oneToOne', 'admin::user'> &
       Attribute.Private;
   };
 }
@@ -831,6 +875,7 @@ declare module '@strapi/types' {
       'admin::transfer-token': AdminTransferToken;
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'api::booking.booking': ApiBookingBooking;
+      'api::tour.tour': ApiTourTour;
       'plugin::upload.file': PluginUploadFile;
       'plugin::upload.folder': PluginUploadFolder;
       'plugin::content-releases.release': PluginContentReleasesRelease;

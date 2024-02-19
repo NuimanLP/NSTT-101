@@ -4,21 +4,47 @@
   "info": {
     "singularName": "booking",
     "pluralName": "bookings",
-    "displayName": "Booking"
+    "displayName": "Booking",
+    "description": ""
   },
   "options": {
     "draftAndPublish": false
   },
   "pluginOptions": {},
   "attributes": {
-    "PeopleAmount": {
+    "Amount": {
       "type": "integer"
     },
-    "BookingDetail": {
+    "users": {
       "type": "relation",
       "relation": "manyToOne",
       "target": "plugin::users-permissions.user",
       "inversedBy": "BookedTours"
+    },
+    "Booking_Date": {
+      "type": "datetime"
+    },
+    "Total_Price": {
+      "type": "decimal"
+    },
+    "Payment_Method": {
+      "type": "string"
+    },
+    "Payment_Status": {
+      "type": "string"
+    },
+    "Receipt": {
+      "allowedTypes": [
+        "images"
+      ],
+      "type": "media",
+      "multiple": true
+    },
+    "tour": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::tour.tour",
+      "inversedBy": "bookings"
     }
   }
 }

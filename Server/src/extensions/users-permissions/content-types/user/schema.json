@@ -77,8 +77,17 @@
       "target": "api::profile.profile",
       "mappedBy": "propinfo"
     },
-    "personalInfo": {
-      "type": "json"
+    "Fullname": {
+      "type": "string"
+    },
+    "PhoneNumber": {
+      "type": "string"
+    },
+    "Gender": {
+      "type": "string"
+    },
+    "EmergencyContact": {
+      "type": "string"
     }
   }
 }

@@ -408,7 +408,6 @@ export interface ApiProfileProfile extends Schema.CollectionType {
     draftAndPublish: false;
   };
   attributes: {
-    Tele: Attribute.String;
     propinfo: Attribute.Relation<
       'api::profile.profile',
       'oneToOne',
@@ -795,7 +794,10 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
       'oneToOne',
       'api::profile.profile'
     >;
-    personalInfo: Attribute.JSON;
+    Fullname: Attribute.String;
+    PhoneNumber: Attribute.String;
+    Gender: Attribute.String;
+    EmergencyContact: Attribute.String;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<

@@ -12,9 +12,6 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "Tele": {
-      "type": "string"
-    },
     "propinfo": {
       "type": "relation",
       "relation": "oneToOne",

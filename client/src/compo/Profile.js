@@ -3,7 +3,7 @@ import {Button} from 'react-bootstrap';
 import axios from 'axios';
 
 const Profile = () => {
-    const [profile, setProfile] = useState({ username: '', email: '', personalInfo: '' });
+    const [profile, setProfile] = useState({ username: '',Fullname: '', email: '',PhoneNumber:'',Gender:'',EmergencyContact:''});
     const [error, setError] = useState('');
 
     const handleLogout = () => {
@@ -31,8 +31,12 @@ const Profile = () => {
                 const userData = response.data;
                 setProfile({
                     username: userData.username,
+                    fullname: userData.fullname || '',
                     email: userData.email,
-                    personalInfo: JSON.stringify(userData.personalInfo),
+                    phoneNumber: userData.phoneNumber || '',
+                    gender: userData.gender || '',
+                    emergencyContact: userData.emergencyContact || '',
+
                 });
             })
             .catch(error => {
@@ -44,13 +48,16 @@ const Profile = () => {
     if (error) {
         return <div>Error: {error}</div>;
     }
-
+    
     return (
         <div>
             <h2>User Profile</h2>
             <p><strong>Username:</strong> {profile.username}</p>
+            <p><strong>Full Name:</strong> {profile.fullname}</p>
             <p><strong>Email:</strong> {profile.email}</p>
-            <p><strong>Personal Information:</strong> {profile.personalInfo}</p>
+            <p><strong>Phone Number:</strong> {profile.phoneNumber}</p> 
+            <p><strong>Gender:</strong> {profile.gender}</p> 
+            <p><strong>Emergency Contact:</strong> {profile.emergencyContact}</p>
             <Button variant="secondary" className="w-100 mt-3" onClick={handleLogout}>
                 Logout
             </Button>

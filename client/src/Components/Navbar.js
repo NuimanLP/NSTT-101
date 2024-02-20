@@ -10,7 +10,7 @@ import Dropdown from 'react-bootstrap/Dropdown';
 
 function NavigateBar() {
     return(
-        <Navbar>
+        <div className="navbar">
             <div className="contact">
                 <div className="left">
                     <img className="shadow" src={call} width="40" height="40"></img>
@@ -26,13 +26,14 @@ function NavigateBar() {
                         </div>
                     </div>
                 </div>
+                
             </div>
 
             <div className="header">
                 <div className="test"> 
                     <img src={logo} width="75" height="75">
                     </img>
-                    <b className="webname">
+                    <b className="webname inika-bold">
                         Nakorn Sri Tour Travel Agent
                     </b>
                     <img className="reverse" src={logo} width="75" height="75">
@@ -40,7 +41,7 @@ function NavigateBar() {
                 </div>
             </div>
 
-        </Navbar>
+        </div>
     )
 }
 export default NavigateBar

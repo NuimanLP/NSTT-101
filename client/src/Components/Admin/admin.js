@@ -4,6 +4,8 @@ import earth from "../../Source/earth.png"
 import ticket from "../../Source/ticket2.png"
 import user from "../../Source/user.png"
 import water from "../../Source/water.png"
+import { IoTicketSharp, IoEarth } from "react-icons/io5";
+import { FaUser } from "react-icons/fa";
 
 function Admin() {
     return(
@@ -19,7 +21,7 @@ function Admin() {
                         <div className="overall">
                             <div className="overall-children">
                                 <div className="overall-children-image">
-                                    <img src={earth} width="160" height="160"></img>
+                                <IoEarth size={160} />
                                 </div>
                                 <div className="overall-children-info plus-jakarta">
                                     <div className="quantity"><b>0</b></div>
@@ -28,7 +30,7 @@ function Admin() {
                             </div>
                             <div className="overall-children">
                                 <div className="overall-children-image">
-                                    <img src={ticket} width="160" height="160"></img>
+                                    <IoTicketSharp size={160}/>
                                 </div>
                                 <div className="overall-children-info plus-jakarta">
                                     <div className="quantity plus-jakarta"><b>0</b></div>
@@ -37,7 +39,7 @@ function Admin() {
                             </div>
                             <div className="overall-children">
                                 <div className="overall-children-image">
-                                    <img src={user} width="160" height="160"></img>
+                                    <FaUser size={140}/>
                                 </div>
                                 <div className="overall-children-info plus-jakarta">
                                     <div className="quantity plus-jakarta"><b>0</b></div>

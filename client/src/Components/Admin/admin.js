@@ -1,4 +1,5 @@
 import "./admin.css"
+import axios from 'axios'
 import NavigateBar from "../Navbar";
 import earth from "../../Source/earth.png"
 import ticket from "../../Source/ticket2.png"

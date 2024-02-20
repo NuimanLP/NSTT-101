@@ -71,12 +71,6 @@
       "target": "api::booking.booking",
       "mappedBy": "BookingDetail"
     },
-    "profile": {
-      "type": "relation",
-      "relation": "oneToOne",
-      "target": "api::profile.profile",
-      "mappedBy": "propinfo"
-    },
     "Fullname": {
       "type": "string"
     },

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { Form, Button, Container } from 'react-bootstrap';
+import { Button, Form, Container, InputGroup, FormControl, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import axios from 'axios';
+import { EyeFill, EyeSlashFill } from 'react-bootstrap-icons';
 
 const axiosInstance = axios.create({
     baseURL: 'http://localhost:1337/api'
@@ -10,41 +11,62 @@ const RegisterPage = () => {
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [confirmPassword, setConfirmPassword] = useState('');
     const [showPassword, setShowPassword] = useState(false);
     const [errorMsg, setErrorMsg] = useState('');
 
     const handleUsernameChange = (e) => setUsername(e.target.value);
     const handleEmailChange = (e) => setEmail(e.target.value);
-    const handlePasswordChange = (e) => setPassword(e.target.value);
+    const handlePasswordChange = (e) => {
+        setPassword(e.target.value)
+        setErrorMsg('');
+    };
+    const handleConfirmPasswordChange = (e) => {
+        setConfirmPassword(e.target.value)
+        setErrorMsg('');
+    };
     const togglePasswordVisibility = () => setShowPassword(!showPassword);
 
     const handleGoback = () => {
         window.location.href = 'http://localhost:3000/';
-      };
+    };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        if (password !== confirmPassword) {
+            setErrorMsg('Passwords do not match.');
+            return;
+        }
+        if (!password.match(/[!"#$%&'()*+,-./<=>?@[\]^_`{|}~]/)) {
+            setErrorMsg('Password must contain at least one special character.');
+            return;
+        }
+        if (password.length < 8 ){
+            setErrorMsg('Password must be at least 8 characters long.');
+            return;
+        }
+        
+
         try {
             sessionStorage.removeItem('jwt');
             sessionStorage.removeItem('username');
             sessionStorage.removeItem('role');
+    
             const response = await axiosInstance.post("/auth/local/register", {
                 username: username,
                 email: email,
                 password: password,
             });
-            const roleset = await axiosInstance.put("/users-permissions/roles", {
-                username: username,
-                role: "authenticate-User",
-            });
             console.log('Registration successful:', response.data);
-            console.log('Role set:', roleset.data);
             sessionStorage.setItem('username', username);
         } catch (error) {
             console.error('Registration failed:', error);
             setErrorMsg('Registration failed. Please try again.');
         }
     };
+
+    
+
 
 
     return (
@@ -75,29 +97,47 @@ const RegisterPage = () => {
 
                 <Form.Group controlId="formBasicPassword">
                     <Form.Label>Password</Form.Label>
-                    <Form.Control
-                        type={showPassword ? "text" : "password"}
-                        placeholder="Password"
-                        value={password}
-                        onChange={handlePasswordChange}
-                        required
-                    />
-                    <Button variant="link" onClick={togglePasswordVisibility} className="p-0 mb-3">
-                        {showPassword ? "Hide" : "Show"} Password
-                    </Button>
+                    <InputGroup>
+                        <FormControl
+                            type={showPassword ? "text" : "password"}
+                            placeholder="Password"
+                            value={password}
+                            onChange={handlePasswordChange}
+                            required
+                        />
+                        <Button variant="outline-secondary" onClick={togglePasswordVisibility} className="p-0">
+                            {showPassword ? <EyeSlashFill /> : <EyeFill />}
+                        </Button>
+                    </InputGroup>
                 </Form.Group>
 
-                {errorMsg && <p className="text-danger">{errorMsg}</p>}
+                <Form.Group controlId="formBasicConfirmPassword">
+                    <Form.Label>Confirm Password</Form.Label>
+                    <InputGroup>
+                        <FormControl
+                            type={showPassword ? "text" : "password"}
+                            placeholder="Confirm Password"
+                            value={confirmPassword}
+                            onChange={handleConfirmPasswordChange}
+                            required
+                        />
+                        <Button variant="outline-secondary" onClick={togglePasswordVisibility} className="p-0">
+                            {showPassword ? <EyeSlashFill /> : <EyeFill />}
+                        </Button>
+                    </InputGroup>
+                </Form.Group>
 
+                <p className="text-danger">{errorMsg}</p>
                 <Button variant="primary" type="submit" className="w-100">
-                    Register
+                    สมัคร
                 </Button>
                 <Button variant="secondary" className="w-100 mt-3" onClick={handleGoback}>
-                    Back
+                    ย้อนกลับ
                 </Button>
             </Form>
         </Container>
     );
 };
+
 
 export default RegisterPage;

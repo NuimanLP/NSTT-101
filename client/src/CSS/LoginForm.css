@@ -16,27 +16,6 @@
         padding: 1rem;
     }
 }
-.purple-label {
-    width: 1500px;
-    height: 100px;
-    background-color: #795696; /* Your purple color code */
-    color: white; /* Adjust text color as needed */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 24px; /* Adjust font size as needed */
-    margin-bottom: 20px; /* Adds some space between the label and the form */
-  }
-.Top-purple-label{
-    width: 1500px; 
-    height: 60px;
-    background-color: #371F77;
-    color: white;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 24px; 
-}
   
   .login-container {
     max-width: 1280px;

@@ -59,11 +59,7 @@ const LoginForm = () => {
 
 
     return (
-        <Container className="d-flex flex-column align-items-center justify-content-center login-container">
-            <div className="Top-purple-label"></div>
-            <div className="purple-label-with-image">
-                <div className="purple-label">Purple Label</div>
-            </div>
+        <Container className="d-flex flex-column align-items-center justify-content-center login-container"style={{ marginTop: '200px' }}>
             <Form onSubmit={handleSubmit} className="w-100" style={{ maxWidth: '320px' }}>
                 {errMsg && (
                     <Alert variant="danger">{errMsg}</Alert>
@@ -97,7 +93,7 @@ const LoginForm = () => {
                         </Spinner>
                     )}
                 </Button>
-                <Link to="/register" className="btn btn-link">Register</Link> {/* Register button */}
+                <Link to="/register" className="btn btn-link">Register</Link> 
             </Form>
         </Container>
     );

@@ -396,40 +396,6 @@ export interface ApiBookingBooking extends Schema.CollectionType {
   };
 }
 
-export interface ApiProfileProfile extends Schema.CollectionType {
-  collectionName: 'profiles';
-  info: {
-    singularName: 'profile';
-    pluralName: 'profiles';
-    displayName: 'Profile';
-    description: '';
-  };
-  options: {
-    draftAndPublish: false;
-  };
-  attributes: {
-    propinfo: Attribute.Relation<
-      'api::profile.profile',
-      'oneToOne',
-      'plugin::users-permissions.user'
-    >;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'api::profile.profile',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<
-      'api::profile.profile',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-  };
-}
-
 export interface PluginUploadFile extends Schema.CollectionType {
   collectionName: 'files';
   info: {
@@ -789,11 +755,6 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
       'oneToMany',
       'api::booking.booking'
     >;
-    profile: Attribute.Relation<
-      'plugin::users-permissions.user',
-      'oneToOne',
-      'api::profile.profile'
-    >;
     Fullname: Attribute.String;
     PhoneNumber: Attribute.String;
     Gender: Attribute.String;
@@ -873,7 +834,6 @@ declare module '@strapi/types' {
       'admin::transfer-token': AdminTransferToken;
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'api::booking.booking': ApiBookingBooking;
-      'api::profile.profile': ApiProfileProfile;
       'plugin::upload.file': PluginUploadFile;
       'plugin::upload.folder': PluginUploadFolder;
       'plugin::content-releases.release': PluginContentReleasesRelease;

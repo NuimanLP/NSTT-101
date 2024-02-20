@@ -8,7 +8,7 @@ import { FaUserCircle, FaFacebook, FaLine } from "react-icons/fa";
 
 function NavigateBar() {
     return(
-        <Navbar>
+        <div className="navbar">
             <div className="contact">
                 <div className="left">
                     <FaSquarePhone size={40} color="purple" />
@@ -24,13 +24,14 @@ function NavigateBar() {
                         </div>
                     </div>
                 </div>
+                
             </div>
 
             <div className="header">
                 <div className="test"> 
                     <img src={logo} width="75" height="75">
                     </img>
-                    <b className="webname">
+                    <b className="webname inika-bold">
                         Nakorn Sri Tour Travel Agent
                     </b>
                     <img className="reverse" src={logo} width="75" height="75">
@@ -38,7 +39,7 @@ function NavigateBar() {
                 </div>
             </div>
 
-        </Navbar>
+        </div>
     )
 }
 export default NavigateBar

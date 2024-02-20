@@ -1,4 +1,5 @@
 import "./admin.css"
+import axios from 'axios'
 import NavigateBar from "../Navbar";
 import { IoTicketSharp, IoEarth } from "react-icons/io5";
 import { FaUser } from "react-icons/fa";

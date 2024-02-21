@@ -1,14 +1,16 @@
 import "./admin.css"
-import axios from 'axios'
 import NavigateBar from "../Navbar";
-import earth from "../../Source/earth.png"
-import ticket from "../../Source/ticket2.png"
-import user from "../../Source/user.png"
 import water from "../../Source/water.png"
 import { IoTicketSharp, IoEarth } from "react-icons/io5";
 import { FaUser } from "react-icons/fa";
-
+import {useState} from "react";
 function Admin() {
+    const [a,seta] = useState("")
+
+    const selectDate = (e) => {
+        seta(e.target.value)
+    }
+
     return(
         <div>
             <NavigateBar/>
@@ -56,35 +58,42 @@ function Admin() {
                         <div className="entries">
                             <div className="entries-filter" style={{gap: "20px",display: "flex", flexDirection: "column"}}>
                                 <div className="border-shadow" style={{backgroundColor: "white",height: "50px",width:"100%",display: "flex",justifyContent: "center",alignItems: "center",borderRadius: "10px"}}>
-                                    <div style={{fontSize: "27px",color: "gray"}}><b>กรองการค้นหา</b></div>
+                                    <div className="kanit-thin" style={{fontSize: "27px",color: "gray"}}><b>กรองการค้นหา</b></div>
                                 </div>
+
                                 <div className="border-shadow" style={{backgroundColor: "white",width: "100%",height: "110px", borderRadius: "10px 10px 0px 0px",display: "flex",flexDirection: "column",gap: "15px"}}>
                                     <div style={{display: "flex",justifyContent: "space-between"}}>
-                                        <div style={{fontSize: "25px",paddingLeft: "20px",paddingTop: "20px"}}><b>ช่วงราคา</b></div>
-                                        <div style={{fontSize: "20px",color: "#795695",paddingRight: "20px",paddingTop: "20px"}}><u><b>ล้างค่า</b></u></div>
+                                        <div className="kanit-medium" style={{fontSize: "25px",paddingLeft: "20px",paddingTop: "20px"}}>ช่วงราคา</div>
+                                        <div className="clear kanit-medium"><u><b>ล้างค่า</b></u></div>
                                     </div>
                                     <input type="range"></input>
                                 </div> 
 
-                                <div style={{backgroundColor: "white",width:"100%",height:"170px",display:"flex",flexDirection: "column",paddingTop: "15px",gap:"15px"}}>
-                                    <div style={{fontSize: "25px",paddingLeft:"20px"}}><b>ประเภททัวร์</b></div>
+                                <div style={{backgroundColor: "white",width:"100%",height:"150px",display:"flex",flexDirection: "column",paddingTop: "15px",gap:"15px"}}>
+                                    <div className="kanit-medium" style={{fontSize: "25px",paddingLeft:"20px"}}>ประเภททัวร์</div>
                                     <div>
                                         <div style={{display: "flex",width: "100%",height: "40px"}}>
                                             <div style={{paddingLeft: "35px",paddingTop: "5px",display: "flex",alignItems: "center",width: "100%",gap:"10px"}}>
                                                 <input className="check"type="checkbox"></input>
-                                                <div>One-day Trip</div>
+                                                <div className="plus-jakarta">One-day Trip</div>
                                             </div>
                                         </div>
 
                                         <div style={{display: "flex",width: "100%",height: "40px"}}>
                                             <div style={{paddingLeft: "35px",paddingTop: "5px",display: "flex",alignItems: "center",width: "100%",gap: "10px"}}>
                                                 <input className="check"type="checkbox"></input>
-                                                <div>Multi-days Trip</div>
+                                                <div className="plus-jakarta">Multi-day Trip</div>
                                             </div>                             
                                         </div>
                                     </div>
                                 </div>
 
+                                <div style={{backgroundColor: "white",width:"100%",height:"150px",display:"flex",flexDirection: "column"}}>
+                                    <div className="kanit-medium" style={{width: "100%",height: "40px",padding: "20px",fontSize: "25px"}}>ระบุวันที่</div>
+                                    <div style={{width:"100%",paddingLeft:"15px"}}>
+                                        <input className="kanit-semibold" type="date" onChange={selectDate} style={{height: "40px",borderRadius:"10px",width:"200px"}}></input>
+                                    </div>
+                                </div>
                             </div>
                             
                             <div className="entries-list">

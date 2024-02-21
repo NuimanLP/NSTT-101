@@ -4,7 +4,8 @@
   "info": {
     "singularName": "tour",
     "pluralName": "tours",
-    "displayName": "Tour"
+    "displayName": "Tour",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -17,8 +18,8 @@
     "EventDescription": {
       "type": "text"
     },
-    "TourDate": {
-      "type": "datetime"
+    "TourDateStart": {
+      "type": "date"
     },
     "Price": {
       "type": "decimal"
@@ -27,20 +28,42 @@
       "type": "integer"
     },
     "Image": {
-      "allowedTypes": [
-        "images"
-      ],
       "type": "media",
-      "multiple": true
+      "multiple": true,
+      "required": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
     },
-    "Categories": {
+    "Category": {
       "type": "string"
     },
-    "bookings": {
+    "Booking": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::booking.booking",
+      "mappedBy": "Tour"
+    },
+    "Plans": {
       "type": "relation",
       "relation": "oneToMany",
-      "target": "api::booking.booking",
-      "mappedBy": "tour"
+      "target": "api::plan.plan",
+      "mappedBy": "Tour"
+    },
+    "TourDateFinish": {
+      "type": "date"
+    },
+    "Star": {
+      "type": "integer"
+    },
+    "MealAmount": {
+      "type": "integer"
+    },
+    "TimeCount": {
+      "type": "string"
     }
   }
 }

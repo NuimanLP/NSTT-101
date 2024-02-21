@@ -15,36 +15,37 @@
     "Amount": {
       "type": "integer"
     },
-    "users": {
-      "type": "relation",
-      "relation": "manyToOne",
-      "target": "plugin::users-permissions.user",
-      "inversedBy": "BookedTours"
-    },
-    "Booking_Date": {
+    "BookingDate": {
       "type": "datetime"
     },
-    "Total_Price": {
-      "type": "decimal"
+    "TotalPrice": {
+      "type": "integer"
     },
-    "Payment_Method": {
+    "PaymentMethod": {
       "type": "string"
     },
-    "Payment_Status": {
+    "PaymentStatus": {
       "type": "string"
     },
     "Receipt": {
+      "type": "media",
+      "multiple": true,
+      "required": false,
       "allowedTypes": [
         "images"
-      ],
-      "type": "media",
-      "multiple": true
+      ]
     },
-    "tour": {
+    "User": {
       "type": "relation",
-      "relation": "manyToOne",
+      "relation": "oneToOne",
+      "target": "plugin::users-permissions.user",
+      "inversedBy": "Booking"
+    },
+    "Tour": {
+      "type": "relation",
+      "relation": "oneToOne",
       "target": "api::tour.tour",
-      "inversedBy": "bookings"
+      "inversedBy": "Booking"
     }
   }
 }

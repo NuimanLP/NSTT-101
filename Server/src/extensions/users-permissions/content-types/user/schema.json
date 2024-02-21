@@ -68,11 +68,11 @@
     "PersonaInfo": {
       "type": "json"
     },
-    "BookedTours": {
+    "Booking": {
       "type": "relation",
-      "relation": "oneToMany",
+      "relation": "oneToOne",
       "target": "api::booking.booking",
-      "mappedBy": "users"
+      "mappedBy": "User"
     }
   }
 }

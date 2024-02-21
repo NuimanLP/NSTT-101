@@ -65,12 +65,6 @@
       "inversedBy": "users",
       "configurable": false
     },
-    "BookedTours": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::booking.booking",
-      "mappedBy": "BookingDetail"
-    },
     "Fullname": {
       "type": "string"
     },

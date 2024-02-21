@@ -26,24 +26,24 @@ const Profile = () => {
                 Authorization: `Bearer ${jwt}`,
             },
         })
-        .then(response => {
-            setProfile({
-                id: response.data.id,
-                username: response.data.username,
-                fullname: response.data.fullname || '',
-                email: response.data.email,
-                phoneNumber: response.data.phoneNumber || '',
-                gender: response.data.gender || '',
-                emergencyContact: response.data.emergencyContact || '',
+            .then(response => {
+                setProfile({
+                    id: response.data.id,
+                    username: response.data.username,
+                    fullname: response.data.fullname || '',
+                    email: response.data.email,
+                    phoneNumber: response.data.phoneNumber || '',
+                    gender: response.data.gender || '',
+                    emergencyContact: response.data.emergencyContact || '',
+                });
+                setShowModal(false);
+            })
+            .catch(error => {
+                console.error('Error fetching user profile:', error);
+                setError('Failed to load profile. Please try again later.');
             });
-            setShowModal(false);
-        })
-        .catch(error => {
-            console.error('Error fetching user profile:', error);
-            setError('Failed to load profile. Please try again later.');
-        });
     };
-    
+
 
     useEffect(() => {
         const jwt = sessionStorage.getItem('jwt');
@@ -95,7 +95,7 @@ const Profile = () => {
                 console.log('Profile updated successfully:', response.data);
                 setProfile(prev => ({ ...prev, ...response.data }));
                 fetchUserProfile();
-                setShowModal(false);    
+                setShowModal(false);
             })
             .catch(error => {
                 console.error('Error updating user profile:', error.response?.data || error);

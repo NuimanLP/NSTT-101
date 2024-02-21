@@ -41,17 +41,17 @@ const RegisterPage = () => {
             setErrorMsg('Password must contain at least one special character.');
             return;
         }
-        if (password.length < 8 ){
+        if (password.length < 8) {
             setErrorMsg('Password must be at least 8 characters long.');
             return;
         }
-        
+
 
         try {
             sessionStorage.removeItem('jwt');
             sessionStorage.removeItem('username');
             sessionStorage.removeItem('role');
-    
+
             const response = await axiosInstance.post("/auth/local/register", {
                 username: username,
                 email: email,
@@ -65,7 +65,7 @@ const RegisterPage = () => {
         }
     };
 
-    
+
 
 
 
@@ -141,3 +141,4 @@ const RegisterPage = () => {
 
 
 export default RegisterPage;
+

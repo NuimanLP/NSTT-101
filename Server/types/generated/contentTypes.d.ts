@@ -368,16 +368,27 @@ export interface ApiBookingBooking extends Schema.CollectionType {
     singularName: 'booking';
     pluralName: 'bookings';
     displayName: 'Booking';
+    description: '';
   };
   options: {
     draftAndPublish: false;
   };
   attributes: {
-    PeopleAmount: Attribute.Integer;
-    BookingDetail: Attribute.Relation<
+    Amount: Attribute.Integer;
+    BookingDate: Attribute.DateTime;
+    TotalPrice: Attribute.Integer;
+    PaymentMethod: Attribute.String;
+    PaymentStatus: Attribute.String;
+    Receipt: Attribute.Media;
+    User: Attribute.Relation<
       'api::booking.booking',
-      'manyToOne',
+      'oneToOne',
       'plugin::users-permissions.user'
+    >;
+    Tour: Attribute.Relation<
+      'api::booking.booking',
+      'oneToOne',
+      'api::tour.tour'
     >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
@@ -392,6 +403,113 @@ export interface ApiBookingBooking extends Schema.CollectionType {
       'oneToOne',
       'admin::user'
     > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiHighlightHighlight extends Schema.CollectionType {
+  collectionName: 'highlights';
+  info: {
+    singularName: 'highlight';
+    pluralName: 'highlights';
+    displayName: 'Highlight';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    Name: Attribute.String;
+    Image: Attribute.Media;
+    Plans: Attribute.Relation<
+      'api::highlight.highlight',
+      'manyToMany',
+      'api::plan.plan'
+    >;
+    Count: Attribute.Boolean;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::highlight.highlight',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::highlight.highlight',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiPlanPlan extends Schema.CollectionType {
+  collectionName: 'plans';
+  info: {
+    singularName: 'plan';
+    pluralName: 'plans';
+    displayName: 'Plan';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    Day: Attribute.Integer;
+    Description: Attribute.Text;
+    Highlights: Attribute.Relation<
+      'api::plan.plan',
+      'manyToMany',
+      'api::highlight.highlight'
+    >;
+    Tour: Attribute.Relation<'api::plan.plan', 'manyToOne', 'api::tour.tour'>;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<'api::plan.plan', 'oneToOne', 'admin::user'> &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<'api::plan.plan', 'oneToOne', 'admin::user'> &
+      Attribute.Private;
+  };
+}
+
+export interface ApiTourTour extends Schema.CollectionType {
+  collectionName: 'tours';
+  info: {
+    singularName: 'tour';
+    pluralName: 'tours';
+    displayName: 'Tour';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    EventName: Attribute.String;
+    EventDescription: Attribute.Text;
+    TourDateStart: Attribute.Date;
+    Price: Attribute.Decimal;
+    AvailableSeat: Attribute.Integer;
+    Image: Attribute.Media;
+    Category: Attribute.String;
+    Booking: Attribute.Relation<
+      'api::tour.tour',
+      'oneToOne',
+      'api::booking.booking'
+    >;
+    Plans: Attribute.Relation<'api::tour.tour', 'oneToMany', 'api::plan.plan'>;
+    TourDateFinish: Attribute.Date;
+    Star: Attribute.Integer;
+    MealAmount: Attribute.Integer;
+    TimeCount: Attribute.String;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<'api::tour.tour', 'oneToOne', 'admin::user'> &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<'api::tour.tour', 'oneToOne', 'admin::user'> &
       Attribute.Private;
   };
 }
@@ -751,9 +869,9 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
       'plugin::users-permissions.role'
     >;
     PersonaInfo: Attribute.JSON;
-    BookedTours: Attribute.Relation<
+    Booking: Attribute.Relation<
       'plugin::users-permissions.user',
-      'oneToMany',
+      'oneToOne',
       'api::booking.booking'
     >;
     createdAt: Attribute.DateTime;
@@ -831,6 +949,9 @@ declare module '@strapi/types' {
       'admin::transfer-token': AdminTransferToken;
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'api::booking.booking': ApiBookingBooking;
+      'api::highlight.highlight': ApiHighlightHighlight;
+      'api::plan.plan': ApiPlanPlan;
+      'api::tour.tour': ApiTourTour;
       'plugin::upload.file': PluginUploadFile;
       'plugin::upload.folder': PluginUploadFolder;
       'plugin::content-releases.release': PluginContentReleasesRelease;

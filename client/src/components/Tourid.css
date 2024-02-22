@@ -1,0 +1,222 @@
+/* /components/Touid.css */
+
+@import url('https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+.relative {
+  position: relative;
+  left: 0px;
+  border: 3px solid #73AD21;
+}
+
+.photomenu{
+  background: #FFF;
+  stroke-width: 1px;
+  stroke: rgba(0, 0, 0, 0.25);
+  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.50));
+  width: 100%;
+  height: 604px;
+}
+
+.barmenu{
+  width: 235px;
+  height: 45px;
+  flex-shrink: 0;
+  background: #371F77;
+}
+
+.barmenu0{
+  width: 235px;
+  height: 45px;
+  flex-shrink: 0;
+  background: #D9D9D9;
+}
+
+.triangle-up {
+	width: 0;
+	height: 0;
+	border-left: 25px solid transparent;
+	border-right: 25px solid transparent;
+	border-bottom: 46px solid #371F77;
+}
+
+.Text{
+  color: #000;
+  font-family:  "Kanit", sans-serif;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.Tour{
+  border-radius: 15px;
+  border: 1px solid rgba(0, 0, 0, 0.25);
+  background: #FFF;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.50);
+  position: fixed;
+  bottom: 0;
+  right: 70px;
+  width: 436px;
+  height: 527px;
+  border: 5px solid #73AD21;
+}
+
+.NameTour{
+  color: #000;
+  font-family: "Kanit", sans-serif;
+  font-size: 30px;
+  font-weight: 700;
+}
+
+.NameTour0{
+  color: #FFF;
+  text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  font-family: "Kanit", sans-serif;
+  font-size: 30px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  width: 181px;
+  height: 21px;
+  flex-shrink: 0;
+}
+
+.price{
+  border: 1px solid rgba(0, 0, 0, 0.13);
+  background: #FFF;
+  width: 426px;
+  height: 62px;
+  color: rgba(0, 0, 0, 0.50);
+  font-family: "Inika";
+  font-size: 15px;
+  font-weight: 700;
+  
+}
+
+.namehightlight{
+  color: rgba(55, 31, 119, 0.75);
+  text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  font-family: "Kanit", sans-serif;
+  font-size: 35px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+}
+
+.texthigthlight{
+  color: rgba(0, 0, 0, 0.50);
+  font-family: "Kanit", sans-serif;;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+}
+
+.hightlight {
+  border-radius: 15px;
+  border: 1px solid rgba(0, 0, 0, 0.50);
+  background: #FFF;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  width: 127px;
+  height: 108px;
+  flex-shrink: 0;
+}
+
+.hightlight0{
+  width: 289px;
+  height: 60px;
+  flex-shrink: 0;
+  border-radius: 15px;
+  border: 1px solid rgba(0, 0, 0, 0.25);
+  background: #FFF;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+}
+
+.highlighttour{
+  border-radius: 15px;
+  border: 1px solid rgba(0, 0, 0, 0.25);
+  background: #FFF;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  width: 830px;
+  height: 527px;
+  margin-left: 70px;
+  border: 5px solid #73AD21;
+}
+
+.textmenuhightlight{
+  color: rgba(0, 0, 0, 0.50);
+  font-family: "Kanit", sans-serif;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.texthigthlight0{
+  color: rgba(55, 31, 119, 0.80);
+  font-family: "Kanit", sans-serif;
+  font-size: 35px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.button {
+    border-radius: 15px; /* ค่าความงของปุ่ม */
+    background-color: #F36C60; /* สีของปุ่ม */
+    font-size: 30px; /* ขนาดตัวอักษร */
+    padding: 10px 80px; /* ขนาดของปุ่ม */
+    color: #FFF; /* สีตัวอักษร */
+    border: 1px solid rgba(0, 0, 0, 0.25); /* ขนาดขอบของปุ่ม */
+    font-family: "Kanit", sans-serif;
+    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    font-weight: 700;/*ความหนาตัวอัษร*/
+    width: 418px;
+    height: 65px;
+}
+
+.Detail{
+  width: 830px;
+  height: 1181px;
+  flex-shrink: 0;
+  border-radius: 15px;
+  border: 1px solid rgba(0, 0, 0, 0.25);
+  background: #FFF;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  margin-left: 70px;
+}
+
+.menuDetail{
+  width: 740px;
+  height: 354px;
+  flex-shrink: 0;
+  border-radius: 15px;
+  border: 1px solid rgba(0, 0, 0, 0.25);
+  background: #FFF;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+}
+
+.TextDetail{
+  width: 252px;
+  height: 42px;
+  flex-shrink: 0;
+  color: rgba(55, 31, 119, 0.75);
+  text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  font-family: "Kanit", sans-serif;
+  font-size: 35px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+}
+
+.TextDetail0{
+  width: 192px;
+  height: 33px;
+  flex-shrink: 0;
+  color: rgba(55, 31, 119, 0.50);
+  font-family: "Kanit", sans-serif;
+  font-size: 25px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal; 
+}

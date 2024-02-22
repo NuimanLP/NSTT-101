@@ -1,0 +1,51 @@
+{
+  "kind": "collectionType",
+  "collectionName": "tours",
+  "info": {
+    "singularName": "tour",
+    "pluralName": "tours",
+    "displayName": "Tour",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "TourDartes": {
+      "type": "date"
+    },
+    "Price": {
+      "type": "decimal"
+    },
+    "EventName": {
+      "type": "string"
+    },
+    "EventDesciption": {
+      "type": "text"
+    },
+    "AvailableSeat": {
+      "type": "integer"
+    },
+    "Image": {
+      "type": "media",
+      "multiple": true,
+      "required": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "Tourid": {
+      "type": "string"
+    },
+    "date": {
+      "type": "string"
+    },
+    "timedate": {
+      "type": "string"
+    }
+  }
+}

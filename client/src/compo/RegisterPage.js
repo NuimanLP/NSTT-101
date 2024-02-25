@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { Button, Form, Container, InputGroup, FormControl, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import axios from 'axios';
 import { EyeFill, EyeSlashFill } from 'react-bootstrap-icons';
+import NavigateBar from "./Navbar";
+import '../CSS/Navbar.css'; 
 
 const axiosInstance = axios.create({
     baseURL: 'http://localhost:1337/api'
@@ -59,6 +61,7 @@ const RegisterPage = () => {
             });
             console.log('Registration successful:', response.data);
             sessionStorage.setItem('username', username);
+            window.location.href = 'http://localhost:3000/';
         } catch (error) {
             console.error('Registration failed:', error);
             setErrorMsg('Registration failed. Please try again.');
@@ -70,14 +73,16 @@ const RegisterPage = () => {
 
 
     return (
+        <>
+            <NavigateBar />
         <Container className="d-flex flex-column align-items-center justify-content-center login-container" style={{ marginTop: '50px' }}>
             <h2>Register</h2>
             <Form onSubmit={handleSubmit} className="w-100" style={{ maxWidth: '320px' }}>
                 <Form.Group controlId="formBasicUsername">
-                    <Form.Label>Username</Form.Label>
+                    <Form.Label>ชื่อผู้ใช้</Form.Label>
                     <Form.Control
                         type="text"
-                        placeholder="Enter username"
+                        placeholder="ชื่อผู้ใช้"
                         value={username}
                         onChange={handleUsernameChange}
                         required
@@ -85,10 +90,10 @@ const RegisterPage = () => {
                 </Form.Group>
 
                 <Form.Group controlId="formBasicEmail">
-                    <Form.Label>Email address</Form.Label>
+                    <Form.Label>อีเมลล์</Form.Label>
                     <Form.Control
                         type="email"
-                        placeholder="Enter email"
+                        placeholder="อีเมลล์"
                         value={email}
                         onChange={handleEmailChange}
                         required
@@ -96,11 +101,11 @@ const RegisterPage = () => {
                 </Form.Group>
 
                 <Form.Group controlId="formBasicPassword">
-                    <Form.Label>Password</Form.Label>
+                    <Form.Label>รหัสผ่าน</Form.Label>
                     <InputGroup>
                         <FormControl
                             type={showPassword ? "text" : "password"}
-                            placeholder="Password"
+                            placeholder="รหัสผ่าน"
                             value={password}
                             onChange={handlePasswordChange}
                             required
@@ -136,6 +141,7 @@ const RegisterPage = () => {
                 </Button>
             </Form>
         </Container>
+        </>
     );
 };
 

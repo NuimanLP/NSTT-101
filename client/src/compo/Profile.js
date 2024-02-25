@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Button, Modal, Form } from 'react-bootstrap';
 import axios from 'axios';
+import NavigateBar from "./Navbar";
+import '../CSS/Navbar.css'; 
 
 const Profile = () => {
     const [profile, setProfile] = useState({
@@ -110,6 +112,7 @@ const Profile = () => {
     }
 
     return (
+        <> <NavigateBar/>
         <div>
             <h2>User Profile</h2>
             <p><strong>Username:</strong> {profile.username}</p>
@@ -174,6 +177,7 @@ const Profile = () => {
                 </Modal.Footer>
             </Modal>
         </div>
+        </>
     );
 };
 

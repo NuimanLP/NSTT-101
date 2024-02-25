@@ -1,6 +1,6 @@
 /* LoginPage.css */
 .login-container {
-    margin-top: 50px; /* Adjust as needed */
+    margin-top: 50px;
     display: flex;
     flex-direction: column;
     align-items: center;

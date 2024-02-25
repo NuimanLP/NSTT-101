@@ -92,7 +92,7 @@ const LoginForm = () => {
                     />
                 </Form.Group>
                 <Button variant="primary" type="submit" disabled={isLoading}>
-                    {isLoading ? 'Loading...' : 'ล็อคอิน'}
+                    {isLoading ? 'Loading...' : 'เข้าสู่ระบบ'}
                     {isLoading && (
                         <Spinner animation="border" role="status">
                             <span className="visually-hidden">Loading...</span>

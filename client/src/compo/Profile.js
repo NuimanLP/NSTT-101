@@ -115,23 +115,23 @@ const Profile = () => {
         <> <NavigateBar/>
         <div>
             <h2>User Profile</h2>
-            <p><strong>Username:</strong> {profile.username}</p>
-            <p><strong>Full Name:</strong> {profile.fullname}</p>
-            <p><strong>Email:</strong> {profile.email}</p>
-            <p><strong>Phone Number:</strong> {profile.phoneNumber}</p>
-            <p><strong>Gender:</strong> {profile.gender}</p>
-            <Button variant="primary" onClick={() => setShowModal(true)}>Edit Profile</Button>
-            <Button variant="secondary" className="w-100 mt-3" onClick={handleLogout}>Logout</Button>
+            <p><strong>ชื่อผู้ใช้:</strong> {profile.username}</p>
+            <p><strong>ชื่อ-นามสกุล:</strong> {profile.fullname}</p>
+            <p><strong>อีเมลล์:</strong> {profile.email}</p>
+            <p><strong>เบอร์โทรศัพท์:</strong> {profile.phoneNumber}</p>
+            <p><strong>เพศ:</strong> {profile.gender}</p>
+            <Button variant="primary" onClick={() => setShowModal(true)}>เเก้ไขโปรไฟล์</Button>
+            <Button variant="secondary" className="w-100 mt-3" onClick={handleLogout}>ออกจากระบบ</Button>
 
             {/* Modal for editing profile */}
             <Modal show={showModal} onHide={() => setShowModal(false)}>
                 <Modal.Header closeButton>
-                    <Modal.Title>Edit Profile</Modal.Title>
+                    <Modal.Title>เเก้ไขโปรไฟล์</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <Form>
                         <Form.Group className="mb-3">
-                            <Form.Label>Username</Form.Label>
+                            <Form.Label>ชื่อผู้ใช้</Form.Label>
                             <Form.Control
                                 type="text"
                                 name="username"
@@ -141,7 +141,7 @@ const Profile = () => {
                         </Form.Group>
 
                         <Form.Group className="mb-3">
-                            <Form.Label>Full Name</Form.Label>
+                            <Form.Label>ชื่อ-นามสกุล</Form.Label>
                             <Form.Control
                                 type="text"
                                 name="Fullname"
@@ -151,7 +151,7 @@ const Profile = () => {
                         </Form.Group>
 
                         <Form.Group className="mb-3">
-                            <Form.Label>Phone Number</Form.Label>
+                            <Form.Label>เบอร์โทรศัพท์</Form.Label>
                             <Form.Control
                                 type="text"
                                 name="PhoneNumber"
@@ -161,7 +161,7 @@ const Profile = () => {
                         </Form.Group>
 
                         <Form.Group className="mb-3">
-                            <Form.Label>Gender</Form.Label>
+                            <Form.Label>เพศ</Form.Label>
                             <Form.Control
                                 type="text"
                                 name="Gender"

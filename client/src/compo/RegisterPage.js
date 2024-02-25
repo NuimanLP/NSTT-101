@@ -4,6 +4,7 @@ import axios from 'axios';
 import { EyeFill, EyeSlashFill } from 'react-bootstrap-icons';
 import NavigateBar from "./Navbar";
 import '../CSS/Navbar.css'; 
+import '../CSS/Register.css';
 
 const axiosInstance = axios.create({
     baseURL: 'http://localhost:1337/api'
@@ -75,72 +76,74 @@ const RegisterPage = () => {
     return (
         <>
             <NavigateBar />
-        <Container className="d-flex flex-column align-items-center justify-content-center login-container" style={{ marginTop: '50px' }}>
-            <h2>Register</h2>
-            <Form onSubmit={handleSubmit} className="w-100" style={{ maxWidth: '320px' }}>
-                <Form.Group controlId="formBasicUsername">
-                    <Form.Label>ชื่อผู้ใช้</Form.Label>
-                    <Form.Control
-                        type="text"
-                        placeholder="ชื่อผู้ใช้"
-                        value={username}
-                        onChange={handleUsernameChange}
-                        required
-                    />
-                </Form.Group>
-
-                <Form.Group controlId="formBasicEmail">
-                    <Form.Label>อีเมลล์</Form.Label>
-                    <Form.Control
-                        type="email"
-                        placeholder="อีเมลล์"
-                        value={email}
-                        onChange={handleEmailChange}
-                        required
-                    />
-                </Form.Group>
-
-                <Form.Group controlId="formBasicPassword">
-                    <Form.Label>รหัสผ่าน</Form.Label>
-                    <InputGroup>
-                        <FormControl
-                            type={showPassword ? "text" : "password"}
-                            placeholder="รหัสผ่าน"
-                            value={password}
-                            onChange={handlePasswordChange}
+        <Container className="register-container">    
+            <Container className="d-flex flex-column align-items-center justify-content-center login-container" style={{ marginTop: '50px' }}>
+                <h2>เข้าสู่ระบบ</h2>
+                <Form onSubmit={handleSubmit} className="w-100" style={{ maxWidth: '320px' }}>
+                    <Form.Group controlId="formBasicUsername">
+                        <Form.Label>ชื่อผู้ใช้</Form.Label>
+                        <Form.Control
+                            type="text"
+                            placeholder="ชื่อผู้ใช้"
+                            value={username}
+                            onChange={handleUsernameChange}
                             required
                         />
-                        <Button variant="outline-secondary" onClick={togglePasswordVisibility} className="p-0">
-                            {showPassword ? <EyeSlashFill /> : <EyeFill />}
-                        </Button>
-                    </InputGroup>
-                </Form.Group>
+                    </Form.Group>
 
-                <Form.Group controlId="formBasicConfirmPassword">
-                    <Form.Label>Confirm Password</Form.Label>
-                    <InputGroup>
-                        <FormControl
-                            type={showPassword ? "text" : "password"}
-                            placeholder="Confirm Password"
-                            value={confirmPassword}
-                            onChange={handleConfirmPasswordChange}
+                    <Form.Group controlId="formBasicEmail">
+                        <Form.Label>อีเมลล์</Form.Label>
+                        <Form.Control
+                            type="email"
+                            placeholder="อีเมลล์"
+                            value={email}
+                            onChange={handleEmailChange}
                             required
                         />
-                        <Button variant="outline-secondary" onClick={togglePasswordVisibility} className="p-0">
-                            {showPassword ? <EyeSlashFill /> : <EyeFill />}
-                        </Button>
-                    </InputGroup>
-                </Form.Group>
+                    </Form.Group>
 
-                <p className="text-danger">{errorMsg}</p>
-                <Button variant="primary" type="submit" className="w-100">
-                    สมัคร
-                </Button>
-                <Button variant="secondary" className="w-100 mt-3" onClick={handleGoback}>
-                    ย้อนกลับ
-                </Button>
-            </Form>
-        </Container>
+                    <Form.Group controlId="formBasicPassword">
+                        <Form.Label>รหัสผ่าน</Form.Label>
+                        <InputGroup>
+                            <FormControl
+                                type={showPassword ? "text" : "password"}
+                                placeholder="รหัสผ่าน"
+                                value={password}
+                                onChange={handlePasswordChange}
+                                required
+                            />
+                            <Button variant="outline-secondary" onClick={togglePasswordVisibility} className="p-0">
+                                {showPassword ? <EyeSlashFill /> : <EyeFill />}
+                            </Button>
+                        </InputGroup>
+                    </Form.Group>
+
+                    <Form.Group controlId="formBasicConfirmPassword">
+                        <Form.Label>ยืนยันรหัสผ่าน</Form.Label>
+                        <InputGroup>
+                            <FormControl
+                                type={showPassword ? "text" : "password"}
+                                placeholder="ยืนยันรหัสผ่าน"
+                                value={confirmPassword}
+                                onChange={handleConfirmPasswordChange}
+                                required
+                            />
+                            <Button variant="outline-secondary" onClick={togglePasswordVisibility} className="p-0">
+                                {showPassword ? <EyeSlashFill /> : <EyeFill />}
+                            </Button>
+                        </InputGroup>
+                    </Form.Group>
+
+                    <p className="text-danger">{errorMsg}</p>
+                    <Button variant="primary" type="submit" className="w-100">
+                        สมัคร
+                    </Button>
+                    <Button variant="secondary" className="w-100 mt-3" onClick={handleGoback}>
+                        ย้อนกลับ
+                    </Button>
+                </Form>
+            </Container>
+            </Container>
         </>
     );
 };

@@ -11,6 +11,8 @@ const Profile = () => {
     const [error, setError] = useState('');
     const [showModal, setShowModal] = useState(false);
     const [editProfile, setEditProfile] = useState({ ...profile });
+    const [errorMsg, setErrorMsg] = useState('');
+
 
     const handleLogout = () => {
         sessionStorage.removeItem('jwt');
@@ -79,7 +81,11 @@ const Profile = () => {
     const handleSaveChanges = () => {
         const jwt = sessionStorage.getItem('jwt');
         if (!jwt) {
-            setError('You must be logged in to update your profile.');
+            setError('คุณต้องเข้าสู่ระบบเพื่อดูหน้านี้');
+            return;
+        }
+        if (editProfile.username === '') {
+            setErrorMsg('กรุณากรอกชื่อผู้ใช้');
             return;
         }
 
@@ -138,6 +144,7 @@ const Profile = () => {
                                 value={editProfile.username}
                                 onChange={handleEditProfileChange}
                             />
+                             <p className="text-danger">{errorMsg}</p>
                         </Form.Group>
 
                         <Form.Group className="mb-3">
@@ -172,8 +179,8 @@ const Profile = () => {
                     </Form>
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button variant="secondary" onClick={() => setShowModal(false)}>Close</Button>
-                    <Button variant="primary" onClick={handleSaveChanges}>Save Changes</Button>
+                    <Button variant="secondary" onClick={() => setShowModal(false)}>ปิดหน้าต่าง</Button>
+                    <Button variant="primary" onClick={handleSaveChanges}>บันทึกการเปลี่ยนเเปลง</Button>
                 </Modal.Footer>
             </Modal>
         </div>

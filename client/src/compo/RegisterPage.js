@@ -37,15 +37,15 @@ const RegisterPage = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         if (password !== confirmPassword) {
-            setErrorMsg('Passwords do not match.');
+            setErrorMsg('รหัสผ่านไม่ตรงกัน');
             return;
         }
         if (!password.match(/[!"#$%&'()*+,-./<=>?@[\]^_`{|}~]/)) {
-            setErrorMsg('Password must contain at least one special character.');
+            setErrorMsg('รหัสผ่านต้องประกอบด้วยอักขระพิเศษอย่างน้อย 1 ตัว');
             return;
         }
         if (password.length < 8) {
-            setErrorMsg('Password must be at least 8 characters long.');
+            setErrorMsg('รหัสผ่านต้องมีความยาวอย่างน้อย 8 ตัว');
             return;
         }
 
@@ -65,7 +65,7 @@ const RegisterPage = () => {
             window.location.href = 'http://localhost:3000/';
         } catch (error) {
             console.error('Registration failed:', error);
-            setErrorMsg('Registration failed. Please try again.');
+            setErrorMsg('สมัครสมาชิกไม่สำเร็จ');
         }
     };
 

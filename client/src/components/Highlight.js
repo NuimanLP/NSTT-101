@@ -1,18 +1,21 @@
+// /components/highlight
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import './Tourid.css'
 
-function Highlight() {
-    const[data,setData] = useState(null)
 
-    const fetchAPI = async () =>{
-      const response = await axios.get("http://localhost:1337/api/tours");
-      setData(response.data.data)
-    }
+function Highlight() {
+
+  const[data,setData] = useState(null)
+
+  const fetchAPI = async () =>{
+    const response = await axios.get("http://localhost:1337/api/tours");
+    setData(response.data.data)
+  }
   
-    useEffect(() =>{
-      fetchAPI()
-    }, [])
+  useEffect(() =>{
+    fetchAPI()
+  }, [])
 
   return (
     <div class="position-relative" style={{ border: '3px solid #73AD21' }}>
@@ -66,7 +69,9 @@ function Highlight() {
     </div>
     <div class='Detail' style={{marginTop: '30px',border: '3px solid #73AD21'}}>
       <div class='TextDetail' style={{marginLeft: '40px',marginTop: '30px'}}>รายละเอียดทัวร์</div>
-      <div class='TextDetail0'style={{marginLeft: '40px',marginTop: '25px'}}>เดินทาง 3 วัน 2 คืน</div>
+      {data && data.map ( val => (
+      <div class='TextDetail0'style={{marginLeft: '40px',marginTop: '25px'}}>{val.attributes.date}</div>
+      ))}
       <div class="position-relative"style={{border: '3px solid #73AD21'}}>
       <div class='menuDetail' style={{marginLeft:'40px',marginTop:'54px'}}></div>
       <div class='menuDetail' style={{marginLeft:'40px',marginTop:'54px'}}></div>

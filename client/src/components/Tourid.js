@@ -20,21 +20,24 @@ function Tourid() {
 
   return (
   <div>
-  <br></br>
-  <div class='photomenu'>
-
+  <div class='photomenu' style={{marginBottom:'50px',border: '3px solid #73AD21'}}>
+    {data && data.map (val =>(
+    <div class='Textphotomenu' style={{marginTop:'504px',marginLeft: '82px',border: '3px solid #73AD21'}}>
+      <h style={{marginRight:'10px'}}>{val.attributes.EventName}</h><h>{val.attributes.TimeCount}</h><h>{val.attributes.EventDesciption}</h>
+    </div>
+    ))}
   </div>
-  <br></br>
   <Highlight/>
   <div class="Tour">
   {data && data.map(val => (
     <div className="position-relative" style={{ position: 'relative' }}>
       <div class='barmenu0'style={{ position: 'absolute', left: '192px' }}><img /></div>
-      <div class='triangle-up' style={{ position: 'absolute', left:'210px' }}><img src='https://cdn-icons-png.flaticon.com/128/3916/3916882.png' alt='Marker' width='25px' height='25px' style={{marginLeft:'50px',marginTop:'10px'}}/></div>
+      <div class='triangle-up' style={{ position: 'absolute', left:'210px' }}><img src='https://cdn-icons-png.flaticon.com/128/3916/3916882.png' alt='Marker' width='26px' height='26px' style={{marginLeft:'50px',marginTop:'10px'}}/></div>
       <div class='barmenu' style={{ position: 'absolute', left: 0 }}><div class='NameTour0' style={{marginLeft:'37px',marginTop:'0px'}}><h >รหัส{val.attributes.Tourid}</h></div></div>
+      <div class='textbarmenu0' style={{ position: 'absolute', left: '320px',marginTop:'5px' }}>{val.attributes.Category}</div>
     </div>
   ))}
-    <div>
+    <div style={{marginTop:'70px'}}>
       {data && data.map(val => (
         <div key={val.id}>
           <h1 class='NameTour' style={{ marginTop: '50px', marginLeft: '30px' }}>{val.attributes.EventName}</h1>
@@ -50,11 +53,11 @@ function Tourid() {
         </div>
       ))}
     </div>
-    <div>
+    <div style={{marginTop:'20px'}}>
       {data && data.map(val => (
-        <div key={val.id} class='price' style={{ marginBottom: '60px' }}>
+        <div key={val.id} class='price' style={{ marginBottom: '45px' }}>
           <p style={{marginBottom: '10px'}}></p>
-          <h4 class='Text' style={{ marginLeft: '280px',}}>เริ่มต้น <h style={{fontSize: '35px' }}>{val.attributes.Price}</h></h4>
+          <h4 class='textprice' style={{ marginLeft: '260px',}}>เริ่มต้น <h class='Text' style={{fontSize: '35px',marginLeft: '10px'}}>{val.attributes.Price}</h></h4>
         </div>
       ))}
     </div>

@@ -1,0 +1,33 @@
+{
+  "kind": "collectionType",
+  "collectionName": "plans",
+  "info": {
+    "singularName": "plan",
+    "pluralName": "plans",
+    "displayName": "Plan"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "Day": {
+      "type": "integer"
+    },
+    "Description": {
+      "type": "text"
+    },
+    "Tour": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::tour.tour",
+      "inversedBy": "plans"
+    },
+    "highlights": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::highlight.highlight",
+      "mappedBy": "plans"
+    }
+  }
+}

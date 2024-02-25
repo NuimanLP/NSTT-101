@@ -12,7 +12,7 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "TourDartes": {
+    "TourDartesStart": {
       "type": "date"
     },
     "Price": {
@@ -45,6 +45,27 @@
       "type": "string"
     },
     "timedate": {
+      "type": "string"
+    },
+    "plans": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::plan.plan",
+      "mappedBy": "Tour"
+    },
+    "Category": {
+      "type": "string"
+    },
+    "TourDateFinish": {
+      "type": "date"
+    },
+    "Star": {
+      "type": "integer"
+    },
+    "MealAmount": {
+      "type": "integer"
+    },
+    "TimeCount": {
       "type": "string"
     }
   }

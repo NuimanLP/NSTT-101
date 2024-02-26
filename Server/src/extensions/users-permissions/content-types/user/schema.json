@@ -65,14 +65,23 @@
       "inversedBy": "users",
       "configurable": false
     },
-    "PersonaInfo": {
-      "type": "json"
-    },
-    "BookedTours": {
+    "Booking": {
       "type": "relation",
-      "relation": "oneToMany",
+      "relation": "oneToOne",
       "target": "api::booking.booking",
-      "mappedBy": "BookingDetail"
+      "mappedBy": "User"
+    },
+    "Fullname": {
+      "type": "string"
+    },
+    "PhoneNumber": {
+      "type": "string"
+    },
+    "Gender": {
+      "type": "string"
+    },
+    "EmergencyContact": {
+      "type": "string"
     }
   }
 }

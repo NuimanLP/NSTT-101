@@ -1,9 +1,9 @@
 import './App.css';
-import LoginForm from './compo/LoginForm';
+import Tour from './Components/MenuTour/Tour';
 
 function App() {
   return (
-      <LoginForm/>
+      <Tour/>
     
   );
 }

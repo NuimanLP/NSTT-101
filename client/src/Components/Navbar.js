@@ -18,9 +18,8 @@ function NavigateBar() {
                     <div class="dropdown">
                         <FaUserCircle size={35} color="white    " />
                         <div class="dropdown-content">
-                            <a href="#">Link 1</a>
-                            <a href="#">Link 2</a>
-                            <a href="#">Link 3</a>
+                            <div className="kanit-medium">บัญชีของท่าน</div>
+                            <a href="login">Login</a>
                         </div>
                     </div>
                 </div>

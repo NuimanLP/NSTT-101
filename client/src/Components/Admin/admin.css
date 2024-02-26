@@ -93,7 +93,7 @@
     display: flex;
     width: 95vw;
     height: 3000px;
-    gap: 120px;
+    gap: 90px;
 }
 
 .entries-filter {
@@ -127,6 +127,7 @@
 }
 .clear :hover {
     cursor: pointer;
+    font-size: 21px;
 }
 
 .kanit-thin {
@@ -154,3 +155,28 @@
     font-weight: 500;
     font-style: normal;
   }
+  .bor {
+    border-right: 45px solid transparent;
+    border-left: 45px solid transparent;
+  }
+  .showdetail:hover {
+    cursor: pointer;
+  }
+
+  .editbutton:hover {
+    cursor: pointer;
+  }
+
+  .triangle-up {
+	width: 0;
+	height: 0;
+	border-left: 30px solid transparent;
+	border-right: 30px solid transparent;
+	border-bottom: 48px solid #371F77;
+    position: relative;
+    left: 29px;
+    z-index: 0;
+}
+.star {
+    color: #D9D9D9
+}

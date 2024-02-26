@@ -65,14 +65,20 @@
       "inversedBy": "users",
       "configurable": false
     },
-    "PersonaInfo": {
-      "type": "json"
-    },
     "Booking": {
       "type": "relation",
       "relation": "oneToOne",
       "target": "api::booking.booking",
       "mappedBy": "User"
+    },
+    "Fullname": {
+      "type": "string"
+    },
+    "PhoneNumber": {
+      "type": "string"
+    },
+    "Gender": {
+      "type": "string"
     }
   }
 }

@@ -48,7 +48,7 @@ const LoginForm = () => {
 
             if (userResponse.data.role.name === 'Admin') {
                 navigate('/admin');
-            } else if (userResponse.data.role.name === 'Authenticated') {
+            } else if (userResponse.data.role.name === 'Login-User') {
                 navigate('/profile');
             }
         } catch (error) {

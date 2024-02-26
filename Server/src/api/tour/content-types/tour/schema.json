@@ -64,6 +64,12 @@
     },
     "TimeCount": {
       "type": "string"
+    },
+    "CurrentSeat": {
+      "type": "integer"
+    },
+    "TourAmount": {
+      "type": "integer"
     }
   }
 }

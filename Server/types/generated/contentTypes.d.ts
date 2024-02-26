@@ -716,15 +716,12 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
       'manyToOne',
       'plugin::users-permissions.role'
     >;
+    PersonaInfo: Attribute.JSON;
     Booking: Attribute.Relation<
       'plugin::users-permissions.user',
       'oneToOne',
       'api::booking.booking'
     >;
-    Fullname: Attribute.String;
-    PhoneNumber: Attribute.String;
-    Gender: Attribute.String;
-    EmergencyContact: Attribute.String;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
@@ -931,6 +928,8 @@ export interface ApiTourTour extends Schema.CollectionType {
     Star: Attribute.Integer;
     MealAmount: Attribute.Integer;
     TimeCount: Attribute.String;
+    CurrentSeat: Attribute.Integer;
+    TourAmount: Attribute.Integer;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;

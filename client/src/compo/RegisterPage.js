@@ -2,6 +2,9 @@ import React, { useState } from 'react';
 import { Button, Form, Container, InputGroup, FormControl, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import axios from 'axios';
 import { EyeFill, EyeSlashFill } from 'react-bootstrap-icons';
+import NavigateBar from "./Navbar";
+import '../CSS/Navbar.css'; 
+import '../CSS/Register.css';
 
 const axiosInstance = axios.create({
     baseURL: 'http://localhost:1337/api'
@@ -34,15 +37,15 @@ const RegisterPage = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         if (password !== confirmPassword) {
-            setErrorMsg('Passwords do not match.');
+            setErrorMsg('รหัสผ่านไม่ตรงกัน');
             return;
         }
         if (!password.match(/[!"#$%&'()*+,-./<=>?@[\]^_`{|}~]/)) {
-            setErrorMsg('Password must contain at least one special character.');
+            setErrorMsg('รหัสผ่านต้องประกอบด้วยอักขระพิเศษอย่างน้อย 1 ตัว');
             return;
         }
         if (password.length < 8) {
-            setErrorMsg('Password must be at least 8 characters long.');
+            setErrorMsg('รหัสผ่านต้องมีความยาวอย่างน้อย 8 ตัว');
             return;
         }
 
@@ -59,83 +62,85 @@ const RegisterPage = () => {
             });
             console.log('Registration successful:', response.data);
             sessionStorage.setItem('username', username);
+            window.location.href = 'http://localhost:3000/';
         } catch (error) {
             console.error('Registration failed:', error);
-            setErrorMsg('Registration failed. Please try again.');
+            setErrorMsg('สมัครสมาชิกไม่สำเร็จ');
         }
     };
 
 
 
-
-
     return (
-        <Container className="d-flex flex-column align-items-center justify-content-center login-container" style={{ marginTop: '50px' }}>
-            <h2>Register</h2>
-            <Form onSubmit={handleSubmit} className="w-100" style={{ maxWidth: '320px' }}>
-                <Form.Group controlId="formBasicUsername">
-                    <Form.Label>Username</Form.Label>
-                    <Form.Control
-                        type="text"
-                        placeholder="Enter username"
-                        value={username}
-                        onChange={handleUsernameChange}
-                        required
-                    />
-                </Form.Group>
-
-                <Form.Group controlId="formBasicEmail">
-                    <Form.Label>Email address</Form.Label>
-                    <Form.Control
-                        type="email"
-                        placeholder="Enter email"
-                        value={email}
-                        onChange={handleEmailChange}
-                        required
-                    />
-                </Form.Group>
-
-                <Form.Group controlId="formBasicPassword">
-                    <Form.Label>Password</Form.Label>
-                    <InputGroup>
-                        <FormControl
-                            type={showPassword ? "text" : "password"}
-                            placeholder="Password"
-                            value={password}
-                            onChange={handlePasswordChange}
+        <>
+            <NavigateBar />
+            <Container className="d-flex flex-column align-items-center justify-content-center register-border" style={{ marginTop: '50px' }}>
+                <h2>เข้าสู่ระบบ</h2>
+                <Form onSubmit={handleSubmit} className="w-100" style={{ maxWidth: '320px' }}>
+                    <Form.Group controlId="formBasicUsername">
+                        <Form.Label>ชื่อผู้ใช้</Form.Label>
+                        <Form.Control
+                            type="text"
+                            placeholder="ชื่อผู้ใช้"
+                            value={username}
+                            onChange={handleUsernameChange}
                             required
                         />
-                        <Button variant="outline-secondary" onClick={togglePasswordVisibility} className="p-0">
-                            {showPassword ? <EyeSlashFill /> : <EyeFill />}
-                        </Button>
-                    </InputGroup>
-                </Form.Group>
+                    </Form.Group>
 
-                <Form.Group controlId="formBasicConfirmPassword">
-                    <Form.Label>Confirm Password</Form.Label>
-                    <InputGroup>
-                        <FormControl
-                            type={showPassword ? "text" : "password"}
-                            placeholder="Confirm Password"
-                            value={confirmPassword}
-                            onChange={handleConfirmPasswordChange}
+                    <Form.Group controlId="formBasicEmail">
+                        <Form.Label>อีเมลล์</Form.Label>
+                        <Form.Control
+                            type="email"
+                            placeholder="อีเมลล์"
+                            value={email}
+                            onChange={handleEmailChange}
                             required
                         />
-                        <Button variant="outline-secondary" onClick={togglePasswordVisibility} className="p-0">
-                            {showPassword ? <EyeSlashFill /> : <EyeFill />}
-                        </Button>
-                    </InputGroup>
-                </Form.Group>
+                    </Form.Group>
 
-                <p className="text-danger">{errorMsg}</p>
-                <Button variant="primary" type="submit" className="w-100">
-                    สมัคร
-                </Button>
-                <Button variant="secondary" className="w-100 mt-3" onClick={handleGoback}>
-                    ย้อนกลับ
-                </Button>
-            </Form>
-        </Container>
+                    <Form.Group controlId="formBasicPassword">
+                        <Form.Label>รหัสผ่าน</Form.Label>
+                        <InputGroup>
+                            <FormControl
+                                type={showPassword ? "text" : "password"}
+                                placeholder="รหัสผ่าน"
+                                value={password}
+                                onChange={handlePasswordChange}
+                                required
+                            />
+                            <Button variant="outline-secondary" onClick={togglePasswordVisibility} className="p-0">
+                                {showPassword ? <EyeSlashFill /> : <EyeFill />}
+                            </Button>
+                        </InputGroup>
+                    </Form.Group>
+
+                    <Form.Group controlId="formBasicConfirmPassword">
+                        <Form.Label>ยืนยันรหัสผ่าน</Form.Label>
+                        <InputGroup className="mb-3">
+                            <FormControl
+                                type={showPassword ? "text" : "password"}
+                                placeholder="ยืนยันรหัสผ่าน"
+                                value={confirmPassword}
+                                onChange={handleConfirmPasswordChange}
+                                required
+                            />
+                            <Button variant="outline-secondary" onClick={togglePasswordVisibility} className="p-0">
+                                {showPassword ? <EyeSlashFill /> : <EyeFill />}
+                            </Button>
+                        </InputGroup>
+                    </Form.Group>
+
+                    <p className="text-danger">{errorMsg}</p>
+                    <Button variant="primary" type="submit" className="w-100">
+                        สมัคร
+                    </Button>
+                    <Button variant="secondary" className="w-100 mt-3" onClick={handleGoback}>
+                        ย้อนกลับ
+                    </Button>
+                </Form>
+            </Container>
+        </>
     );
 };
 

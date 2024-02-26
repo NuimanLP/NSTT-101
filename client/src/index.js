@@ -9,6 +9,7 @@ import {
 } from "react-router-dom";
 import RegisterPage from './compo/RegisterPage';
 import Profile from './compo/Profile'; 
+import NavigateBar from './compo/Navbar';
 
 const router = createBrowserRouter([
   {
@@ -23,10 +24,10 @@ const router = createBrowserRouter([
     path : "/profile",
     element: <Profile/>,
   },
-  // {
-  //   path : "/test",
-  //   element: <Test/>,
-  // },
+  {
+    path : "/test",
+    element: <NavigateBar/>,
+  },
 ]);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));

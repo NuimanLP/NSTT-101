@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Button, Modal, Form } from 'react-bootstrap';
 import axios from 'axios';
-
+import NavigateBar from "./Navbar";
+import '../CSS/Navbar.css'; 
+import '../CSS/Profile.css';
 const Profile = () => {
     const [profile, setProfile] = useState({
         username: '', Fullname: '', email: '', PhoneNumber: '', EmergencyContact: ''
@@ -9,6 +11,8 @@ const Profile = () => {
     const [error, setError] = useState('');
     const [showModal, setShowModal] = useState(false);
     const [editProfile, setEditProfile] = useState({ ...profile });
+    const [errorMsg, setErrorMsg] = useState('');
+
 
     const handleLogout = () => {
         sessionStorage.removeItem('jwt');
@@ -77,7 +81,11 @@ const Profile = () => {
     const handleSaveChanges = () => {
         const jwt = sessionStorage.getItem('jwt');
         if (!jwt) {
-            setError('You must be logged in to update your profile.');
+            setError('คุณต้องเข้าสู่ระบบเพื่อดูหน้านี้');
+            return;
+        }
+        if (editProfile.username === '') {
+            setErrorMsg('กรุณากรอกชื่อผู้ใช้');
             return;
         }
 
@@ -110,35 +118,38 @@ const Profile = () => {
     }
 
     return (
+        <> <NavigateBar/>
         <div>
-            <h2>User Profile</h2>
-            <p><strong>Username:</strong> {profile.username}</p>
-            <p><strong>Full Name:</strong> {profile.fullname}</p>
-            <p><strong>Email:</strong> {profile.email}</p>
-            <p><strong>Phone Number:</strong> {profile.phoneNumber}</p>
-            <p><strong>Gender:</strong> {profile.gender}</p>
-            <Button variant="primary" onClick={() => setShowModal(true)}>Edit Profile</Button>
-            <Button variant="secondary" className="w-100 mt-3" onClick={handleLogout}>Logout</Button>
+            <h2>โปรไฟล์</h2>
+            <p><strong>ชื่อผู้ใช้:</strong> {profile.username}</p>
+            <p><strong>ชื่อ-นามสกุล:</strong> {profile.fullname}</p>
+            <p><strong>อีเมลล์:</strong> {profile.email}</p>
+            <p><strong>เบอร์โทรศัพท์:</strong> {profile.phoneNumber}</p>
+            <p><strong>เพศ:</strong> {profile.gender}</p>
+            <Button variant="primary" onClick={() => setShowModal(true)}>เเก้ไขโปรไฟล์</Button>
+            <Button variant="secondary" className="w-100 mt-3" onClick={handleLogout}>ออกจากระบบ</Button>
 
             {/* Modal for editing profile */}
             <Modal show={showModal} onHide={() => setShowModal(false)}>
                 <Modal.Header closeButton>
-                    <Modal.Title>Edit Profile</Modal.Title>
+                    <Modal.Title>เเก้ไขโปรไฟล์</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <Form>
                         <Form.Group className="mb-3">
-                            <Form.Label>Username</Form.Label>
+                            <Form.Label>ชื่อผู้ใช้ <span className="required-asterisk">*</span>
+                            </Form.Label>
                             <Form.Control
                                 type="text"
                                 name="username"
                                 value={editProfile.username}
                                 onChange={handleEditProfileChange}
                             />
+                             <p className="text-danger">{errorMsg}</p>
                         </Form.Group>
 
                         <Form.Group className="mb-3">
-                            <Form.Label>Full Name</Form.Label>
+                            <Form.Label>ชื่อ-นามสกุล</Form.Label>
                             <Form.Control
                                 type="text"
                                 name="Fullname"
@@ -148,7 +159,7 @@ const Profile = () => {
                         </Form.Group>
 
                         <Form.Group className="mb-3">
-                            <Form.Label>Phone Number</Form.Label>
+                            <Form.Label>เบอร์โทรศัพท์</Form.Label>
                             <Form.Control
                                 type="text"
                                 name="PhoneNumber"
@@ -158,7 +169,7 @@ const Profile = () => {
                         </Form.Group>
 
                         <Form.Group className="mb-3">
-                            <Form.Label>Gender</Form.Label>
+                            <Form.Label>เพศ</Form.Label>
                             <Form.Control
                                 type="text"
                                 name="Gender"
@@ -169,11 +180,12 @@ const Profile = () => {
                     </Form>
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button variant="secondary" onClick={() => setShowModal(false)}>Close</Button>
-                    <Button variant="primary" onClick={handleSaveChanges}>Save Changes</Button>
+                    <Button variant="secondary" onClick={() => setShowModal(false)}>ปิดหน้าต่าง</Button>
+                    <Button variant="primary" onClick={handleSaveChanges}>บันทึกการเปลี่ยนเเปลง</Button>
                 </Modal.Footer>
             </Modal>
         </div>
+        </>
     );
 };
 

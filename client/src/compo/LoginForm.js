@@ -4,6 +4,8 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import '../CSS/LoginForm.css';
+import NavigateBar from "./Navbar";
+import '../CSS/Navbar.css'; 
 
 const LoginForm = () => {
     const navigate = useNavigate();
@@ -46,7 +48,7 @@ const LoginForm = () => {
 
             if (userResponse.data.role.name === 'Admin') {
                 navigate('/admin');
-            } else if (userResponse.data.role.name === 'Authenticated-User(Login)') {
+            } else if (userResponse.data.role.name === 'Authenticated') {
                 navigate('/profile');
             }
         } catch (error) {
@@ -59,16 +61,19 @@ const LoginForm = () => {
 
 
     return (
-        <Container className="d-flex flex-column align-items-center justify-content-center login-container"style={{ marginTop: '200px' }}>
-            <Form onSubmit={handleSubmit} className="w-100" style={{ maxWidth: '320px' }}>
+        <>
+        <NavigateBar/>
+        <Container className="login-container">
+            <Form onSubmit={handleSubmit} className="form-container">
                 {errMsg && (
                     <Alert variant="danger">{errMsg}</Alert>
                 )}
                 <Form.Group controlId="formBasicUsername">
-                    <Form.Label>Username</Form.Label>
+                    <Form.Label className="form-label">ชื่อผู้ใช้</Form.Label>
                     <Form.Control
+                        className="form-control"
                         type="text"
-                        placeholder="Enter username"
+                        placeholder="ชื่อผู้ใช้"
                         value={username}
                         onChange={handleUsernameChange}
                         required
@@ -76,26 +81,28 @@ const LoginForm = () => {
                 </Form.Group>
 
                 <Form.Group controlId="formBasicPassword">
-                    <Form.Label>Password</Form.Label>
+                    <Form.Label className="form-label">รหัสผ่าน</Form.Label>
                     <Form.Control
+                        className="form-control"
                         type="password"
-                        placeholder="Password"
+                        placeholder="รหัสผ่าน"
                         value={password}
                         onChange={handlePasswordChange}
                         required
                     />
                 </Form.Group>
-                <Button variant="primary" size="sm" type="submit" disabled={isLoading}>
-                    {isLoading ? 'Loading...' : 'Login'}
+                <Button variant="primary" type="submit" disabled={isLoading}>
+                    {isLoading ? 'Loading...' : 'เข้าสู่ระบบ'}
                     {isLoading && (
                         <Spinner animation="border" role="status">
                             <span className="visually-hidden">Loading...</span>
                         </Spinner>
                     )}
                 </Button>
-                <Link to="/register" className="btn btn-link">Register</Link> 
+                <Link to="/register" className="btn btn-link">สมัครสมาชิก</Link>
             </Form>
         </Container>
+        </>
     );
 };
 

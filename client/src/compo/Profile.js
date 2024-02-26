@@ -120,7 +120,7 @@ const Profile = () => {
     return (
         <> <NavigateBar/>
         <div>
-            <h2>ผู้ใช้</h2>
+            <h2>โปรไฟล์</h2>
             <p><strong>ชื่อผู้ใช้:</strong> {profile.username}</p>
             <p><strong>ชื่อ-นามสกุล:</strong> {profile.fullname}</p>
             <p><strong>อีเมลล์:</strong> {profile.email}</p>

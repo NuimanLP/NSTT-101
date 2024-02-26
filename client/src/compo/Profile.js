@@ -3,7 +3,7 @@ import { Button, Modal, Form } from 'react-bootstrap';
 import axios from 'axios';
 import NavigateBar from "./Navbar";
 import '../CSS/Navbar.css'; 
-
+import '../CSS/Profile.css';
 const Profile = () => {
     const [profile, setProfile] = useState({
         username: '', Fullname: '', email: '', PhoneNumber: '', EmergencyContact: ''
@@ -120,7 +120,7 @@ const Profile = () => {
     return (
         <> <NavigateBar/>
         <div>
-            <h2>User Profile</h2>
+            <h2>ผู้ใช้</h2>
             <p><strong>ชื่อผู้ใช้:</strong> {profile.username}</p>
             <p><strong>ชื่อ-นามสกุล:</strong> {profile.fullname}</p>
             <p><strong>อีเมลล์:</strong> {profile.email}</p>
@@ -137,7 +137,8 @@ const Profile = () => {
                 <Modal.Body>
                     <Form>
                         <Form.Group className="mb-3">
-                            <Form.Label>ชื่อผู้ใช้</Form.Label>
+                            <Form.Label>ชื่อผู้ใช้ <span className="required-asterisk">*</span>
+                            </Form.Label>
                             <Form.Control
                                 type="text"
                                 name="username"

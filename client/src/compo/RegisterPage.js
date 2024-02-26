@@ -71,13 +71,10 @@ const RegisterPage = () => {
 
 
 
-
-
     return (
         <>
             <NavigateBar />
-        <Container className="register-container">    
-            <Container className="d-flex flex-column align-items-center justify-content-center login-container" style={{ marginTop: '50px' }}>
+            <Container className="d-flex flex-column align-items-center justify-content-center register-border" style={{ marginTop: '50px' }}>
                 <h2>เข้าสู่ระบบ</h2>
                 <Form onSubmit={handleSubmit} className="w-100" style={{ maxWidth: '320px' }}>
                     <Form.Group controlId="formBasicUsername">
@@ -120,7 +117,7 @@ const RegisterPage = () => {
 
                     <Form.Group controlId="formBasicConfirmPassword">
                         <Form.Label>ยืนยันรหัสผ่าน</Form.Label>
-                        <InputGroup>
+                        <InputGroup className="mb-3">
                             <FormControl
                                 type={showPassword ? "text" : "password"}
                                 placeholder="ยืนยันรหัสผ่าน"
@@ -142,7 +139,6 @@ const RegisterPage = () => {
                         ย้อนกลับ
                     </Button>
                 </Form>
-            </Container>
             </Container>
         </>
     );

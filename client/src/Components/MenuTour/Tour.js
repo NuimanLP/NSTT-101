@@ -3,9 +3,12 @@ import NavigateBar from "../Navbar";
 import water from "../../Source/water.png";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import Calendar from 'react-calendar';
+import 'react-calendar/dist/Calendar.css';
 
 function Tour() {
     const [data, setData] = useState(null);
+    const [date, setDate] = useState(new Date());
     const [searchTerm, setSearchTerm] = useState("");
     const [sliderValue, setSliderValue] = useState(9999);
     const [check, setCheck] = useState({
@@ -19,7 +22,7 @@ function Tour() {
 
     const sliders = async () => {
         try {
-            const response = await axios.get(`http://localhost:1337/api/tours?filters[Price][$eq]=${sliderValue}`);
+            const response = await axios.get(`http://localhost:1337/api/tours?filters[Price][$lte]=${sliderValue}`);
             setData(response.data.data);
         } catch (error) {
             console.error("Error fetching data:", error);
@@ -62,6 +65,10 @@ function Tour() {
             ...prevState,
             [name]: checked
         }));
+    };
+    const onChange = date => {
+        setDate(date);
+        // ทำสิ่งที่คุณต้องการเมื่อเลือกวันที่ใหม่
     };
 
     return (
@@ -125,6 +132,12 @@ function Tour() {
                                                 <div>Multi-day Trip</div>
                                             </div>
                                         </div>
+                                            <div style={{ marginTop: "20px", display: "flex", justifyContent: "center" }}>
+                                                <Calendar
+                                                    onChange={onChange}
+                                                    value={date}
+                                                />
+                                            </div>
                                     </div>
                                 </div>
 
@@ -136,10 +149,10 @@ function Tour() {
                                         (check.multiDayTrip && val.attributes.Category === 'Multi-day ') ||
                                         (!check.oneDayTrip && !check.multiDayTrip)
                                     ) && (
-                                        searchTerm === "" ||
-                                        val.attributes.EventName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                                        val.attributes.EventDescription.toLowerCase().includes(searchTerm.toLowerCase())
-                                    );
+                                            searchTerm === "" ||
+                                            val.attributes.EventName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                                            val.attributes.EventDescription.toLowerCase().includes(searchTerm.toLowerCase())
+                                        );
                                 })
                                 .map(val => (
                                     <div className="entries-list" key={val.id}>

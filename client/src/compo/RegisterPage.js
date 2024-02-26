@@ -125,7 +125,7 @@ const RegisterPage = () => {
                                 onChange={handleConfirmPasswordChange}
                                 required
                             />
-                            <Button variant="outline-secondary" onClick={togglePasswordVisibility} className="p-0">
+                            <Button variant="outline-secondary" onClick={togglePasswordVisibility} >
                                 {showPassword ? <EyeSlashFill /> : <EyeFill />}
                             </Button>
                         </InputGroup>

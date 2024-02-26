@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
-import { Form, Button, Alert, Container, Spinner } from 'react-bootstrap';
+import { Form, Button, Alert, Container, Spinner,InputGroup } from 'react-bootstrap';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import '../CSS/LoginForm.css';
 import NavigateBar from "./Navbar";
 import '../CSS/Navbar.css'; 
+import { EyeFill, EyeSlashFill } from 'react-bootstrap-icons';
+
+
 
 const LoginForm = () => {
     const navigate = useNavigate();
@@ -13,9 +16,14 @@ const LoginForm = () => {
     const [password, setPassword] = useState('');
     const [isLoading, setIsLoading] = useState(false);
     const [errMsg, setErrMsg] = useState(null);
+    const [showPassword, setShowPassword] = useState(false);
+
 
     const handleUsernameChange = (e) => setUsername(e.target.value);
     const handlePasswordChange = (e) => setPassword(e.target.value);
+
+    const togglePasswordVisibility = () => setShowPassword(!showPassword);
+
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -82,14 +90,19 @@ const LoginForm = () => {
 
                 <Form.Group controlId="formBasicPassword">
                     <Form.Label className="form-label">รหัสผ่าน</Form.Label>
+                    <InputGroup>
                     <Form.Control
+                        type={showPassword ? "text" : "password"}
                         className="form-control"
-                        type="password"
                         placeholder="รหัสผ่าน"
                         value={password}
                         onChange={handlePasswordChange}
                         required
                     />
+                    <Button variant="outline-secondary" onClick={togglePasswordVisibility} className="p-0">
+                                {showPassword ? <EyeSlashFill /> : <EyeFill />}
+                    </Button>
+                    </InputGroup>
                 </Form.Group>
                 <Button variant="primary" type="submit" disabled={isLoading}>
                     {isLoading ? 'Loading...' : 'เข้าสู่ระบบ'}

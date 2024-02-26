@@ -8,6 +8,10 @@ function Tour() {
     const [data, setData] = useState(null);
     const [searchTerm, setSearchTerm] = useState("");
     const [sliderValue, setSliderValue] = useState(9999);
+    const [check, setCheck] = useState({
+        oneDayTrip: false,
+        multiDayTrip: false
+    });
 
     const handleSliderChange = (event) => {
         setSliderValue(event.target.value);
@@ -15,7 +19,16 @@ function Tour() {
 
     const sliders = async () => {
         try {
-            const response = await axios.get(`http://localhost:1337/api/tours?filters[Price][$lte]=${sliderValue}`);
+            const response = await axios.get(`http://localhost:1337/api/tours?filters[Price][$eq]=${sliderValue}`);
+            setData(response.data.data);
+        } catch (error) {
+            console.error("Error fetching data:", error);
+        }
+    };
+
+    const checks = async () => {
+        try {
+            const response = await axios.get(`http://localhost:1337/api/tours?filters[Category][$eq]=${check.oneDayTrip ? 'One-day Trip' : ''}${check.multiDayTrip ? 'Multi-days Trip' : ''}`);
             setData(response.data.data);
         } catch (error) {
             console.error("Error fetching data:", error);
@@ -26,6 +39,10 @@ function Tour() {
         sliders();
     }, [sliderValue]);
 
+    useEffect(() => {
+        fetchAPI();
+    }, []);
+
     const fetchAPI = async () => {
         try {
             const response = await axios.get("http://localhost:1337/api/tours");
@@ -35,12 +52,16 @@ function Tour() {
         }
     };
 
-    useEffect(() => {
-        fetchAPI();
-    }, []);
-
     const search = (e) => {
         setSearchTerm(e.target.value);
+    };
+
+    const handleCheckboxChange = (event) => {
+        const { name, checked } = event.target;
+        setCheck(prevState => ({
+            ...prevState,
+            [name]: checked
+        }));
     };
 
     return (
@@ -81,15 +102,27 @@ function Tour() {
                                     <div>
                                         <div style={{ display: "flex", width: "100%", height: "40px" }}>
                                             <div style={{ paddingLeft: "35px", paddingTop: "5px", display: "flex", alignItems: "center", width: "100%", gap: "10px" }}>
-                                                <input className="check" type="checkbox"></input>
+                                                <input
+                                                    className="check"
+                                                    type="checkbox"
+                                                    name="oneDayTrip"
+                                                    checked={check.oneDayTrip}
+                                                    onChange={handleCheckboxChange}
+                                                />
                                                 <div>One-day Trip</div>
                                             </div>
                                         </div>
 
                                         <div style={{ display: "flex", width: "100%", height: "40px" }}>
                                             <div style={{ paddingLeft: "35px", paddingTop: "5px", display: "flex", alignItems: "center", width: "100%", gap: "10px" }}>
-                                                <input className="check" type="checkbox"></input>
-                                                <div>Multi-days Trip</div>
+                                                <input
+                                                    className="check"
+                                                    type="checkbox"
+                                                    name="multiDayTrip"
+                                                    checked={check.multiDayTrip}
+                                                    onChange={handleCheckboxChange}
+                                                />
+                                                <div>Multi-day Trip</div>
                                             </div>
                                         </div>
                                     </div>
@@ -98,9 +131,15 @@ function Tour() {
                             </div>
                             {data && data
                                 .filter(val => {
-                                    return searchTerm === "" ||
+                                    return (
+                                        (check.oneDayTrip && val.attributes.Category === 'One-day') ||
+                                        (check.multiDayTrip && val.attributes.Category === 'Multi-day ') ||
+                                        (!check.oneDayTrip && !check.multiDayTrip)
+                                    ) && (
+                                        searchTerm === "" ||
                                         val.attributes.EventName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                                        val.attributes.EventDescription.toLowerCase().includes(searchTerm.toLowerCase());
+                                        val.attributes.EventDescription.toLowerCase().includes(searchTerm.toLowerCase())
+                                    );
                                 })
                                 .map(val => (
                                     <div className="entries-list" key={val.id}>
@@ -109,6 +148,7 @@ function Tour() {
                                         <div>{val.attributes.EventDescription}</div>
                                         <div>{val.attributes.TimeCount}</div>
                                         <div>{val.attributes.Price}</div>
+                                        <div>{val.attributes.Category}</div>
                                         <div className="border-shadow" style={{ backgroundColor: "white", borderRadius: "10px", width: "100%", height: "1200px" }}></div>
                                     </div>
                                 ))}

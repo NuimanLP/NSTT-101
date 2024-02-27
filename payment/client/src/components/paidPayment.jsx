@@ -1,8 +1,7 @@
 import './paidPayment.css'
-import React, {useState} from "react";
+import React from "react";
 import NavigateBar from "./Navbar"
 import Payment from "../Source/paymentDone.png";
-import { MdOutlineUploadFile } from "react-icons/md";
 
 function PaidPayment(){
 

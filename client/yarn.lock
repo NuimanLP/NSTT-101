@@ -1744,10 +1744,10 @@
   resolved "https://registry.npmjs.org/@popperjs/core/-/core-2.11.8.tgz"
   integrity sha512-P1st0aksCrn9sGZhp8GMYwBnQsbvAWsZAX44oXNNvLHGqAOcoVxmjZiohstwQ7SqKnbR47akdNi+uleWD8+g6A==
 
-"@rc-component/color-picker@~1.5.1":
-  version "1.5.1"
-  resolved "https://registry.npmjs.org/@rc-component/color-picker/-/color-picker-1.5.1.tgz"
-  integrity sha512-onyAFhWKXuG4P162xE+7IgaJkPkwM94XlOYnQuu69XdXWMfxpeFi6tpJBsieIMV7EnyLV5J3lDzdLiFeK0iEBA==
+"@rc-component/color-picker@~1.5.2":
+  version "1.5.2"
+  resolved "https://registry.npmjs.org/@rc-component/color-picker/-/color-picker-1.5.2.tgz"
+  integrity sha512-YJXujYzYFAEtlXJXy0yJUhwzUWPTcniBZto+wZ/vnACmFnUTNR7dH+NOeqSwMMsssh74e9H5Jfpr5LAH2PYqUw==
   dependencies:
     "@babel/runtime" "^7.23.6"
     "@ctrl/tinycolor" "^3.6.1"
@@ -2869,17 +2869,17 @@ ansi-styles@^6.1.0:
   resolved "https://registry.npmjs.org/ansi-styles/-/ansi-styles-6.2.1.tgz"
   integrity sha512-bN798gFfQX+viw3R7yrGWRqnrN2oRkEkUjjl4JNn4E8GxxbjtG3FbrEIIY3l8/hrwUwIeCZvi4QuOTP4MErVug==
 
-antd@^5.14.1:
-  version "5.14.1"
-  resolved "https://registry.npmjs.org/antd/-/antd-5.14.1.tgz"
-  integrity sha512-P0Bwt9NKSZqnEJ0QAyAb13ay34FjOKsz+KEp/ts+feYsynhUxF7/Ay6d1jS6ZcNpcs+JWTlLKO59YFZ3tX07wQ==
+antd@^5.14.2:
+  version "5.14.2"
+  resolved "https://registry.npmjs.org/antd/-/antd-5.14.2.tgz"
+  integrity sha512-ur0oBI9U7hAeON4ZRs1cAF1suIpTR+uj3YliTZacWkiVxNTZYPaaTdnLuAZDRMT9P2IZ007dCQTqxn5t1Z+Dxw==
   dependencies:
     "@ant-design/colors" "^7.0.2"
     "@ant-design/cssinjs" "^1.18.4"
     "@ant-design/icons" "^5.3.0"
     "@ant-design/react-slick" "~1.0.2"
     "@ctrl/tinycolor" "^3.6.1"
-    "@rc-component/color-picker" "~1.5.1"
+    "@rc-component/color-picker" "~1.5.2"
     "@rc-component/mutate-observer" "^1.1.0"
     "@rc-component/tour" "~1.12.3"
     "@rc-component/trigger" "^1.18.3"
@@ -2902,7 +2902,7 @@ antd@^5.14.1:
     rc-motion "^2.9.0"
     rc-notification "~5.3.0"
     rc-pagination "~4.0.4"
-    rc-picker "~4.1.1"
+    rc-picker "~4.1.4"
     rc-progress "~3.5.1"
     rc-rate "~2.12.0"
     rc-resize-observer "^1.4.0"
@@ -2918,7 +2918,7 @@ antd@^5.14.1:
     rc-tree "~5.8.5"
     rc-tree-select "~5.17.0"
     rc-upload "~4.5.2"
-    rc-util "^5.38.1"
+    rc-util "^5.38.2"
     scroll-into-view-if-needed "^3.1.0"
     throttle-debounce "^5.0.0"
 
@@ -8461,10 +8461,10 @@ rc-pagination@~4.0.4:
     classnames "^2.3.2"
     rc-util "^5.38.0"
 
-rc-picker@~4.1.1:
-  version "4.1.1"
-  resolved "https://registry.npmjs.org/rc-picker/-/rc-picker-4.1.1.tgz"
-  integrity sha512-H99qaHUepHjHnAqMLiftJEATXRuHJZcUyFoRkyIqUvTHVGnx/uHxFFNm7QIu1valCpfwdsGWQxiWgn9CAxvlvA==
+rc-picker@~4.1.4:
+  version "4.1.5"
+  resolved "https://registry.npmjs.org/rc-picker/-/rc-picker-4.1.5.tgz"
+  integrity sha512-dh2E9j7HomZW10RWIBsdyXs3geHkSslVqKTx3VZfmi9UEabiQrBBNKVIhqn2m0goia0dqyWJ4qRghAsBVLGzbw==
   dependencies:
     "@babel/runtime" "^7.10.1"
     "@rc-component/trigger" "^1.5.0"
@@ -8627,10 +8627,10 @@ rc-upload@~4.5.2:
     classnames "^2.2.5"
     rc-util "^5.2.0"
 
-rc-util@^5.0.1, rc-util@^5.16.1, rc-util@^5.17.0, rc-util@^5.18.1, rc-util@^5.2.0, rc-util@^5.20.1, rc-util@^5.21.0, rc-util@^5.24.4, rc-util@^5.25.2, rc-util@^5.27.0, rc-util@^5.28.0, rc-util@^5.30.0, rc-util@^5.31.1, rc-util@^5.32.2, rc-util@^5.34.1, rc-util@^5.35.0, rc-util@^5.36.0, rc-util@^5.37.0, rc-util@^5.38.0, rc-util@^5.38.1:
-  version "5.38.1"
-  resolved "https://registry.npmjs.org/rc-util/-/rc-util-5.38.1.tgz"
-  integrity sha512-e4ZMs7q9XqwTuhIK7zBIVFltUtMSjphuPPQXHoHlzRzNdOwUxDejo0Zls5HYaJfRKNURcsS/ceKVULlhjBrxng==
+rc-util@^5.0.1, rc-util@^5.16.1, rc-util@^5.17.0, rc-util@^5.18.1, rc-util@^5.2.0, rc-util@^5.20.1, rc-util@^5.21.0, rc-util@^5.24.4, rc-util@^5.25.2, rc-util@^5.27.0, rc-util@^5.28.0, rc-util@^5.30.0, rc-util@^5.31.1, rc-util@^5.32.2, rc-util@^5.34.1, rc-util@^5.35.0, rc-util@^5.36.0, rc-util@^5.37.0, rc-util@^5.38.0, rc-util@^5.38.1, rc-util@^5.38.2:
+  version "5.38.2"
+  resolved "https://registry.npmjs.org/rc-util/-/rc-util-5.38.2.tgz"
+  integrity sha512-yRGRPKyi84H7NkRSP6FzEIYBdUt4ufdsmXUZ7qM2H5qoByPax70NnGPkfo36N+UKUnUBj2f2Q2eUbwYMuAsIOQ==
   dependencies:
     "@babel/runtime" "^7.18.3"
     react-is "^18.2.0"
@@ -8728,6 +8728,11 @@ react-error-overlay@^6.0.11:
   version "6.0.11"
   resolved "https://registry.npmjs.org/react-error-overlay/-/react-error-overlay-6.0.11.tgz"
   integrity sha512-/6UZ2qgEyH2aqzYZgQPxEnz33NJ2gNsnHA2o5+o4wW9bLM/JYQitNP9xPhsXwC08hMMovfGe/8retsdDsczPRg==
+
+react-icons@^5.0.1:
+  version "5.0.1"
+  resolved "https://registry.npmjs.org/react-icons/-/react-icons-5.0.1.tgz"
+  integrity sha512-WqLZJ4bLzlhmsvme6iFdgO8gfZP17rfjYEJ2m9RsZjZ+cc4k1hTzknEz63YS1MeT50kVzoa1Nz36f4BEx+Wigw==
 
 react-is@^16.13.1:
   version "16.13.1"

@@ -875,6 +875,12 @@ export interface ApiTourTour extends Schema.CollectionType {
     Star: Attribute.Integer;
     MealAmount: Attribute.Integer;
     TimeCount: Attribute.String;
+    poklopac: Attribute.Media;
+    NamePhoto1: Attribute.String;
+    NamePhoto2: Attribute.String;
+    NamePhoto3: Attribute.String;
+    NamePhoto4: Attribute.String;
+    NamePhoto5: Attribute.String;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;

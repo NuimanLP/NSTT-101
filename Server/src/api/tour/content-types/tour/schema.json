@@ -67,6 +67,32 @@
     },
     "TimeCount": {
       "type": "string"
+    },
+    "poklopac": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "NamePhoto1": {
+      "type": "string"
+    },
+    "NamePhoto2": {
+      "type": "string"
+    },
+    "NamePhoto3": {
+      "type": "string"
+    },
+    "NamePhoto4": {
+      "type": "string"
+    },
+    "NamePhoto5": {
+      "type": "string"
     }
   }
 }

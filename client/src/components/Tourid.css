@@ -27,6 +27,18 @@
 
 }
 
+.namephoto{
+  color: #FFF;
+  font-family: "Kanit", sans-serif;
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  background: rgba(0, 0, 0, 0.62);
+  height: 27px;
+  flex-shrink: 0;
+}
+
 .barmenu{
   width: 235px;
   height: 45px;
@@ -207,13 +219,25 @@
 
 .Detail{
   width: 830px;
-  height: 1181px;
   flex-shrink: 0;
   border-radius: 15px;
   border: 1px solid rgba(0, 0, 0, 0.25);
   background: #FFF;
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
   margin-left: 100px;
+}
+
+.DetailHighlihgt{
+  border-radius: 7px;
+  border: 0.5px solid rgba(0, 0, 0, 0.50);
+  background: #FFF;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  color: rgba(0, 0, 0, 0.50);
+  font-family: "Kanit", sans-serif;
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
 }
 
 .menuDetail{
@@ -249,4 +273,28 @@
   font-style: normal;
   font-weight: 700;
   line-height: normal; 
+}
+
+.dayhighlight{
+  color: rgba(55, 31, 119, 0.75);
+  font-family: "Kanit", sans-serif;
+  font-size: 25px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  width: 108px;
+  height: 31.084px;
+  flex-shrink: 0;
+}
+
+.phighlight{
+  color: #371F77;
+  font-family: "Kanit", sans-serif;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  width: 700px;
+  height: 129px;
+  flex-shrink: 0;
 }

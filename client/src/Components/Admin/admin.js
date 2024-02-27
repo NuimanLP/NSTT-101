@@ -1,55 +1,16 @@
 import "./admin.css"
-import { axioss } from "../axios"
-import NavigateBar from "../Navbar"
+import NavigateBar from "../Navbar";
 import water from "../../Source/water.png"
-import { IoTicketSharp, IoEarth } from "react-icons/io5"
-import { FaUser } from "react-icons/fa"
-import {useState,useEffect} from "react"
-import axios from "axios";
-import time from "../../Source/time.png"
-import date from "../../Source/date.png"
-import book from "../../Source/book.png"
-import edit from "../../Source/edit.png"
-import { IoMdStar } from "react-icons/io"
-import rocket from "../../Source/rocket.png"
-import ListTour from "../Table/tour"
-
+import { IoTicketSharp, IoEarth } from "react-icons/io5";
+import { FaUser } from "react-icons/fa";
+import React, { useCallback, useEffect, useState, useRef } from "react";
 function Admin() {
     const [a,seta] = useState("")
-    const [tours,setTours] = useState([])
-    const [tourlenght,setTourLenght] = useState(0)
-    const [raw,setraw] = useState([])
+
     const selectDate = (e) => {
         seta(e.target.value)
     }
 
-    const fecthtour = async() => {
-        const response = await axios.get(`${axioss.prefix}${axioss.tour}?populate=*`)
-        setraw(response.data.data)
-        const map = response.data.data.map((entry)=>({
-            Price: entry.attributes.Price,
-            Id: entry.id,
-            Star: entry.attributes.Star,
-            Category: entry.attributes.Category,
-            Meal: entry.attributes.MealAmount,
-            CurrentSeat: entry.attributes.CurrentSeat,
-            TotalSeat: entry.attributes.AvailableSeat,
-            Tourplan: entry.attributes.EventDescription,
-            DayCount: entry.attributes.TimeCount,
-            TourDateStart: entry.attributes.TourDateStart,
-            TourDateFinish: entry.attributes.TourDateFinish,
-            TourAmount: entry.attributes.TourAmount,
-            EventName: entry.attributes.EventName,
-            image: entry.attributes.Image.data[0].attributes.formats.medium.url
-        }))
-        setTours(map)
-        setTourLenght(response.data.data.length)
-    }
-
-    useEffect(()=>{
-        fecthtour()
-    },[])
-    
     return(
         <div>
             <NavigateBar/>
@@ -66,7 +27,7 @@ function Admin() {
                                 <IoEarth size={160} />
                                 </div>
                                 <div className="overall-children-info plus-jakarta">
-                                    <div className="quantity"><b>{tourlenght}</b></div>
+                                    <div className="quantity"><b>0</b></div>
                                     <div className="quantity-name">Total Tours</div>
                                 </div>
                             </div>
@@ -103,7 +64,7 @@ function Admin() {
                                 <div className="border-shadow" style={{backgroundColor: "white",width: "100%",height: "110px", borderRadius: "10px 10px 0px 0px",display: "flex",flexDirection: "column",gap: "15px"}}>
                                     <div style={{display: "flex",justifyContent: "space-between"}}>
                                         <div className="kanit-medium" style={{fontSize: "25px",paddingLeft: "20px",paddingTop: "20px"}}>ช่วงราคา</div>
-                                        <div className="clear kanit-medium" onClick={()=>{console.log(raw)}}><u><b>ล้างค่า</b></u></div>
+                                        <div className="clear kanit-medium"><u><b>ล้างค่า</b></u></div>
                                     </div>
                                     <input type="range"></input>
                                 </div> 
@@ -137,12 +98,11 @@ function Admin() {
                             
                             <div className="entries-list">
                                 <div style={{height: "70px"}}></div>
-                                <div className="border-shadow" style={{borderRadius: "10px",width: "100%",height: "1200px"}}>
-                                    <ListTour data={tours}/>
-                                </div>
+                                <div className="border-shadow" style={{backgroundColor: "white",borderRadius: "10px",width: "100%",height: "1200px"}}></div>
                             </div>
                         </div>
                         
+
                     </div>
                 </div>
             </div>

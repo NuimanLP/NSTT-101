@@ -38,7 +38,7 @@ function NavigateBar() {
             </div>
 
             <div className="header2">
-                <div className="navPath"><b><FaHome/> Home > {tourID} > ข้อมูลติดต่อ</b></div>
+                <div className="navPath"><b><FaHome/> Home / {tourID} / ข้อมูลติดต่อ</b></div>
             </div> 
         </div>
     )

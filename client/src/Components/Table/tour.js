@@ -21,9 +21,9 @@ function ListTour(props) {
             render: (record) => {
 
                 return(
-                    <div style={{ backgroundColor: "white", width: "100%", height: "400px", borderRadius: "10px", display: "flex", flexDirection: "column" }}>
+                    <div style={{ backgroundColor: "white", width: "100%", height: "500px", borderRadius: "10px", display: "flex", flexDirection: "column" }}>
                         <div id="top" style={{ width: "100%", height: "80%", display: "flex", flexDirection: "row" }}>
-                            <div id="tour-face" style={{ gap: "10px", height: "100%", width: "40%", paddingLeft: "10px", paddingTop: "3px", display: "flex", flexDirection: "column" }}>
+                            <div id="tour-face" style={{gap: "10px", height: "100%", width: "40%", paddingLeft: "10px", paddingTop: "3px", display: "flex", flexDirection: "column" }}>
                                 <div id="tour-info" style={{ width: "95%", height: "15%", display: "flex", flexDirection: "row" }}>
                                     <div style={{ backgroundColor: "#371F77", width: "100%", height: "100%", borderRadius: "10px 0px 0px 3px", display: "flex" }}>
                                         <div className="inika-regular" style={{ paddingLeft: "20px", alignItems: "center", height: "100%", width: "100%", display: "flex", fontSize: "19px", color: "white" }}>
@@ -36,7 +36,7 @@ function ListTour(props) {
                                         <div className="inika-regular" style={{ fontSize: "18px" }}><b>{record.Category}</b></div>
                                     </div>
                                 </div>
-                                <img src={`${axioss.prefix}${record.image}`} style={{ borderRadius: "10px", zIndex: "1", border: "2px solid black", width: "93%", height: "250px" }}></img>
+                                <img src={`${axioss.prefix}${record.image}`} style={{ marginTop:"20px",position:"relative",borderRadius: "10px", zIndex: "1", border: "2px solid black", width: "93%", height: "500px" }}></img>
                             </div>
 
                             <div id="tour-detail" style={{ height: "100%", width: "60%", display: "flex", flexDirection: "column" }}>

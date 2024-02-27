@@ -7,7 +7,7 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path='/' element={<Interface/>}></Route>
+        <Route path='/payment' element={<Interface/>}></Route>
         <Route path="/transaction" element={<Transaction/>}></Route>
       </Routes>
     </BrowserRouter>

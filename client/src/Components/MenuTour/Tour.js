@@ -152,10 +152,10 @@ function Tour() {
 
                         <div className="entries">
                             <div className="entries-filter" style={{ gap: "20px", display: "flex", flexDirection: "column" }}>
-                                <input type="text" placeholder="ค้นหาทัวร์..." onChange={search} style={{ width: "200px", padding: "8px", borderRadius: "5px", border: "1px solid #ccc" }} />
+                                <input type="text" placeholder="ค้นหาทัวร์..." onChange={search} style={{ width: "88%", padding: "20px", borderRadius: "5px", border: "1px solid #ccc" }} />
                                 <div className="border-shadow" style={{ backgroundColor: "white", width: "100%", height: "110px", borderRadius: "10px 10px 0px 0px", display: "flex", flexDirection: "column", gap: "15px" }}>
                                     <div style={{ display: "flex", justifyContent: "space-between" }}>
-                                        <div style={{ fontSize: "25px", paddingLeft: "20px", paddingTop: "20px" }}><b>ช่วงราคา</b></div>
+                                        <div style={{ fontSize: "25px", paddingLeft: "10px", paddingTop: "20px" }}><b>ช่วงราคา</b></div>
                                         <div onClick={() => { console.log(date.toLocaleDateString()) }} style={{ fontSize: "20px", color: "#795695", paddingRight: "20px", paddingTop: "20px" }}><u><b>ล้างค่า</b></u></div>
                                     </div>
                                     <div className="slidecontainer">

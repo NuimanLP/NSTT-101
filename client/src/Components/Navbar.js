@@ -1,7 +1,9 @@
 import { Navbar,Row,Container,Col,Nav,NavDropdown } from "react-bootstrap"
 import logo from "../Source/as.png"
-import call from "../Source/call.png"
 import user from "../Source/user.png"
+import icon from "../Source/icon.png"
+import line from "../Source/line.png"
+import facebook from "../Source/facebook.png"
 import "./Navbar.css"
 import gmail from "../Source/gmail.png"
 import Dropdown from 'react-bootstrap/Dropdown';
@@ -13,12 +15,14 @@ function NavigateBar() {
         <div className="navbar">
             <div className="contact">
                 <div className="left">
-                    <img src={call} width="60" height="60"></img>
-                    <div className="white">xxx-xxxxxx</div>
+                    <img src={icon} width="60" height="60"></img>
+                    <div className="white">เข้าสู่ระบบ</div>
                 </div>
                 <div className="right">
                     <div class="dropdown">
-                        <img src={user} width="60" height="60"></img>
+                        <img src={line} width="55" height="55"></img>
+                        <img src={facebook} width="60" height="60"></img>
+                        <img src={gmail} width="60" height="60"></img>
                         <div class="dropdown-content">
                             <a href="#">Link 1</a>
                             <a href="#">Link 2</a>

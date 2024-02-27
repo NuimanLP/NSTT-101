@@ -19,6 +19,35 @@ function Admin() {
     const [tours,setTours] = useState([])
     const [tourlenght,setTourLenght] = useState(0)
     const [raw,setraw] = useState([])
+    const [date, setDate] = useState(new Date());
+    const [searchTerm, setSearchTerm] = useState("");
+    const [sliderValue, setSliderValue] = useState(9999);
+    const [check, setCheck] = useState({
+        oneDayTrip: false,
+        multiDayTrip: false
+    });
+
+    const handleSliderChange = (event) => {
+        setSliderValue(event.target.value);
+    };
+
+    const sliders = async () => {
+        try {
+            const response = await axios.get(`http://localhost:1337/api/tours?filters[Price][$lte]=${sliderValue}`);
+            setTours(response.data.data);
+        } catch (error) {
+            console.error("Error fetching data:", error);
+        }
+    };
+
+    const checks = async () => {
+        try {
+            const response = await axios.get(`http://localhost:1337/api/tours?filters[Category][$eq]=${check.oneDayTrip ? 'One-day Trip' : ''}${check.multiDayTrip ? 'Multi-days Trip' : ''}`);
+            setTours(response.data.data);
+        } catch (error) {
+            console.error("Error fetching data:", error);
+        }
+    };
     const selectDate = (e) => {
         seta(e.target.value)
     }
@@ -45,11 +74,29 @@ function Admin() {
         setTours(map)
         setTourLenght(response.data.data.length)
     }
+    useEffect(() => {
+        sliders();
+    }, [sliderValue]);
 
     useEffect(()=>{
         fecthtour()
     },[])
     
+    const search = (e) => {
+        setSearchTerm(e.target.value);
+    };
+
+    const handleCheckboxChange = (event) => {
+        const { name, checked } = event.target;
+        setCheck(prevState => ({
+            ...prevState,
+            [name]: checked
+        }));
+    };
+    const onChange = date => {
+        setDate(date);
+    };
+
     return(
         <div>
             <NavigateBar/>
@@ -105,7 +152,18 @@ function Admin() {
                                         <div className="kanit-medium" style={{fontSize: "25px",paddingLeft: "20px",paddingTop: "20px"}}>ช่วงราคา</div>
                                         <div className="clear kanit-medium" onClick={()=>{console.log(raw)}}><u><b>ล้างค่า</b></u></div>
                                     </div>
-                                    <input type="range"></input>
+                                    <div className="slidecontainer">
+                                        <input
+                                            type="range"
+                                            min="0"
+                                            max="9999"
+                                            value={sliderValue}
+                                            onChange={handleSliderChange}
+                                            className="slider"
+                                            id="myRange"
+                                        />
+                                        {sliderValue}
+                                    </div>
                                 </div> 
 
                                 <div style={{backgroundColor: "white",width:"100%",height:"150px",display:"flex",flexDirection: "column",paddingTop: "15px",gap:"15px"}}>

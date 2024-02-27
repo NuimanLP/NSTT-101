@@ -71,3 +71,18 @@
   font-weight: 700;
   font-style: normal;
 }
+.box {
+    height: 2vw;
+    width: 95%;
+    margin: 7%;
+    margin-left: 0px;
+    justify-content: flex-start;
+    background-color: white;
+    padding: 10px;
+    font-size: 14px;
+}
+    .box button{
+        height: 70%;
+        width: 10%;
+        float: right;
+    }

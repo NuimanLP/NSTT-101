@@ -45,8 +45,12 @@ function Interface(){
                             <button className='button'>+</button>
                         </div>
                     </div>
-
+                    <div className='box'>
+                        <label>ย้อนกลับ</label>
+                        <button></button>
+                    </div>
                 </div>
+                
             </div>
         </div>
     )

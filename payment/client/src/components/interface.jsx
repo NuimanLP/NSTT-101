@@ -46,8 +46,12 @@ function Interface(){
                         </div>
                     </div>
                     <div className='box'>
-                        <a href='#'className='kanit-medium'>ย้อนกลับ</a>
-                        <button>ถัดไป</button>
+                        <form action="http://localhost:3000/transaction">
+                            <a href='#'className='kanit-medium'>ย้อนกลับ</a>
+                            <button type="submit">ถัดไป</button>
+                        </form>
+                        
+                        
                     </div>
                 </div>
                 

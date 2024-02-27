@@ -33,7 +33,7 @@ function Transaction(){
                     </div>
                     
                     <div className='box'>
-                        <a href='http://localhost:3000/'className='kanit-medium'>ย้อนกลับ</a>
+                        <a href='http://localhost:3000/payment'className='kanit-medium'>ย้อนกลับ</a>
                         <button>ถัดไป</button>
                     </div>
                 </div>

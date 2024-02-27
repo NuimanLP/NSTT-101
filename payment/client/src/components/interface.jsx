@@ -21,24 +21,24 @@ function Interface(){
             <NavigateBar/>
             <div className='body'>
                 <div className='container'>
-                    <label className='plus-jakarta-sans-bold'>ข้อมูลผู้ติดต่อ</label>
+                    <label>ข้อมูลผู้ติดต่อ</label>
                     <div className='input-box'>
-                        <label>ชื่อ-นามสกุล</label>
+                        <label className='kanit-medium'>ชื่อ-นามสกุล</label>
                         <div className='name'>
                             <input className='input' placeholder='first name'></input>
                             <input className = 'input' placeholder='last name'></input>
                         </div>
                     </div>
                     <div className='input-box'>
-                        <label>email</label>
+                        <label className='kanit-medium'>email</label>
                         <div className='email'><input className='input' placeholder='email'></input></div>
                     </div>
                     <div className='input-box'>
-                        <label>เบอร์โทร</label>
+                        <label className='kanit-medium'>เบอร์โทร</label>
                         <div className='email'><input className='input' placeholder='contract'></input></div>
                     </div>
                     <div className='seat'>
-                        <label>จำนวนที่นั่ง</label>
+                        <label className='kanit-medium'>จำนวนที่นั่ง</label>
                         <div style={{display:'flex'}}>
                             <button className='button'>-</button>
                             <input className='seat-input' placeholder='จำนวนที่นั่ง'></input>
@@ -46,8 +46,8 @@ function Interface(){
                         </div>
                     </div>
                     <div className='box'>
-                        <label>ย้อนกลับ</label>
-                        <button></button>
+                        <a href='#'className='kanit-medium'>ย้อนกลับ</a>
+                        <button>ถัดไป</button>
                     </div>
                 </div>
                 

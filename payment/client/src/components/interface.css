@@ -7,7 +7,10 @@
     display: flex;
     justify-content: center;
     font-size: 32px;
-    
+    color: rgba(121, 86, 150, 1);
+    font-family: "Kanit", sans-serif;
+    font-weight: 500;
+    font-style: normal;
 
 }
 .input-box{
@@ -22,6 +25,8 @@
     width: 100%;
     height: 25px;
     margin-right: 5%;
+    border: 6x;
+    border-radius: 7px;
   }
   .name {
     width: 100%;
@@ -44,17 +49,26 @@
     background-color: white;
     margin-top: 12%;
     padding: 10px;
+    border: 10px;
+    border-radius: 5px;
 }
 .button {
   height: 50px;
   width: 50px;
   color: white;
   background-color: rgba(121, 86, 150, 1);
+  border: 10px;
+  border-radius: 5px;
+  transition-duration: 0.4s;
+}
+.button:hover{
+    background-color: rgba(121, 86, 150, 0.5);
 }
 .seat-input {
   width: 100px;
   height: 45px;
   text-align: center;
+  
 }
 .seat {
   margin-left: 5%;
@@ -65,24 +79,34 @@
   font-weight: 700;
   font-style: normal;
 }
-.plus-jakarta  {
-  font-family: "Plus Jakarta Sans", sans-serif;
-  font-optical-sizing: auto;
-  font-weight: 700;
-  font-style: normal;
-}
+.kanit-medium {
+    font-family: "Kanit", sans-serif;
+    font-weight: 500;
+    font-style: normal;
+    color: black;
+  }
 .box {
-    height: 2vw;
+    height: 2.5vw;
     width: 95%;
-    margin: 7%;
+    margin: 3%;
     margin-left: 0px;
     justify-content: flex-start;
     background-color: white;
     padding: 10px;
     font-size: 14px;
+    border: 10px;
+    border-radius: 5px;
 }
     .box button{
         height: 70%;
         width: 10%;
         float: right;
+        background-color: rgba(243, 108, 96, 1);
+        border: 10px;
+        border-radius: 5px;
+        font-size: 12px;
+        transition-duration: 0.4s;
+    }
+    .box button:hover{
+        background-color: rgba(243, 108, 96, 0.5);
     }

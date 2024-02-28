@@ -7,9 +7,9 @@ import {
   createBrowserRouter,
   RouterProvider,
 } from "react-router-dom";
-import RegisterPage from './compo/RegisterPage';
-import Profile from './compo/Profile'; 
-import NavigateBar from './compo/Navbar';
+import RegisterPage from './Login-Booking-Edit/compo/RegisterPage.js';
+import Profile from './Login-Booking-Edit/compo/Profile.js'; 
+import NavigateBar from './Login-Booking-Edit/compo/Navbar.js';
 
 const router = createBrowserRouter([
   {

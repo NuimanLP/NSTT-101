@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import { Form, Button, Alert, Container, Spinner,InputGroup } from 'react-bootstrap';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
-import { Link } from 'react-router-dom';
+import { useNavigate,Link } from 'react-router-dom';
 import '../CSS/LoginForm.css';
 import NavigateBar from "./Navbar";
 import '../CSS/Navbar.css'; 

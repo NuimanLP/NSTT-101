@@ -76,6 +76,12 @@
     },
     "EmergencyContact": {
       "type": "string"
+    },
+    "BookedTours": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::booking.booking",
+      "mappedBy": "user_bookedTour"
     }
   }
 }

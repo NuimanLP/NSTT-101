@@ -10,7 +10,7 @@ import Dropdown from 'react-bootstrap/Dropdown';
 // import { FaSquarePhone} from "react-icons/fa6";
 // import { FaUserCircle, FaFacebook, FaLine } from "react-icons/fa";
 
-function NavigateBar() {
+function NavigateBar2() {
     return(
         <div className="navbar">
             <div className="contact">
@@ -48,4 +48,4 @@ function NavigateBar() {
         </div>
     )
 }
-export default NavigateBar
+export default NavigateBar2

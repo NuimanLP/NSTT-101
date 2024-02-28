@@ -1,22 +1,28 @@
 import { Navbar,Row,Container,Col,Nav,NavDropdown } from "react-bootstrap"
-import logo from "../Media/as.png"
-import "../CSS/Navbar.css"
-import gmail from "../Media/Email.png"
+import logo from "../Home/Source//as.png"
+import user from "../Home/Source//user.png"
+import icon from "../Home/Source//icon.png"
+import line from "../Home/Source/line.png"
+import facebook from "../Home/Source//facebook.png"
+import "./Navbar.css"
+import gmail from "../Home/Source//gmail.png"
 import Dropdown from 'react-bootstrap/Dropdown';
-import { FaSquarePhone} from "react-icons/fa6";
-import { FaUserCircle, FaFacebook, FaLine } from "react-icons/fa";
+// import { FaSquarePhone} from "react-icons/fa6";
+// import { FaUserCircle, FaFacebook, FaLine } from "react-icons/fa";
 
 function NavigateBar() {
     return(
-        <div className="navbar" style={{top:"-10px"}}>
+        <div className="navbar">
             <div className="contact">
                 <div className="left">
-                    <FaSquarePhone size={40} color="purple" />
-                    <div className="white">xxx-xxxxxx</div>
+                    <img src={icon} width="60" height="60"></img>
+                    <div className="white">เข้าสู่ระบบ</div>
                 </div>
                 <div className="right">
                     <div class="dropdown">
-                        <FaUserCircle size={35} color="white    " />
+                        <img src={line} width="55" height="55"></img>
+                        <img src={facebook} width="60" height="60"></img>
+                        <img src={gmail} width="60" height="60"></img>
                         <div class="dropdown-content">
                             <a href="#">Link 1</a>
                             <a href="#">Link 2</a>
@@ -31,7 +37,7 @@ function NavigateBar() {
                 <div className="test"> 
                     <img src={logo} width="75" height="75">
                     </img>
-                    <b className="webname">
+                    <b className="webname inika-bold">
                         Nakorn Sri Tour Travel Agent
                     </b>
                     <img className="reverse" src={logo} width="75" height="75">

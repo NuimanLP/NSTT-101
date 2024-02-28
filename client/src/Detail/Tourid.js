@@ -3,18 +3,24 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import './Tourid.css';
 import Highlight from './Highlight';
+import { useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import Checklogin from '../compo/Navigate';
+
 
 function Tourid() {
   const[data,setData] = useState(null);
   const[img,setImg] = useState(null);
+  const navigate = useNavigate()
+  const {id} = useParams(null)
 
   const fetchAPI = async () =>{
-    const response = await axios.get("http://localhost:1337/api/tours/1");
+    const response = await axios.get(`http://localhost:1337/api/tours/${id}`);
     setData(response.data.data)
   } 
 
   const fetchAPIImg = async () =>{
-    const response = await axios.get("http://localhost:1337/api/tours/1/?populate=Image");
+    const response = await axios.get(`http://localhost:1337/api/tours/${id}/?populate=Image`);
     setImg(response.data.data.attributes.Image.data)
 
   } 
@@ -25,16 +31,19 @@ function Tourid() {
   }, [])
 
   return (
-    <div>
-      <div className='photomenu' style={{ marginBottom: '50px', border: '3px solid #73AD21' }}>
+    <div className='Tourid'>
+      <div style={{}}><Checklogin/></div>
+      <div>
+      <div className='photomenu' style={{marginTop:'150px',border: '0.01px solid #73AD21',marginBottom:'30px'}}>
+        <div>
         { img && img.map (val =>(
           <div style={{ marginTop: '50px', marginLeft: '11.5%'}}>
             <div style={{ position: 'relative'}}>
-              <div style={{position: 'absolute',width:'611.5px',height:'407.667px',overflow: 'hidden'}}><img src={`http://localhost:1337${img[0].attributes.url}`} alt='' width={'100%'} height={'100%'} style={{ objectFit: 'cover'}}/></div>
-              <div style={{position: 'absolute',left:'619px',width:'293.821px',height:'200px'}} ><img src={`http://localhost:1337${img[1].attributes.url}`} alt='' width={'293.821px'} height={'200px'}/></div>
-              <div style={{position: 'absolute',left:'619px',top:'208px',width:'293.821px',height:'200px'}} ><img src={`http://localhost:1337${img[2].attributes.url}`} alt='' width={'293.821px'} height={'200px'}/></div>
-              <div style={{position: 'absolute',left:'919px',width:'293.821px',height:'200px'}} ><img src={`http://localhost:1337${img[3].attributes.url}`} alt='' width={'293.821px'} height={'200px'}/></div>
-              <div className='namephoto' style={{position: 'absolute',left:'919px',top:'208px',width:'293.821px',height:'200px'}} ><img src={`http://localhost:1337${img[4].attributes.url}`} alt='' width={'293.821px'} height={'200px'}/></div>
+              <div style={{position: 'absolute',width:'611.5px',height:'407.667px',overflow: 'hidden'}}><img src={`http://localhost:1337${img[1].attributes.url}`} alt='' width={'100%'} height={'100%'} style={{ objectFit: 'cover'}}/></div>
+              <div style={{position: 'absolute',left:'619px',width:'293.821px',height:'200px'}} ><img src={`http://localhost:1337${img[2].attributes.url}`} alt='' width={'293.821px'} height={'200px'}/></div>
+              <div style={{position: 'absolute',left:'619px',top:'208px',width:'293.821px',height:'200px'}} ><img src={`http://localhost:1337${img[3].attributes.url}`} alt='' width={'293.821px'} height={'200px'}/></div>
+              <div style={{position: 'absolute',left:'919px',width:'293.821px',height:'200px'}} ><img src={`http://localhost:1337${img[4].attributes.url}`} alt='' width={'293.821px'} height={'200px'}/></div>
+              <div className='namephoto' style={{position: 'absolute',left:'919px',top:'208px',width:'293.821px',height:'200px'}} ><img src={`http://localhost:1337${img[5].attributes.url}`} alt='' width={'293.821px'} height={'200px'}/></div>
               {data &&(
               <div key={data.id}>
                 <div className='namephoto' style={{position: 'absolute',left:'818px',top:'161px'}}>{data.attributes.NamePhoto2}</div>
@@ -43,20 +52,24 @@ function Tourid() {
                 <div className='namephoto' style={{position: 'absolute',left:'1065px',top:'368px'}}>{data.attributes.NamePhoto5}</div>
               </div>
               )}
+              
             </div>
           </div>
         ))}
-    
+        </div>
+      <div style={{marginTop:'495px'}}>
         {data && (
-          <div key={data.id} className='Textphotomenu' style={{ marginTop: '504px', marginLeft: '11.5%' }}>
-            <h style={{ marginRight: '10px' }}>{data.attributes.EventName}</h>
+          <div key={data.id} className='Textphotomenu' style={{marginLeft: '11.5%' }}>
+            <h style={{ marginRight: '10px' }}>{data.attributes.EventName}<h style={{marginLeft:'10px'}}>{data.attributes.EventDescription}</h></h>
             <h>{data.attributes.TimeCount}</h>
             <h>{data.attributes.EventDesciption}</h>
           </div>
         )}
+        </div>
       </div>
-      <Highlight />
-      <div className="Tour">
+      </div>
+      <Highlight id={id}/>
+      <div style={{marginTop:'100px'}} className="Tour">
         {data && (
           <div key={data.id} className="position-relative" style={{ position: 'relative' }}>
             <div className='barmenu0' style={{ position: 'absolute', left: '192px' }}><img /></div>
@@ -67,18 +80,18 @@ function Tourid() {
             <div className='textbarmenu0' style={{ position: 'absolute', left: '320px', marginTop: '5px' }}>{data.attributes.Category}</div>
           </div>
         )}
-        <div style={{ marginTop: '70px' }}>
+        <div>
           {data && (
             <div key={data.id}>
               <h1 className='NameTour' style={{ marginTop: '50px', marginLeft: '30px' }}>{data.attributes.EventName}</h1>
               <h1 className='Text' style={{ marginTop: '25px', marginLeft: '30px' }}>
-                <img src="https://cdn-icons-png.flaticon.com/128/7602/7602655.png" alt="Clock-nine" style={{ width: '28px', height: '28px', marginRight: '10px' }} /> {data.attributes.date}
+                <img src="https://cdn-icons-png.flaticon.com/128/7602/7602655.png" alt="Clock-nine" style={{ width: '28px', height: '28px', marginRight: '10px' }} /> {data.attributes.TimeCount}
               </h1>
               <h1 className='Text' style={{ marginTop: '20px', marginLeft: '30px' }}>
-                <img src="https://cdn-icons-png.flaticon.com/128/7602/7602592.png" alt="Calendar-lines" style={{ width: '28px', height: '28px', marginRight: '10px' }} /> {data.attributes.timedate}
+                <img src="https://cdn-icons-png.flaticon.com/128/7602/7602592.png" alt="Calendar-lines" style={{ width: '28px', height: '28px', marginRight: '10px' }} /> {data.attributes.TourDateStart} ถึง {data.attributes.TourDateFinish}
               </h1>
               <h1 className='Text' style={{ marginTop: '20px', marginLeft: '30px' }}>
-                <img src="https://cdn-icons-png.flaticon.com/128/3914/3914149.png" alt="" style={{ width: '28px', height: '28px', marginRight: '10px' }} /> {data.attributes.EventDesciption}
+                <img src="https://cdn-icons-png.flaticon.com/128/3914/3914149.png" alt="" style={{ width: '28px', height: '28px', marginRight: '10px' }} /> {data.attributes.EventDescription}
               </h1>
             </div>
           )}
@@ -92,7 +105,7 @@ function Tourid() {
           )}
         </div>
         <div>
-          <button className='button' style={{ marginLeft: '8px' }}>จองผ่านเว็บ</button>
+          <button onClick={()=>{navigate("/login")}}className='bookbutton' style={{ marginLeft: '8px' }}>จองผ่านเว็บ</button>
         </div>
       </div>
     </div>

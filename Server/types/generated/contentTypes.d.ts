@@ -932,6 +932,7 @@ export interface ApiTourTour extends Schema.CollectionType {
     TimeCount: Attribute.String;
     CurrentSeat: Attribute.Integer;
     TourAmount: Attribute.Integer;
+    Tourid: Attribute.String;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;

@@ -10,11 +10,20 @@ import {
 import RegisterPage from './compo/RegisterPage';
 import Profile from './compo/Profile'; 
 import NavigateBar from './compo/Navbar';
+import LoginForm from './compo/LoginForm';
+import Tourid from './Detail/Tourid';
+import Interface from './Payment/interface.jsx'
+import Transaction from './Payment/transaction.jsx'
+import PaidPayment from './Payment/paidPayment.jsx';
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <App/>,
+  },
+  {
+    path: "/login",
+    element: <LoginForm/>
   },
   {
     path: "/register",
@@ -28,6 +37,23 @@ const router = createBrowserRouter([
     path : "/test",
     element: <NavigateBar/>,
   },
+  {
+    path: "/tour/:id",
+    element: <Tourid/>
+  },
+  {
+    path: "/payment/",
+    element: <Interface/>
+  },
+  {
+    path: "/transaction",
+    element: <Transaction/>
+  },
+  {
+    path: "/paidPayment",
+    element: <PaidPayment/>
+  },
+
 ]);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));

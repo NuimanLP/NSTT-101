@@ -1,5 +1,4 @@
 import "./Tour.css";
-import NavigateBar from "../Navbar";
 import water from "../../Source/water.png";
 import { useEffect, useState } from "react";
 import axios from "axios";
@@ -7,6 +6,7 @@ import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import ListTour from "./details";
 import Search from "antd/es/input/Search";
+import Checklogin from "../../../compo/Navigate.js"
 
 function Tour() {
     const [data, setData] = useState();
@@ -25,14 +25,14 @@ function Tour() {
         setSliderValue(event.target.value);
     };
 
-    const sliders = async () => {
-        try {
-            const response = await axios.get(`http://localhost:1337/api/tours?filters[Price][$lte]=${sliderValue}`);
-            setData(response.data.data.attributes);
-        } catch (error) {
-            console.error("Error fetching data:", error);
-        }
-    };
+    // const sliders = async () => {
+    //     try {
+    //         const response = await axios.get(`http://localhost:1337/api/tours?filters[Price][$lte]=${sliderValue}`);
+    //         setData(response.data.data.attributes);
+    //     } catch (error) {
+    //         console.error("Error fetching data:", error);
+    //     }
+    // };
 
     // const checks = async () => {
     //     try {
@@ -43,9 +43,9 @@ function Tour() {
     //     }
     // };
 
-    useEffect(() => {
-        sliders();
-    }, [sliderValue]);
+    // useEffect(() => {
+    //     sliders();
+    // }, [sliderValue]);
 
     // const datetime = async () => {
     //     try {
@@ -113,7 +113,7 @@ function Tour() {
                 )
             })
             setData(map)
-                ;
+            
 
         } catch (error) {
             console.error("Error fetching data:", error);
@@ -121,7 +121,7 @@ function Tour() {
     };
     useEffect(() => {
         filter()
-    }, [searchTerm, sliderValue, check,date])
+    }, [searchTerm, sliderValue, check])
 
     const search = (e) => {
         setSearchTerm(e.target.value);
@@ -140,7 +140,7 @@ function Tour() {
 
     return (
         <div>
-            <NavigateBar />
+            <Checklogin />
 
             <div className="gap100"></div>
             <div className="body">
@@ -156,7 +156,7 @@ function Tour() {
                                 <div className="border-shadow" style={{ backgroundColor: "white", width: "100%", height: "110px", borderRadius: "10px 10px 0px 0px", display: "flex", flexDirection: "column", gap: "15px" }}>
                                     <div style={{ display: "flex", justifyContent: "space-between" }}>
                                         <div style={{ fontSize: "25px", paddingLeft: "10px", paddingTop: "20px" }}><b>ช่วงราคา</b></div>
-                                        <div onClick={() => { console.log(date.toLocaleDateString()) }} style={{ fontSize: "20px", color: "#795695", paddingRight: "20px", paddingTop: "20px" }}><u><b>ล้างค่า</b></u></div>
+                                        <div onClick={() => { console.log(raw) }} style={{ fontSize: "20px", color: "#795695", paddingRight: "20px", paddingTop: "20px" }}><u><b>ล้างค่า</b></u></div>
                                     </div>
                                     <div className="slidecontainer">
                                         <input
@@ -213,6 +213,7 @@ function Tour() {
                             <div className="entries-list">
                                 <div style={{ height: "70px" }}></div>
                                 <div className="border-shadow" style={{ borderRadius: "10px", width: "100%", height: "1200px" }}>
+                                    
                                     <ListTour data={data} />
                                 </div>
                             </div>

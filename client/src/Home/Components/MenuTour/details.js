@@ -1,7 +1,7 @@
 import { Table } from "antd";
 import "../admin.css"
 import { axioss } from "../axios.js"
-import NavigateBar from "../Navbar"
+
 import water from "../../Source/water.png"
 import {useState,useEffect} from "react"
 import axios from "axios";
@@ -11,9 +11,10 @@ import book from "../../Source/book.png"
 import edit from "../../Source/edit.png"
 import { IoMdStar } from "react-icons/io"
 import rocket from "../../Source/rocket.png"
+import { useNavigate } from "react-router-dom"
 
 function ListTour(props) {
-    
+    const navigate = useNavigate()
     const columns = [
         {   
             render: (record) => {
@@ -40,17 +41,17 @@ function ListTour(props) {
                             <div id="tour-detail" style={{ height: "100%", width: "60%", display: "flex", flexDirection: "column" }}>
                                 <div className="kanit-medium" style={{ fontSize: "25px", width: "100%", height: "10%", paddingTop: "25px", display: "flex", flexDirection: "row", justifyContent: "space-between" }}>
                                     <div style={{ paddingLeft: "10px" }}><b>{record.EventName}</b></div>
-                                    <div style={{ paddingRight: "10px" }}><img className="editbutton" style={{ height: "90%" }} src={edit}></img></div>
+                                    
                                 </div>
                                 <div style={{ width: "100%", height: "90%" }}>
                                     <div style={{ width: "100%", height: "10%" }}></div>
-                                    <div style={{ gap: "20px", width: "95%", height: "10%", display: "flex", alignItems: "center", paddingLeft: "25px" }}>
+                                    <div style={{ gap: "20px", width: "95%", height: "10%", display: "flex", alignItems: "center", paddingLeft: "25px"}}>
                                         <img style={{ height: "60%" }} src={time}></img>
                                         <div className="kanit-medium">{record.DayCount}</div>
                                     </div>
                                     <div style={{ gap: "20px", width: "95%", height: "10%", display: "flex", alignItems: "center", paddingLeft: "25px" }}>
                                         <img style={{ height: "60%" }} src={date}></img>
-                                        <div className="kanit-medium">day</div>
+                                        <div className="kanit-medium">{record.TourDateStart} ถึง {record.TourDateFinish}</div>
                                     </div>
                                     <div style={{ gap: "20px", width: "95%", height: "10%", display: "flex", alignItems: "center", paddingLeft: "25px" }}>
                                         <img style={{ height: "60%" }} src={book}></img>
@@ -86,7 +87,7 @@ function ListTour(props) {
                                         </div>
                                     </div>
                                     <div className="kanit-medium" style={{ display: "flex", width: "90%", justifyContent: "flex-end", paddingTop: "10px", fontSize: "20px" }}>
-                                        ราคาเริ่มต้น {record.Price}
+                                        เริ่มต้น {record.Price}
                                     </div>
                                 </div>
                             </div>
@@ -94,7 +95,7 @@ function ListTour(props) {
 
                         <div id="bottom" style={{ zIndex: "0", width: "95%", height: "15%", display: "flex", justifyContent: "flex-end" }}>
                             <div style={{ width: "90%", height: "100%", backgroundColor: "#D9D9D9", borderRadius: "0px 8px 25px 25px", paddingRight: "60px", paddingTop: "20px", justifyContent: "flex-end", display: "flex" }}>
-                                <div className="showdetail kanit-medium" style={{ backgroundColor: "#F36C60", height: "40px", width: "140px", borderRadius: "5px", display: "flex", justifyContent: "center", alignItems: "center", color: "white", fontSize: "20px" }}>
+                                <div onClick={()=>{navigate(`/tour/${record.Id}`,{id:record.Id})}}className="showdetail kanit-medium" style={{ backgroundColor: "#F36C60", height: "40px", width: "140px", borderRadius: "5px", display: "flex", justifyContent: "center", alignItems: "center", color: "white", fontSize: "20px" }}>
                                     ดูรายละเอียด
                                 </div>
                             </div>

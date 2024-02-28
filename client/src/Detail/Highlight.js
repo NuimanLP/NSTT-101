@@ -4,13 +4,13 @@ import axios from 'axios';
 import './Tourid.css'
 import Detail from './Detail';
 
-function Highlight() {
+function Highlight(props) {
 
   const[data,setData] = useState(null)
   const[hightlight,setHightlight] = useState(null)
 
   const fetchAPI = async () =>{
-    const response = await axios.get("http://localhost:1337/api/tours/1");
+    const response = await axios.get(`http://localhost:1337/api/tours/${props.id}`);
     setData(response.data.data)
   }
 
@@ -19,7 +19,7 @@ function Highlight() {
   }, [])
 
   return (
-    <div className="position-relative" style={{ border: '3px solid #73AD21' }}>
+    <div className="position-relative" style={{}}>
     <div className='highlighttour' >
     <div style={{marginBottom: '20px'}}></div>
       <h4 className='namehightlight' style={{marginBottom: '47px',marginLeft: '50px'}}>ไฮไลท์ทัวร์</h4>
@@ -68,7 +68,7 @@ function Highlight() {
        </div>
        
     </div>
-    <Detail/>
+    <Detail id={props.id}/>
   </div>
   )
 }

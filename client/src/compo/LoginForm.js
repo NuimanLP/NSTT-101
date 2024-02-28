@@ -7,7 +7,7 @@ import '../CSS/LoginForm.css';
 import NavigateBar from "./Navbar";
 import '../CSS/Navbar.css'; 
 import { EyeFill, EyeSlashFill } from 'react-bootstrap-icons';
-
+import Checklogin from "./Navigate.js"
 
 
 const LoginForm = () => {
@@ -57,7 +57,7 @@ const LoginForm = () => {
             if (userResponse.data.role.name === 'Admin') {
                 navigate('/admin');
             } else if (userResponse.data.role.name === 'Login-User') {
-                navigate('/profile');
+                navigate('/');
             }
         } catch (error) {
             console.error(error);
@@ -69,9 +69,10 @@ const LoginForm = () => {
 
 
     return (
-        <>
-        <NavigateBar/>
+        <div>
+        <Checklogin/>
         <Container className="login-container">
+            <div style={{marginTop:'250px'}}>
             <Form onSubmit={handleSubmit} className="form-container">
                 {errMsg && (
                     <Alert variant="danger">{errMsg}</Alert>
@@ -114,8 +115,9 @@ const LoginForm = () => {
                 </Button>
                 <Link to="/register" className="btn btn-link">สมัครสมาชิก</Link>
             </Form>
+            </div>
         </Container>
-        </>
+        </div>
     );
 };
 

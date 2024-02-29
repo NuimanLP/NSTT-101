@@ -35,11 +35,17 @@
         "audios"
       ]
     },
-    "user_bookedTour": {
+    "BookedTourby_ID": {
       "type": "relation",
       "relation": "manyToOne",
       "target": "plugin::users-permissions.user",
       "inversedBy": "BookedTours"
+    },
+    "Tour_Table": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::tour.tour",
+      "inversedBy": "Booking"
     }
   }
 }

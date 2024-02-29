@@ -379,10 +379,15 @@ export interface ApiBookingBooking extends Schema.CollectionType {
     Total_Price: Attribute.Decimal;
     PaymentStatus: Attribute.String;
     Receipt: Attribute.Media;
-    user_bookedTour: Attribute.Relation<
+    BookedTourby_ID: Attribute.Relation<
       'api::booking.booking',
       'manyToOne',
       'plugin::users-permissions.user'
+    >;
+    Tour_Table: Attribute.Relation<
+      'api::booking.booking',
+      'oneToOne',
+      'api::tour.tour'
     >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
@@ -397,6 +402,42 @@ export interface ApiBookingBooking extends Schema.CollectionType {
       'oneToOne',
       'admin::user'
     > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiTourTour extends Schema.CollectionType {
+  collectionName: 'tours';
+  info: {
+    singularName: 'tour';
+    pluralName: 'tours';
+    displayName: 'Tour';
+    description: '';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    EventName: Attribute.String;
+    Star: Attribute.String;
+    Eating: Attribute.String;
+    EventDetail: Attribute.Text;
+    InitDates: Attribute.Date;
+    DeadlineDates: Attribute.Date;
+    Price: Attribute.Decimal;
+    AvailableSeat: Attribute.Integer;
+    Image: Attribute.Media;
+    TimeCount: Attribute.String;
+    Booking: Attribute.Relation<
+      'api::tour.tour',
+      'oneToOne',
+      'api::booking.booking'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<'api::tour.tour', 'oneToOne', 'admin::user'> &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<'api::tour.tour', 'oneToOne', 'admin::user'> &
       Attribute.Private;
   };
 }
@@ -839,6 +880,7 @@ declare module '@strapi/types' {
       'admin::transfer-token': AdminTransferToken;
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'api::booking.booking': ApiBookingBooking;
+      'api::tour.tour': ApiTourTour;
       'plugin::upload.file': PluginUploadFile;
       'plugin::upload.folder': PluginUploadFolder;
       'plugin::content-releases.release': PluginContentReleasesRelease;

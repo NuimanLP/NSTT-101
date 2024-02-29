@@ -1,0 +1,60 @@
+{
+  "kind": "collectionType",
+  "collectionName": "tours",
+  "info": {
+    "singularName": "tour",
+    "pluralName": "tours",
+    "displayName": "Tour",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "EventName": {
+      "type": "string"
+    },
+    "Star": {
+      "type": "string"
+    },
+    "Eating": {
+      "type": "string"
+    },
+    "EventDetail": {
+      "type": "text"
+    },
+    "InitDates": {
+      "type": "date"
+    },
+    "DeadlineDates": {
+      "type": "date"
+    },
+    "Price": {
+      "type": "decimal"
+    },
+    "AvailableSeat": {
+      "type": "integer"
+    },
+    "Image": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "TimeCount": {
+      "type": "string"
+    },
+    "Booking": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::booking.booking",
+      "mappedBy": "Tour_Table"
+    }
+  }
+}

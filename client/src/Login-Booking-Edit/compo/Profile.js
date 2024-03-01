@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { Button, Modal, Form, Container } from 'react-bootstrap';
+import { Button, Modal, Form, Table } from 'react-bootstrap';
 import axios from 'axios';
 import NavigateBar from "./Navbar";
 import '../CSS/Navbar.css';
 import '../CSS/Profile.css';
+import { Receipt } from 'react-bootstrap-icons';
 const Profile = () => {
     const [profile, setProfile] = useState({
         username: '', Fullname: '', email: '', PhoneNumber: ''
@@ -54,15 +55,18 @@ const Profile = () => {
 
     const fetchBookings = async () => {
         try {
-            const response = await axios.get('http://localhost:1337/api/bookings/user/findUserBookings', {
+            await axios.get('http://localhost:1337/api/bookings/user/findUserBookings', {
                 headers: { Authorization: `Bearer ${jwt}` },
-            });
-            console.log(response.data.data)
-            setBookings(response.data.data);
+            })
+                .then(response => {
+                    const userbookedTours = response.data;
+                    setBookings(userbookedTours);
+                })
         } catch (error) {
             console.error('Error fetching bookings:', error);
         }
     };
+
 
 
     useEffect(() => {
@@ -143,8 +147,6 @@ const Profile = () => {
                 <p><strong>เบอร์โทรศัพท์:</strong> {profile.phoneNumber}</p>
                 <p><strong>เพศ:</strong> {profile.gender}</p>
                 <Button variant="primary" onClick={() => setShowModal(true)}>เเก้ไขโปรไฟล์</Button>
-                <Button variant="secondary" className="w-100 mt-3" onClick={handleLogout}>ออกจากระบบ</Button>
-
                 {/* Modal for editing profile */}
                 <Modal show={showModal} onHide={() => setShowModal(false)}>
                     <Modal.Header closeButton>
@@ -200,6 +202,39 @@ const Profile = () => {
                         <Button variant="primary" onClick={handleSaveChanges}>บันทึกการเปลี่ยนเเปลง</Button>
                     </Modal.Footer>
                 </Modal>
+                <h3>My Bookings</h3>
+                <Table striped bordered hover size="sm">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Event Name</th>
+                            <th>BookingDate</th>
+                            <th>Event Detail</th>
+                            <th>Dates</th>
+                            <th>Total Price</th>
+                            <th>Amount</th>
+                            <th>Payment Status</th>
+                            <th>Receipt</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {bookings.map((booking, index) => (
+                            <tr key={index}>
+                                <td>{index + 1}</td>
+                                <td>{booking.EventName}</td>
+                                <td>{booking.BookingDate}</td>
+                                <td>{booking.EventDetail}</td>
+                                <td>{booking.InitDates} ถึง {booking.DeadlineDates}</td>
+                                <td>{booking.Total_Price}</td>
+                                <td>{booking.Amount}</td>
+                                <td>{booking.PaymentStatus}</td>
+                                <td>{bookings.Receipt}</td>
+                            </tr>
+                        ))}
+                    </tbody>
+                    <Button variant="secondary" className="w-100 mt-3" onClick={handleLogout}>ออกจากระบบ</Button>
+
+                </Table>
             </div>
         </>
     );

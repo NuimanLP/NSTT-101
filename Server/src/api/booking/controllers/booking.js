@@ -4,6 +4,14 @@ const booking = require('../routes/booking');
 
 const { createCoreController } = require('@strapi/strapi').factories;
 
+const formatDate = (date) => {
+    if (!date) return '';
+    const d = new Date(date);
+    const day = d.getDate().toString().padStart(2, '0');
+    const month = (d.getMonth() + 1).toString().padStart(2, '0'); // Months are 0-indexed
+    const year = d.getFullYear();
+    return `${day}-${month}-${year}`;
+  };
 
 module.exports = createCoreController('api::booking.booking', ({ strapi }) => ({
     async findUserBookings(ctx) {
@@ -26,15 +34,15 @@ module.exports = createCoreController('api::booking.booking', ({ strapi }) => ({
 
             const bookings = entities.map(entity => ({
                 BookingID: entity.id,
-                BookingDate: entity.BookingDate,
+                BookingDate: formatDate(entity.BookingDate),
                 Amount: entity.Amount,
                 Total_Price: entity.Total_Price,
                 PaymentStatus: entity.PaymentStatus,
                 Receipt: entity.Receipt,
                 EventName: entity.Tour_Table.EventName,
                 EventDetail: entity.Tour_Table.EventDetail,
-                InitDates: entity.Tour_Table.InitDates,
-                DeadlineDates:entity.Tour_Table.DeadlineDates ,
+                InitDates:formatDate(entity.Tour_Table.InitDates),
+                DeadlineDates:formatDate(entity.Tour_Table.DeadlineDates) ,
                 Price: entity.Tour_Table.Price,
                 Username: ctx.state.user.username
             }));

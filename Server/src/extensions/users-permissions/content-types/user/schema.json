@@ -81,7 +81,7 @@
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::booking.booking",
-      "mappedBy": "BookedTourby_ID"
+      "mappedBy": "owner"
     }
   }
 }

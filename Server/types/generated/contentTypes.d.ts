@@ -379,7 +379,7 @@ export interface ApiBookingBooking extends Schema.CollectionType {
     Total_Price: Attribute.Decimal;
     PaymentStatus: Attribute.String;
     Receipt: Attribute.Media;
-    BookedTourby_ID: Attribute.Relation<
+    owner: Attribute.Relation<
       'api::booking.booking',
       'manyToOne',
       'plugin::users-permissions.user'

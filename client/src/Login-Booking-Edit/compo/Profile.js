@@ -1,17 +1,20 @@
 import React, { useState, useEffect } from 'react';
-import { Button, Modal, Form } from 'react-bootstrap';
+import { Button, Modal, Form, Container } from 'react-bootstrap';
 import axios from 'axios';
 import NavigateBar from "./Navbar";
-import '../CSS/Navbar.css'; 
+import '../CSS/Navbar.css';
 import '../CSS/Profile.css';
 const Profile = () => {
     const [profile, setProfile] = useState({
-        username: '', Fullname: '', email: '', PhoneNumber: '', EmergencyContact: ''
+        username: '', Fullname: '', email: '', PhoneNumber: ''
     });
     const [error, setError] = useState('');
     const [showModal, setShowModal] = useState(false);
     const [editProfile, setEditProfile] = useState({ ...profile });
     const [errorMsg, setErrorMsg] = useState('');
+    const [bookings, setBookings] = useState([]);
+    const jwt = sessionStorage.getItem('jwt');
+
 
 
     const handleLogout = () => {
@@ -22,6 +25,7 @@ const Profile = () => {
     };
     useEffect(() => {
         fetchUserProfile();
+        fetchBookings();
     }, []);
     const fetchUserProfile = () => {
         const jwt = sessionStorage.getItem('jwt');
@@ -46,6 +50,18 @@ const Profile = () => {
                 console.error('Error fetching user profile:', error);
                 setError('Failed to load profile. Please try again later.');
             });
+    };
+
+    const fetchBookings = async () => {
+        try {
+            const response = await axios.get('http://localhost:1337/api/bookings/user/findUserBookings', {
+                headers: { Authorization: `Bearer ${jwt}` },
+            });
+            console.log(response.data.data)
+            setBookings(response.data.data);
+        } catch (error) {
+            console.error('Error fetching bookings:', error);
+        }
     };
 
 
@@ -118,73 +134,73 @@ const Profile = () => {
     }
 
     return (
-        <> <NavigateBar/>
-        <div>
-            <h2>โปรไฟล์</h2>
-            <p><strong>ชื่อผู้ใช้:</strong> {profile.username}</p>
-            <p><strong>ชื่อ-นามสกุล:</strong> {profile.fullname}</p>
-            <p><strong>อีเมลล์:</strong> {profile.email}</p>
-            <p><strong>เบอร์โทรศัพท์:</strong> {profile.phoneNumber}</p>
-            <p><strong>เพศ:</strong> {profile.gender}</p>
-            <Button variant="primary" onClick={() => setShowModal(true)}>เเก้ไขโปรไฟล์</Button>
-            <Button variant="secondary" className="w-100 mt-3" onClick={handleLogout}>ออกจากระบบ</Button>
+        <> <NavigateBar />
+            <div>
+                <h2>โปรไฟล์</h2>
+                <p><strong>ชื่อผู้ใช้:</strong> {profile.username}</p>
+                <p><strong>ชื่อ-นามสกุล:</strong> {profile.fullname}</p>
+                <p><strong>อีเมลล์:</strong> {profile.email}</p>
+                <p><strong>เบอร์โทรศัพท์:</strong> {profile.phoneNumber}</p>
+                <p><strong>เพศ:</strong> {profile.gender}</p>
+                <Button variant="primary" onClick={() => setShowModal(true)}>เเก้ไขโปรไฟล์</Button>
+                <Button variant="secondary" className="w-100 mt-3" onClick={handleLogout}>ออกจากระบบ</Button>
 
-            {/* Modal for editing profile */}
-            <Modal show={showModal} onHide={() => setShowModal(false)}>
-                <Modal.Header closeButton>
-                    <Modal.Title>เเก้ไขโปรไฟล์</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                    <Form>
-                        <Form.Group className="mb-3">
-                            <Form.Label>ชื่อผู้ใช้ <span className="required-asterisk">*</span>
-                            </Form.Label>
-                            <Form.Control
-                                type="text"
-                                name="username"
-                                value={editProfile.username}
-                                onChange={handleEditProfileChange}
-                            />
-                             <p className="text-danger">{errorMsg}</p>
-                        </Form.Group>
+                {/* Modal for editing profile */}
+                <Modal show={showModal} onHide={() => setShowModal(false)}>
+                    <Modal.Header closeButton>
+                        <Modal.Title>เเก้ไขโปรไฟล์</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                        <Form>
+                            <Form.Group className="mb-3">
+                                <Form.Label>ชื่อผู้ใช้ <span className="required-asterisk">*</span>
+                                </Form.Label>
+                                <Form.Control
+                                    type="text"
+                                    name="username"
+                                    value={editProfile.username}
+                                    onChange={handleEditProfileChange}
+                                />
+                                <p className="text-danger">{errorMsg}</p>
+                            </Form.Group>
 
-                        <Form.Group className="mb-3">
-                            <Form.Label>ชื่อ-นามสกุล</Form.Label>
-                            <Form.Control
-                                type="text"
-                                name="Fullname"
-                                value={editProfile.Fullname}
-                                onChange={handleEditProfileChange}
-                            />
-                        </Form.Group>
+                            <Form.Group className="mb-3">
+                                <Form.Label>ชื่อ-นามสกุล</Form.Label>
+                                <Form.Control
+                                    type="text"
+                                    name="Fullname"
+                                    value={editProfile.Fullname}
+                                    onChange={handleEditProfileChange}
+                                />
+                            </Form.Group>
 
-                        <Form.Group className="mb-3">
-                            <Form.Label>เบอร์โทรศัพท์</Form.Label>
-                            <Form.Control
-                                type="text"
-                                name="PhoneNumber"
-                                value={editProfile.PhoneNumber}
-                                onChange={handleEditProfileChange}
-                            />
-                        </Form.Group>
+                            <Form.Group className="mb-3">
+                                <Form.Label>เบอร์โทรศัพท์</Form.Label>
+                                <Form.Control
+                                    type="text"
+                                    name="PhoneNumber"
+                                    value={editProfile.PhoneNumber}
+                                    onChange={handleEditProfileChange}
+                                />
+                            </Form.Group>
 
-                        <Form.Group className="mb-3">
-                            <Form.Label>เพศ</Form.Label>
-                            <Form.Control
-                                type="text"
-                                name="Gender"
-                                value={editProfile.Gender}
-                                onChange={handleEditProfileChange}
-                            />
-                        </Form.Group>
-                    </Form>
-                </Modal.Body>
-                <Modal.Footer>
-                    <Button variant="secondary" onClick={() => setShowModal(false)}>ปิดหน้าต่าง</Button>
-                    <Button variant="primary" onClick={handleSaveChanges}>บันทึกการเปลี่ยนเเปลง</Button>
-                </Modal.Footer>
-            </Modal>
-        </div>
+                            <Form.Group className="mb-3">
+                                <Form.Label>เพศ</Form.Label>
+                                <Form.Control
+                                    type="text"
+                                    name="Gender"
+                                    value={editProfile.Gender}
+                                    onChange={handleEditProfileChange}
+                                />
+                            </Form.Group>
+                        </Form>
+                    </Modal.Body>
+                    <Modal.Footer>
+                        <Button variant="secondary" onClick={() => setShowModal(false)}>ปิดหน้าต่าง</Button>
+                        <Button variant="primary" onClick={handleSaveChanges}>บันทึกการเปลี่ยนเเปลง</Button>
+                    </Modal.Footer>
+                </Modal>
+            </div>
         </>
     );
 };

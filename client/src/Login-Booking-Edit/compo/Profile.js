@@ -15,6 +15,14 @@ const Profile = () => {
     const [errorMsg, setErrorMsg] = useState('');
     const [bookings, setBookings] = useState([]);
     const jwt = sessionStorage.getItem('jwt');
+    const [showReceiptModal, setShowReceiptModal] = useState(false);
+    const [selectedReceiptUrl, setSelectedReceiptUrl] = useState('');
+
+    const handleReceiptClick = (receiptUrl) => {
+        const absoluteReceiptUrl = `http://localhost:1337${receiptUrl}`;
+        setSelectedReceiptUrl(absoluteReceiptUrl);
+        setShowReceiptModal(true);
+    };
 
 
 
@@ -138,7 +146,19 @@ const Profile = () => {
     }
 
     return (
-        <> <NavigateBar />
+        <>
+            <Modal show={showReceiptModal} onHide={() => setShowReceiptModal(false)}>
+                <Modal.Header closeButton>
+                    <Modal.Title>ใบเสร็จ</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <img src={selectedReceiptUrl} alt="Receipt" style={{ width: '100%' }} />
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={() => setShowReceiptModal(false)}>ปิด</Button>
+                </Modal.Footer>
+            </Modal>
+            <NavigateBar />
             <div>
                 <h2>โปรไฟล์</h2>
                 <p><strong>ชื่อผู้ใช้:</strong> {profile.username}</p>
@@ -202,19 +222,20 @@ const Profile = () => {
                         <Button variant="primary" onClick={handleSaveChanges}>บันทึกการเปลี่ยนเเปลง</Button>
                     </Modal.Footer>
                 </Modal>
-                <h3>My Bookings</h3>
+                <p></p>
+                <h3>การจองของฉัน</h3>
                 <Table striped bordered hover size="sm">
                     <thead>
                         <tr>
                             <th>#</th>
-                            <th>Event Name</th>
-                            <th>BookingDate</th>
-                            <th>Event Detail</th>
-                            <th>Dates</th>
-                            <th>Total Price</th>
-                            <th>Amount</th>
-                            <th>Payment Status</th>
-                            <th>Receipt</th>
+                            <th>ชื่อทัวร์</th>
+                            <th>วันที่ทำรายการการจอง</th>
+                            <th>รายละเอียดทัวร์</th>
+                            <th>วันที่ไป</th>
+                            <th>ราคาทั้งหมด</th>
+                            <th>จำนวนคน</th>
+                            <th>สถานะการชำระเงิน</th>
+                            <th>ใบเสร็จ</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -228,7 +249,9 @@ const Profile = () => {
                                 <td>{booking.Total_Price}</td>
                                 <td>{booking.Amount}</td>
                                 <td>{booking.PaymentStatus}</td>
-                                <td>{bookings.Receipt}</td>
+                                <td>
+                                    <Receipt onClick={() => handleReceiptClick(booking.Receipt.formats.small.url)} style={{ cursor: 'pointer' }} />
+                                </td>
                             </tr>
                         ))}
                     </tbody>

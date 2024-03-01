@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { Button, Modal, Form, Table } from 'react-bootstrap';
+import React, { useState, useEffect, useRef } from 'react';
+import { Button, Modal, Form, Table, OverlayTrigger, Popover } from 'react-bootstrap';
 import axios from 'axios';
 import NavigateBar from "./Navbar";
 import '../CSS/Navbar.css';
@@ -18,14 +18,55 @@ const Profile = () => {
     const [showReceiptModal, setShowReceiptModal] = useState(false);
     const [selectedReceiptUrl, setSelectedReceiptUrl] = useState('');
 
-//ShowReceiptModal
+
+    //RenderPayment
+    const renderPaymentStatus = (booking) => {
+        const status = capitalizeFirstLetter(booking.PaymentStatus);
+        const statusStyle = {
+            fontWeight: 'bold',
+        };
+
+        if (booking.PaymentStatus.toLowerCase() === 'เสร็จสมบูรณ์') {
+            return (
+                <OverlayTrigger trigger="click" placement="left" overlay={cancelPopover}>
+                    <Button variant="success" style={{ ...statusStyle, cursor: 'pointer' }}>
+                        {status}
+                    </Button>
+                </OverlayTrigger>
+            );
+        } else {
+            return (
+                <span style={{ ...statusStyle, color: getStatusColor(booking.PaymentStatus) }}>
+                    {status}
+                </span>
+            );
+        }
+    };
+    const target = useRef(null);
+    //Cancel PopOver
+    const cancelPopover = (
+        <Popover id="popover-cancel-tour">
+            <Popover.Header as="h3">ยกเลิกทัวร์</Popover.Header>
+            <Popover.Body>
+                ท่านต้องการยกเลิกทัวร์?
+                <div className="d-flex justify-content-around mt-2">
+                    <Button variant="danger" onClick={() => {/* Handle yes action */ }}>Yes</Button>
+                </div>
+            </Popover.Body>
+        </Popover>
+    );
+
+
+
+
+    //ShowReceiptModal
     const handleReceiptClick = (receiptUrl) => {
         const absoluteReceiptUrl = `http://localhost:1337${receiptUrl}`;
         setSelectedReceiptUrl(absoluteReceiptUrl);
         setShowReceiptModal(true);
     };
 
-//PaymentStatus
+    //PaymentStatus
     const capitalizeFirstLetter = (string) => {
         return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
     };
@@ -268,7 +309,7 @@ const Profile = () => {
                                 <td>{booking.Total_Price}   บาท</td>
                                 <td>{booking.Amount} ท่าน</td>
                                 <td style={{ color: getStatusColor(booking.PaymentStatus), fontWeight: 'bold' }}>
-                                    {capitalizeFirstLetter(booking.PaymentStatus)}
+                                    {renderPaymentStatus(booking)}
                                 </td>
                                 <td>
                                     <Receipt onClick={() => handleReceiptClick(booking.Receipt.formats.small.url)} style={{ cursor: 'pointer' }} />

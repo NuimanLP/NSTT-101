@@ -12,7 +12,7 @@ const formatDate = (date) => {
     const month = (d.getMonth() + 1).toString().padStart(2, '0'); // Months are 0-indexed
     const year = d.getFullYear();
     return `${day}-${month}-${year}`;
-  };
+};
 
 module.exports = createCoreController('api::booking.booking', ({ strapi }) => ({
     async findUserBookings(ctx) {
@@ -25,9 +25,9 @@ module.exports = createCoreController('api::booking.booking', ({ strapi }) => ({
                 filters: {
                     owner: ctx.state.user.id,
                 },
-                populate: { 
-                  Receipt: true,
-                  Tour_Table: true
+                populate: {
+                    Receipt: true,
+                    Tour_Table: true
                 }
             });
 
@@ -42,15 +42,43 @@ module.exports = createCoreController('api::booking.booking', ({ strapi }) => ({
                 Receipt: entity.Receipt,
                 EventName: entity.Tour_Table.EventName,
                 EventDetail: entity.Tour_Table.EventDetail,
-                InitDates:formatDate(entity.Tour_Table.InitDates),
-                DeadlineDates:formatDate(entity.Tour_Table.DeadlineDates) ,
+                InitDates: formatDate(entity.Tour_Table.InitDates),
+                DeadlineDates: formatDate(entity.Tour_Table.DeadlineDates),
                 Price: entity.Tour_Table.Price,
                 Username: ctx.state.user.username
             }));
-               return bookings;
+            return bookings;
         } catch (error) {
             strapi.log.error('findUserBookings:error', error);
             return ctx.internalServerError('Unable to fetch user bookings.');
+        }
+    },
+
+
+    async updatePaymentStatus(ctx) {
+        const { id } = ctx.params;
+        // @ts-ignore
+        const { PaymentStatus } = ctx.request.body;
+
+        // Validate PaymentStatus
+        if (!PaymentStatus) {
+            return ctx.badRequest('PaymentStatus must be provided.');
+        }
+
+        try {
+            const existingBooking = await strapi.entityService.findOne('api::booking.booking', id);
+            if (!existingBooking) {
+                return ctx.notFound('Booking not found.');
+            }
+
+            const updatedBooking = await strapi.entityService.update('api::booking.booking', id, {
+                data: { PaymentStatus },
+            });
+
+            return ctx.send({ data: updatedBooking });
+        } catch (error) {
+            strapi.log.error('updatePaymentStatus:error', error);
+            return ctx.internalServerError('Failed to update PaymentStatus.');
         }
     },
 }));

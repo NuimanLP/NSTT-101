@@ -18,10 +18,29 @@ const Profile = () => {
     const [showReceiptModal, setShowReceiptModal] = useState(false);
     const [selectedReceiptUrl, setSelectedReceiptUrl] = useState('');
 
+//ShowReceiptModal
     const handleReceiptClick = (receiptUrl) => {
         const absoluteReceiptUrl = `http://localhost:1337${receiptUrl}`;
         setSelectedReceiptUrl(absoluteReceiptUrl);
         setShowReceiptModal(true);
+    };
+
+//PaymentStatus
+    const capitalizeFirstLetter = (string) => {
+        return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
+    };
+    const getStatusColor = (status) => {
+
+        switch (status) {
+            case 'ยกเลิก':
+                return 'red';
+            case 'รอดำเนินการ':
+                return 'gray';
+            case 'เสร็จสมบูรณ์':
+                return 'green';
+            default:
+                return 'black';
+        }
     };
 
 
@@ -246,9 +265,11 @@ const Profile = () => {
                                 <td>{booking.BookingDate}</td>
                                 <td>{booking.EventDetail}</td>
                                 <td>{booking.InitDates} ถึง {booking.DeadlineDates}</td>
-                                <td>{booking.Total_Price}</td>
-                                <td>{booking.Amount}</td>
-                                <td>{booking.PaymentStatus}</td>
+                                <td>{booking.Total_Price}   บาท</td>
+                                <td>{booking.Amount} ท่าน</td>
+                                <td style={{ color: getStatusColor(booking.PaymentStatus), fontWeight: 'bold' }}>
+                                    {capitalizeFirstLetter(booking.PaymentStatus)}
+                                </td>
                                 <td>
                                     <Receipt onClick={() => handleReceiptClick(booking.Receipt.formats.small.url)} style={{ cursor: 'pointer' }} />
                                 </td>

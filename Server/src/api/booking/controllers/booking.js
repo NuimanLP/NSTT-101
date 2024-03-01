@@ -4,6 +4,7 @@ const booking = require('../routes/booking');
 
 const { createCoreController } = require('@strapi/strapi').factories;
 
+//Correct the DATE format
 const formatDate = (date) => {
     if (!date) return '';
     const d = new Date(date);

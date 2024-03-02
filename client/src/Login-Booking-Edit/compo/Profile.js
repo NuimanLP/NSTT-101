@@ -5,6 +5,7 @@ import NavigateBar from "./Navbar";
 import '../CSS/Navbar.css';
 import '../CSS/Profile.css';
 import { Receipt } from 'react-bootstrap-icons';
+import config from '../../config';
 const Profile = () => {
     const [profile, setProfile] = useState({
         username: '', Fullname: '', email: '', PhoneNumber: ''
@@ -19,54 +20,14 @@ const Profile = () => {
     const [selectedReceiptUrl, setSelectedReceiptUrl] = useState('');
 
 
-    //RenderPayment
-    const renderPaymentStatus = (booking) => {
-        const status = capitalizeFirstLetter(booking.PaymentStatus);
-        const statusStyle = {
-            fontWeight: 'bold',
-        };
-
-        if (booking.PaymentStatus.toLowerCase() === 'เสร็จสมบูรณ์') {
-            return (
-                <OverlayTrigger trigger="click" placement="left" overlay={cancelPopover}>
-                    <Button variant="success" style={{ ...statusStyle, cursor: 'pointer' }}>
-                        {status}
-                    </Button>
-                </OverlayTrigger>
-            );
-        } else {
-            return (
-                <span style={{ ...statusStyle, color: getStatusColor(booking.PaymentStatus) }}>
-                    {status}
-                </span>
-            );
-        }
-    };
-    const target = useRef(null);
-    //Cancel PopOver
-    const cancelPopover = (
-        <Popover id="popover-cancel-tour">
-            <Popover.Header as="h3">ยกเลิกทัวร์</Popover.Header>
-            <Popover.Body>
-                ท่านต้องการยกเลิกทัวร์?
-                <div className="d-flex justify-content-around mt-2">
-                    <Button variant="danger" onClick={() => {/* Handle yes action */ }}>Yes</Button>
-                </div>
-            </Popover.Body>
-        </Popover>
-    );
-
-
-
-
     //ShowReceiptModal
     const handleReceiptClick = (receiptUrl) => {
-        const absoluteReceiptUrl = `http://localhost:1337${receiptUrl}`;
+        const absoluteReceiptUrl = `${config.serverReceipt}${receiptUrl}`;
         setSelectedReceiptUrl(absoluteReceiptUrl);
         setShowReceiptModal(true);
     };
 
-    //PaymentStatus
+    //PaymentStatusColor
     const capitalizeFirstLetter = (string) => {
         return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
     };
@@ -83,8 +44,68 @@ const Profile = () => {
                 return 'black';
         }
     };
+    //RenderPaymentText
+    const renderPaymentStatus = (booking) => {
+        console.log('renderPaymentStatus bookingId:', booking.id);
+        const status = capitalizeFirstLetter(booking.PaymentStatus);
+        const statusStyle = {
+            fontWeight: 'bold',
+        };
 
-
+        if (booking.PaymentStatus.toLowerCase() === 'เสร็จสมบูรณ์') {
+            return (
+                <OverlayTrigger trigger="click" placement="left" overlay={cancelPopover(booking.id)}>
+                    <Button variant="success" style={{ ...statusStyle, cursor: 'pointer' }}>
+                        {status}
+                    </Button>
+                </OverlayTrigger>
+            );
+        } else {
+            return (
+                <span style={{ ...statusStyle, color: getStatusColor(booking.PaymentStatus) }}>
+                    {status}
+                </span>
+            );
+        }
+    };
+    //Cancel PopOver
+    const cancelPopover = (bookingId) => {
+        console.log('cancelPopover bookingId:', bookingId);
+        return (
+            <Popover id="popover-cancel-tour">
+                <Popover.Header as="h3">ยกเลิกทัวร์</Popover.Header>
+                <Popover.Body>
+                    ท่านต้องการยกเลิกทัวร์?
+                    <div className="d-flex justify-content-around mt-2">
+                        <Button variant="danger" onClick={() => cancelBookingPayment(bookingId)}>Yes</Button>
+                    </div>
+                </Popover.Body>
+            </Popover>
+        )
+    };
+    //CanclePayment
+    const cancelBookingPayment = async (bookingsId) => {
+        try {
+            console.log(`Cancelling booking payment for ID: ${bookingsId}`);
+            const response = await axios.put(
+                `${config.serverUrlPrefix}/bookings/${bookingsId}/update-status`,
+                { PaymentStatus: "รอดำเนินการ" },
+                {
+                    headers: { Authorization: `Bearer ${jwt}` },
+                }
+            );
+            if (response.status === 200) {
+                alert("Payment status updated successfully!");
+                fetchBookings();
+            } else {
+                alert("Failed to update payment status.");
+            }
+        } catch (error) {
+            console.error('Error updating payment status:', error);
+            alert("An error occurred while updating the payment status.");
+        }
+    };
+    
 
     const handleLogout = () => {
         sessionStorage.removeItem('jwt');
@@ -98,7 +119,7 @@ const Profile = () => {
     }, []);
     const fetchUserProfile = () => {
         const jwt = sessionStorage.getItem('jwt');
-        axios.get('http://localhost:1337/api/users/me', {
+        axios.get(`${config.serverUrlPrefix}/users/me`, {
             headers: {
                 Authorization: `Bearer ${jwt}`,
             },
@@ -123,12 +144,13 @@ const Profile = () => {
 
     const fetchBookings = async () => {
         try {
-            await axios.get('http://localhost:1337/api/bookings/user/findUserBookings', {
+            await axios.get(`${config.serverUrlPrefix}/bookings/user/findUserBookings`, {
                 headers: { Authorization: `Bearer ${jwt}` },
             })
                 .then(response => {
                     const userbookedTours = response.data;
                     setBookings(userbookedTours);
+                    console.log(userbookedTours);
                 })
         } catch (error) {
             console.error('Error fetching bookings:', error);
@@ -143,7 +165,7 @@ const Profile = () => {
             setError('You must be logged in to view this page.');
             return;
         }
-        axios.get('http://localhost:1337/api/users/me', {
+        axios.get(`${config.serverUrlPrefix}/users/me`, {
             headers: { Authorization: `Bearer ${jwt}` },
         })
             .then(response => {
@@ -184,7 +206,7 @@ const Profile = () => {
             Gender: editProfile.Gender
         };
 
-        axios.put(`http://localhost:1337/api/users/${profile.id}`, payload, {
+        axios.put(`${config.serverUrlPrefix}/users/${profile.id}`, payload, {
             headers: { Authorization: `Bearer ${jwt}` },
         })
             .then(response => {

@@ -418,10 +418,12 @@ export interface ApiTourTour extends Schema.CollectionType {
     draftAndPublish: false;
   };
   attributes: {
-    EventName: Attribute.String;
+    EventName: Attribute.String &
+      Attribute.DefaultTo<'\u0E44\u0E21\u0E48\u0E21\u0E35'>;
     Star: Attribute.String;
     Eating: Attribute.String;
-    EventDetail: Attribute.Text;
+    EventDetail: Attribute.Text &
+      Attribute.DefaultTo<'\u0E44\u0E21\u0E48\u0E21\u0E35'>;
     InitDates: Attribute.Date;
     DeadlineDates: Attribute.Date;
     Price: Attribute.Decimal;

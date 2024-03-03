@@ -45,8 +45,8 @@ const Profile = () => {
         }
     };
     //RenderPaymentText
-    const renderPaymentStatus = (booking) => {
-        console.log('renderPaymentStatus bookingId:', booking.id);
+    const renderPaymentStatus = (booking,bookingID) => {
+        console.log('renderPaymentStatus bookingId:', bookingID);
         const status = capitalizeFirstLetter(booking.PaymentStatus);
         const statusStyle = {
             fontWeight: 'bold',
@@ -54,7 +54,7 @@ const Profile = () => {
 
         if (booking.PaymentStatus.toLowerCase() === 'เสร็จสมบูรณ์') {
             return (
-                <OverlayTrigger trigger="click" placement="left" overlay={cancelPopover(booking.id)}>
+                <OverlayTrigger trigger="click" placement="left" overlay={cancelPopover(bookingID)}>
                     <Button variant="success" style={{ ...statusStyle, cursor: 'pointer' }}>
                         {status}
                     </Button>
@@ -69,15 +69,15 @@ const Profile = () => {
         }
     };
     //Cancel PopOver
-    const cancelPopover = (bookingId) => {
-        console.log('cancelPopover bookingId:', bookingId);
+    const cancelPopover = (bookingID) => {
+        console.log('cancelPopover bookingId:', bookingID);
         return (
             <Popover id="popover-cancel-tour">
                 <Popover.Header as="h3">ยกเลิกทัวร์</Popover.Header>
                 <Popover.Body>
                     ท่านต้องการยกเลิกทัวร์?
                     <div className="d-flex justify-content-around mt-2">
-                        <Button variant="danger" onClick={() => cancelBookingPayment(bookingId)}>Yes</Button>
+                        <Button variant="danger" onClick={() => cancelBookingPayment(bookingID)}>Yes</Button>
                     </div>
                 </Popover.Body>
             </Popover>
@@ -88,8 +88,8 @@ const Profile = () => {
         try {
             console.log(`Cancelling booking payment for ID: ${bookingsId}`);
             const response = await axios.put(
-                `${config.serverUrlPrefix}/bookings/${bookingsId}/update-status`,
-                { PaymentStatus: "รอดำเนินการ" },
+                `${config.serverUrlPrefix}/bookings/${bookingsId}/update-payment-status`,
+                { PaymentStatus: "ยกเลิก" },
                 {
                     headers: { Authorization: `Bearer ${jwt}` },
                 }
@@ -105,7 +105,7 @@ const Profile = () => {
             alert("An error occurred while updating the payment status.");
         }
     };
-    
+
 
     const handleLogout = () => {
         sessionStorage.removeItem('jwt');
@@ -331,7 +331,7 @@ const Profile = () => {
                                 <td>{booking.Total_Price}   บาท</td>
                                 <td>{booking.Amount} ท่าน</td>
                                 <td style={{ color: getStatusColor(booking.PaymentStatus), fontWeight: 'bold' }}>
-                                    {renderPaymentStatus(booking)}
+                                    {renderPaymentStatus(booking,booking.BookingID)}
                                 </td>
                                 <td>
                                     <Receipt onClick={() => handleReceiptClick(booking.Receipt.formats.small.url)} style={{ cursor: 'pointer' }} />

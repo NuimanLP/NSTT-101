@@ -13,7 +13,8 @@
   "pluginOptions": {},
   "attributes": {
     "EventName": {
-      "type": "string"
+      "type": "string",
+      "default": "ไม่มี"
     },
     "Star": {
       "type": "string"
@@ -22,7 +23,8 @@
       "type": "string"
     },
     "EventDetail": {
-      "type": "text"
+      "type": "text",
+      "default": "ไม่มี"
     },
     "InitDates": {
       "type": "date"

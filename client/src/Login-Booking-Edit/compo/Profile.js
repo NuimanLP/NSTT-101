@@ -1,8 +1,8 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button, Modal, Form, Table, OverlayTrigger, Popover } from 'react-bootstrap';
 import axios from 'axios';
-import NavigateBar from "./Navbar";
-import '../CSS/Navbar.css';
+import NavigateBar from "../Navbar.js";
+import '../Navbar.css'; 
 import '../CSS/Profile.css';
 import { Receipt } from 'react-bootstrap-icons';
 import config from '../../config';
@@ -95,14 +95,14 @@ const Profile = () => {
                 }
             );
             if (response.status === 200) {
-                alert("Payment status updated successfully!");
+                alert("ยกเลิกทัวร์เรียบร้อยแล้ว!");
                 fetchBookings();
             } else {
-                alert("Failed to update payment status.");
+                alert("ไม่สามารถยกเลิกทัวร์ได้");
             }
         } catch (error) {
             console.error('Error updating payment status:', error);
-            alert("An error occurred while updating the payment status.");
+            alert("เกิดข้อผิดพลาดขณะกำลังยกเลิกทัวร์");
         }
     };
 
@@ -111,7 +111,7 @@ const Profile = () => {
         sessionStorage.removeItem('jwt');
         sessionStorage.removeItem('username');
         sessionStorage.removeItem('role');
-        window.location.href = '/';
+        window.location.href = `${config.windowlocateHome}`;
     };
     useEffect(() => {
         fetchUserProfile();
@@ -138,7 +138,7 @@ const Profile = () => {
             })
             .catch(error => {
                 console.error('Error fetching user profile:', error);
-                setError('Failed to load profile. Please try again later.');
+                setError('โหลดโปรไฟล์ไม่สำเร็จ กรุณาลองใหม่อีกครั้งในภายหลัง');
             });
     };
 
@@ -162,7 +162,7 @@ const Profile = () => {
     useEffect(() => {
         const jwt = sessionStorage.getItem('jwt');
         if (!jwt) {
-            setError('You must be logged in to view this page.');
+            setError('คุณต้องเข้าสู่ระบบเพื่อดูหน้านี้');
             return;
         }
         axios.get(`${config.serverUrlPrefix}/users/me`, {
@@ -182,7 +182,7 @@ const Profile = () => {
             })
             .catch(error => {
                 console.error('Error fetching user profile:', error);
-                setError('Failed to load profile. Please try again later.');
+                setError('โหลดโปรไฟล์ไม่สำเร็จ กรุณาลองใหม่อีกครั้งในภายหลัง');
             });
     }, []);
     const handleEditProfileChange = (e) => {
@@ -217,7 +217,7 @@ const Profile = () => {
             })
             .catch(error => {
                 console.error('Error updating user profile:', error.response?.data || error);
-                setError('Failed to update profile. Please try again later.');
+                setError('โหลดโปรไฟล์ไม่สำเร็จ กรุณาลองใหม่อีกครั้งในภายหลัง');
             });
     };
 

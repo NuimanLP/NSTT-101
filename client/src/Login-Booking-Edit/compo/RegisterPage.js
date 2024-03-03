@@ -1,14 +1,12 @@
 import React, { useState } from 'react';
-import { Button, Form, Container, InputGroup, FormControl, OverlayTrigger, Tooltip } from 'react-bootstrap';
+import { Button, Form, Container, InputGroup, FormControl} from 'react-bootstrap';
 import axios from 'axios';
 import { EyeFill, EyeSlashFill } from 'react-bootstrap-icons';
-import NavigateBar from "./Navbar";
-import '../CSS/Navbar.css'; 
+import NavigateBar from "../Navbar.js";
+import '../Navbar.css'; 
 import '../CSS/Register.css';
+import config from '../../config';
 
-const axiosInstance = axios.create({
-    baseURL: 'http://localhost:1337/api'
-});
 
 const RegisterPage = () => {
     const [username, setUsername] = useState('');
@@ -31,7 +29,7 @@ const RegisterPage = () => {
     const togglePasswordVisibility = () => setShowPassword(!showPassword);
 
     const handleGoback = () => {
-        window.location.href = 'http://localhost:3000/';
+        window.location.href = `${config.windowlocateHome}/login`;
     };
 
     const handleSubmit = async (e) => {
@@ -55,14 +53,14 @@ const RegisterPage = () => {
             sessionStorage.removeItem('username');
             sessionStorage.removeItem('role');
 
-            const response = await axiosInstance.post("/auth/local/register", {
+            const response = await axios.post(`${config.serverUrlPrefix}/auth/local/register`, {
                 username: username,
                 email: email,
                 password: password,
             });
             console.log('Registration successful:', response.data);
             sessionStorage.setItem('username', username);
-            window.location.href = 'http://localhost:3000/';
+            window.location.href = `${config.windowlocateHome}/login`;
         } catch (error) {
             console.error('Registration failed:', error);
             setErrorMsg('สมัครสมาชิกไม่สำเร็จ');

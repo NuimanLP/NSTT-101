@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
-import { Form, Button, Alert, Container, Spinner,InputGroup } from 'react-bootstrap';
+import { Form, Button, Alert, Container, Spinner, InputGroup } from 'react-bootstrap';
 import axios from 'axios';
-import { useNavigate,Link } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import '../CSS/LoginForm.css';
-import NavigateBar from "./Navbar";
-import '../CSS/Navbar.css'; 
+import NavigateBar from "../Navbar.js";
+import '../Navbar.css';
 import { EyeFill, EyeSlashFill } from 'react-bootstrap-icons';
+import config from '../../config';
 
 
 
@@ -16,6 +17,7 @@ const LoginForm = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [errMsg, setErrMsg] = useState(null);
     const [showPassword, setShowPassword] = useState(false);
+    const [honeypot, setHoneypot] = useState('');
 
 
     const handleUsernameChange = (e) => setUsername(e.target.value);
@@ -26,14 +28,21 @@ const LoginForm = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+
+        if (honeypot) {
+            console.log('Bot detected');
+            setErrMsg('Bot detected');
+            return; 
+        }
         setIsLoading(true);
         setErrMsg(null);
         console.log('Form submitted:', { username, password });
+ 
 
         try {
 
             console.log('Sending login request...');
-            const response = await axios.post('http://localhost:1337/api/auth/local', {
+            const response = await axios.post(`${config.serverUrlPrefix}/auth/local`, {
                 identifier: username,
                 password: password
             });
@@ -43,7 +52,7 @@ const LoginForm = () => {
             const token = response.data.jwt;
             axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
             console.log('Fetching user details...');
-            const userResponse = await axios.get('http://localhost:1337/api/users/me?populate=role');
+            const userResponse = await axios.get(`${config.serverUrlPrefix}/users/me?populate=role`);
             console.log('User response:', userResponse);
 
             console.log("User role:", userResponse.data.role.name);
@@ -60,7 +69,7 @@ const LoginForm = () => {
             }
         } catch (error) {
             console.error(error);
-            setErrMsg('Wrong username or password');
+            setErrMsg('ชื่อผู้ใช้หรือรหัสผ่านผิด');
         } finally {
             setIsLoading(false);
         }
@@ -69,51 +78,61 @@ const LoginForm = () => {
 
     return (
         <>
-        <NavigateBar/>
-        <Container className="login-container">
-            <Form onSubmit={handleSubmit} className="form-container">
-                {errMsg && (
-                    <Alert variant="danger">{errMsg}</Alert>
-                )}
-                <Form.Group controlId="formBasicUsername">
-                    <Form.Label className="form-label">ชื่อผู้ใช้</Form.Label>
-                    <Form.Control
-                        className="form-control"
-                        type="text"
-                        placeholder="ชื่อผู้ใช้"
-                        value={username}
-                        onChange={handleUsernameChange}
-                        required
-                    />
-                </Form.Group>
+            <NavigateBar />
+            <Form.Group style={{ display: "none" }}>
+                <Form.Label>Honeypot</Form.Label>
+                <Form.Control
+                    type="text"
+                    name="honeypot"
+                    value={honeypot}
+                    onChange={(e) => setHoneypot(e.target.value)}
+                />
+            </Form.Group>
 
-                <Form.Group controlId="formBasicPassword">
-                    <Form.Label className="form-label">รหัสผ่าน</Form.Label>
-                    <InputGroup>
-                    <Form.Control
-                        type={showPassword ? "text" : "password"}
-                        className="form-control"
-                        placeholder="รหัสผ่าน"
-                        value={password}
-                        onChange={handlePasswordChange}
-                        required
-                    />
-                    <Button variant="outline-secondary" onClick={togglePasswordVisibility} className="p-0">
-                                {showPassword ? <EyeSlashFill /> : <EyeFill />}
-                    </Button>
-                    </InputGroup>
-                </Form.Group>
-                <Button variant="primary" type="submit" disabled={isLoading}>
-                    {isLoading ? 'Loading...' : 'เข้าสู่ระบบ'}
-                    {isLoading && (
-                        <Spinner animation="border" role="status">
-                            <span className="visually-hidden">Loading...</span>
-                        </Spinner>
+            <Container className="login-container">
+                <Form onSubmit={handleSubmit} className="form-container">
+                    {errMsg && (
+                        <Alert variant="danger">{errMsg}</Alert>
                     )}
-                </Button>
-                <Link to="/register" className="btn btn-link">สมัครสมาชิก</Link>
-            </Form>
-        </Container>
+                    <Form.Group controlId="formBasicUsername">
+                        <Form.Label className="form-label">ชื่อผู้ใช้</Form.Label>
+                        <Form.Control
+                            className="form-control"
+                            type="text"
+                            placeholder="ชื่อผู้ใช้"
+                            value={username}
+                            onChange={handleUsernameChange}
+                            required
+                        />
+                    </Form.Group>
+
+                    <Form.Group controlId="formBasicPassword">
+                        <Form.Label className="form-label">รหัสผ่าน</Form.Label>
+                        <InputGroup>
+                            <Form.Control
+                                type={showPassword ? "text" : "password"}
+                                className="form-control"
+                                placeholder="รหัสผ่าน"
+                                value={password}
+                                onChange={handlePasswordChange}
+                                required
+                            />
+                            <Button variant="outline-secondary" onClick={togglePasswordVisibility} className="p-0">
+                                {showPassword ? <EyeSlashFill /> : <EyeFill />}
+                            </Button>
+                        </InputGroup>
+                    </Form.Group>
+                    <Button variant="primary" type="submit" disabled={isLoading}>
+                        {isLoading ? 'Loading...' : 'เข้าสู่ระบบ'}
+                        {isLoading && (
+                            <Spinner animation="border" role="status">
+                                <span className="visually-hidden">Loading...</span>
+                            </Spinner>
+                        )}
+                    </Button>
+                    <Link to="/register" className="btn btn-link">สมัครสมาชิก</Link>
+                </Form>
+            </Container>
         </>
     );
 };

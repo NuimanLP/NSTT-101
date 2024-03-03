@@ -1,8 +1,6 @@
-import { Navbar,Row,Container,Col,Nav,NavDropdown } from "react-bootstrap"
-import logo from "../Media/as.png"
-import "../CSS/Navbar.css"
-import gmail from "../Media/Email.png"
-import Dropdown from 'react-bootstrap/Dropdown';
+import logo from "./Media/as.png"
+import "./Navbar.css"
+
 import { FaSquarePhone} from "react-icons/fa6";
 import { FaUserCircle, FaFacebook, FaLine } from "react-icons/fa";
 
@@ -18,9 +16,8 @@ function NavigateBar() {
                     <div class="dropdown">
                         <FaUserCircle size={35} color="white    " />
                         <div class="dropdown-content">
-                            <a href="#">Link 1</a>
-                            <a href="#">Link 2</a>
-                            <a href="#">Link 3</a>
+                            <div className="kanit-medium">บัญชีของท่าน</div>
+                            <a href="login">Login</a>
                         </div>
                     </div>
                 </div>

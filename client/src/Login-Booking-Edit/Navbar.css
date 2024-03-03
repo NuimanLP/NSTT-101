@@ -1,6 +1,6 @@
 @font-face {
     font-family: 'Inika-Bold'; 
-    src: url('../assets/Inika-Bold.ttf') format('truetype'); /* Ensure the file extension is included */
+    src: url('./assets/Inika-Bold.ttf') format('truetype'); /* Ensure the file extension is included */
 }
 
 .webname {

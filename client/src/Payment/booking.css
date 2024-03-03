@@ -1,0 +1,64 @@
+
+ul.a {
+  list-style: none;
+}
+.book-body {
+    height: 3000px;
+    width: 127%;
+    background-color: rgba(217, 217, 217, 0.39);
+    background-size: cover;
+    display:list-item;
+    margin-top: 10%;
+}
+.book-container{
+  justify-content: flex-start;
+  background-color: white;
+  margin-top: 4%;
+  padding: 10px;
+  border: 10px;
+  border-radius: 5px;  
+  font-size: 32px;
+  font-family: "Kanit", sans-serif;
+  font-weight: 500;
+  font-style: normal;
+  position: relative;
+  left: 27%;
+  color: rgba(121, 86, 150, 1);
+}
+  .inika-bold {
+  font-family: "Inika", serif;
+  font-weight: 700;
+  font-style: normal;
+  }
+  .kanit-medium {
+    font-family: "Kanit", sans-serif;
+    font-weight: 500;
+    font-style: normal;
+    color: rgba(121, 86, 150, 0.75);
+  }
+  .box {
+    height: 2.2vw;
+    width: 100%;
+    margin: 3%;
+    margin-left: 0px;
+    justify-content: flex-start;
+    background-color: white;
+    padding: 10px;
+    font-size: 14px;
+    border: 10px;
+    border-radius: 5px;
+    text-align: start;
+  }
+    .box button{
+        height: 70%;
+        width: 10%;
+        float: right;
+        background-color: rgba(243, 108, 96, 1);
+        border: 10px;
+        border-radius: 5px;
+        font-size: 12px;
+        transition-duration: 0.4s;
+    }
+    .box button:hover{
+        background-color: rgba(243, 108, 96, 0.5);
+    }

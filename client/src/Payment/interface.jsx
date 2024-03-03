@@ -2,6 +2,8 @@ import './interface.css'
 import React, {useState} from "react";
 import NavigateBar from "./Navbar"
 import Checklogin from "../compo/Navigate.js"
+import { useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 function Interface(){
     const [name, setName] = useState('')
@@ -10,6 +12,9 @@ function Interface(){
     const [contact, setContact] = useState('')
     const [seat, setSeat] = useState('')
 */
+    const navigate = useNavigate()
+    const {id} = useParams(null)
+    
     const handleNameChange = (e) => {
         setName(e.target.value);
     }
@@ -47,8 +52,8 @@ function Interface(){
                         </div>
                     </div>
                     <div className='box'>
-                        <form action="http://localhost:3000/transaction">
-                            <a href='#'className='kanit-medium'>ย้อนกลับ</a>
+                        <form action={()=>{navigate(`/transaction/${id}`,{id:id})}}>
+                            <a href="http://localhost:3000/" className='kanit-medium'>ย้อนกลับ</a>
                             <button type="submit">ถัดไป</button>
                         </form>
                         

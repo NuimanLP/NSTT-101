@@ -105,7 +105,7 @@ function Tourid() {
           )}
         </div>
         <div>
-          <button onClick={()=>{navigate("/login")}}className='bookbutton' style={{ marginLeft: '8px' }}>จองผ่านเว็บ</button>
+          <button onClick={()=>{navigate(`/payment/${id}`,{id:id})}}className='bookbutton' style={{ marginLeft: '8px' }}>จองผ่านเว็บ</button>
         </div>
       </div>
     </div>

@@ -15,6 +15,7 @@ import Tourid from './Detail/Tourid';
 import Interface from './Payment/interface.jsx'
 import Transaction from './Payment/transaction.jsx'
 import PaidPayment from './Payment/paidPayment.jsx';
+import Booking from './Payment/booking.jsx';
 
 const router = createBrowserRouter([
   {
@@ -42,17 +43,21 @@ const router = createBrowserRouter([
     element: <Tourid/>
   },
   {
-    path: "/payment/",
+    path: "/payment/:id",
     element: <Interface/>
   },
   {
-    path: "/transaction",
+    path: "/transaction/:id",
     element: <Transaction/>
   },
   {
-    path: "/paidPayment",
+    path: "/paidPayment/:id",
     element: <PaidPayment/>
   },
+  {
+    path: "/booking/:id",
+    element:<Booking/>
+  }
 
 ]);
 

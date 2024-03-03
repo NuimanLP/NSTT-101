@@ -18,34 +18,31 @@
     "BookingDate": {
       "type": "datetime"
     },
-    "TotalPrice": {
-      "type": "integer"
-    },
-    "PaymentMethod": {
-      "type": "string"
+    "Total_Price": {
+      "type": "decimal"
     },
     "PaymentStatus": {
       "type": "string"
     },
     "Receipt": {
       "type": "media",
-      "multiple": true,
+      "multiple": false,
       "required": false,
       "allowedTypes": [
         "images"
       ]
     },
-    "User": {
-      "type": "relation",
-      "relation": "oneToOne",
-      "target": "plugin::users-permissions.user",
-      "inversedBy": "Booking"
-    },
-    "Tour": {
+    "Tour_Table": {
       "type": "relation",
       "relation": "oneToOne",
       "target": "api::tour.tour",
       "inversedBy": "Booking"
+    },
+    "owner": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "plugin::users-permissions.user",
+      "inversedBy": "BookedTours"
     }
   }
 }

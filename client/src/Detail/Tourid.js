@@ -5,7 +5,7 @@ import './Tourid.css';
 import Highlight from './Highlight';
 import { useParams } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
-import Checklogin from '../compo/Navigate';
+import Checklogin from '../compo/Navbar';
 
 
 function Tourid() {

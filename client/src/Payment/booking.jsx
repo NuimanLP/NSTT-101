@@ -1,6 +1,6 @@
 import './booking.css';
 import React, { useEffect, useState } from 'react';
-import Checklogin from "../compo/Navigate.js";
+import Checklogin from "../compo/Navbar";
 import axios from 'axios';
 import { useParams, useNavigate } from 'react-router-dom';
 

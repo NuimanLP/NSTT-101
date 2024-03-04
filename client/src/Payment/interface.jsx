@@ -1,7 +1,7 @@
 import './interface.css'
 import React, {useState} from "react";
 import NavigateBar from "./Navbar"
-import Checklogin from "../compo/Navigate.js"
+import Checklogin from "../compo/Navbar.js"
 import { useParams } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import ResetScroll from '../compo/resetScroll.jsx';

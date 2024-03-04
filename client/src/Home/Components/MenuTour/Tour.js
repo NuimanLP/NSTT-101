@@ -6,7 +6,7 @@ import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import ListTour from "./details";
 import Search from "antd/es/input/Search";
-import Checklogin from "../../../compo/Navigate.js"
+import Checklogin from "../../../compo/Navbar"
 
 function Tour() {
     const [data, setData] = useState();

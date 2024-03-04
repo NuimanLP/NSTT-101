@@ -2,7 +2,7 @@ import './paidPayment.css'
 import React from "react";
 import NavigateBar from "./Navbar"
 import Payment from "../Media/paymentDone.png";
-import Checklogin from "../compo/Navigate.js"
+import Checklogin from "../compo/Navbar"
 function PaidPayment(){
 
     return(

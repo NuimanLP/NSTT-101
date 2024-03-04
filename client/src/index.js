@@ -13,9 +13,9 @@ import Interface from './Payment/interface.jsx'
 import Transaction from './Payment/transaction.jsx'
 import PaidPayment from './Payment/paidPayment.jsx';
 import Booking from './Payment/booking.jsx';
-import LoginForm from './Login-Booking-Edit/LoginForm';
-import RegisterPage from './Login-Booking-Edit/RegisterPage';
-import Profile from './Login-Booking-Edit/Profile';
+import LoginForm from './Login-Booking-Edit/component/LoginForm';
+import RegisterPage from './Login-Booking-Edit/component/RegisterPage';
+import Profile from './Login-Booking-Edit/component/Profile';
 
 const router = createBrowserRouter([
   {

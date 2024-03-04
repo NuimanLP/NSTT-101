@@ -46,17 +46,17 @@
     "TimeCount": {
       "type": "string"
     },
-    "Booking": {
-      "type": "relation",
-      "relation": "oneToOne",
-      "target": "api::booking.booking",
-      "mappedBy": "Tour_Table"
-    },
     "MealAmount": {
       "type": "integer"
     },
     "Star": {
       "type": "integer"
+    },
+    "Booking": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::booking.booking",
+      "mappedBy": "Tour_Table"
     }
   }
 }

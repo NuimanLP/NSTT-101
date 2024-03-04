@@ -374,8 +374,8 @@ export interface ApiBookingBooking extends Schema.CollectionType {
     draftAndPublish: false;
   };
   attributes: {
-    BookingDate: Attribute.DateTime;
     Amount: Attribute.Integer;
+    BookingDate: Attribute.DateTime;
     Total_Price: Attribute.Decimal;
     PaymentStatus: Attribute.String;
     Receipt: Attribute.Media;
@@ -386,7 +386,7 @@ export interface ApiBookingBooking extends Schema.CollectionType {
     >;
     Tour_Table: Attribute.Relation<
       'api::booking.booking',
-      'oneToOne',
+      'manyToOne',
       'api::tour.tour'
     >;
     createdAt: Attribute.DateTime;
@@ -428,13 +428,13 @@ export interface ApiTourTour extends Schema.CollectionType {
     AvailableSeat: Attribute.Integer;
     Image: Attribute.Media;
     TimeCount: Attribute.String;
-    Booking: Attribute.Relation<
-      'api::tour.tour',
-      'oneToOne',
-      'api::booking.booking'
-    >;
     MealAmount: Attribute.Integer;
     Star: Attribute.Integer;
+    Booking: Attribute.Relation<
+      'api::tour.tour',
+      'oneToMany',
+      'api::booking.booking'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<'api::tour.tour', 'oneToOne', 'admin::user'> &

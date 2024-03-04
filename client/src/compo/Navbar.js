@@ -1,4 +1,4 @@
-import logo from "./Login-Booking-Edit/Media/as.png"
+import logo from "../Login-Booking-Edit/Media/as.png"
 import "./Navbar.css"
 
 import { FaSquarePhone} from "react-icons/fa6";

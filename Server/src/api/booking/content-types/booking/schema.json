@@ -34,7 +34,7 @@
     },
     "Tour_Table": {
       "type": "relation",
-      "relation": "oneToOne",
+      "relation": "manyToOne",
       "target": "api::tour.tour",
       "inversedBy": "Booking"
     },

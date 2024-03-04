@@ -1,11 +1,10 @@
 import './App.css';
-import LoginForm from './compo/LoginForm';
+import LoginForm from './Login-Booking-Edit/component/LoginForm.js';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Tour from './Home/Components/MenuTour/Tour';
-
 function App() {
   return (
-    <Tour/>
+      <LoginForm/>
+    
   );
 }
 

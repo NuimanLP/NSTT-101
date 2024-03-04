@@ -7,24 +7,14 @@ import {
   createBrowserRouter,
   RouterProvider,
 } from "react-router-dom";
-import RegisterPage from './compo/RegisterPage';
-import Profile from './compo/Profile'; 
-import NavigateBar from './compo/Navbar';
-import LoginForm from './compo/LoginForm';
-import Tourid from './Detail/Tourid';
-import Interface from './Payment/interface.jsx'
-import Transaction from './Payment/transaction.jsx'
-import PaidPayment from './Payment/paidPayment.jsx';
-import Booking from './Payment/booking.jsx';
+import RegisterPage from './Login-Booking-Edit/component/RegisterPage.js';
+import Profile from './Login-Booking-Edit/component/Profile.js'; 
+import NavigateBar from './compo/Navbar.js';
 
 const router = createBrowserRouter([
   {
-    path: "/",
-    element: <App/>,
-  },
-  {
     path: "/login",
-    element: <LoginForm/>
+    element: <App/>,
   },
   {
     path: "/register",
@@ -38,27 +28,6 @@ const router = createBrowserRouter([
     path : "/test",
     element: <NavigateBar/>,
   },
-  {
-    path: "/tour/:id",
-    element: <Tourid/>
-  },
-  {
-    path: "/payment/:id",
-    element: <Interface/>
-  },
-  {
-    path: "/transaction/:id",
-    element: <Transaction/>
-  },
-  {
-    path: "/paidPayment/:id",
-    element: <PaidPayment/>
-  },
-  {
-    path: "/booking/:id",
-    element:<Booking/>
-  }
-
 ]);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));

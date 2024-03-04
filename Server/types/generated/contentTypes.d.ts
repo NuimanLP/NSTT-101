@@ -420,12 +420,10 @@ export interface ApiTourTour extends Schema.CollectionType {
   attributes: {
     EventName: Attribute.String &
       Attribute.DefaultTo<'\u0E44\u0E21\u0E48\u0E21\u0E35'>;
-    Star: Attribute.String;
-    Eating: Attribute.String;
     EventDetail: Attribute.Text &
       Attribute.DefaultTo<'\u0E44\u0E21\u0E48\u0E21\u0E35'>;
-    InitDates: Attribute.Date;
-    DeadlineDates: Attribute.Date;
+    TourDateInit: Attribute.Date;
+    TourDateFinish: Attribute.Date;
     Price: Attribute.Decimal;
     AvailableSeat: Attribute.Integer;
     Image: Attribute.Media;
@@ -435,6 +433,8 @@ export interface ApiTourTour extends Schema.CollectionType {
       'oneToOne',
       'api::booking.booking'
     >;
+    MealAmount: Attribute.Integer;
+    Star: Attribute.Integer;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<'api::tour.tour', 'oneToOne', 'admin::user'> &

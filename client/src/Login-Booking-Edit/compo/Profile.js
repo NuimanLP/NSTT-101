@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Button, Modal, Form, Table, OverlayTrigger, Popover } from 'react-bootstrap';
 import axios from 'axios';
 import NavigateBar from "../Navbar.js";
-import '../Navbar.css'; 
+import '../Navbar.css';
 import '../CSS/Profile.css';
 import { Receipt } from 'react-bootstrap-icons';
 import config from '../../config';
@@ -37,6 +37,7 @@ const Profile = () => {
             case 'ยกเลิก':
                 return 'red';
             case 'รอดำเนินการ':
+            case "อยู่ระหว่างการดำเดินการ":
                 return 'gray';
             case 'เสร็จสมบูรณ์':
                 return 'green';
@@ -45,7 +46,7 @@ const Profile = () => {
         }
     };
     //RenderPaymentText
-    const renderPaymentStatus = (booking,bookingID) => {
+    const renderPaymentStatus = (booking, bookingID) => {
         console.log('renderPaymentStatus bookingId:', bookingID);
         const status = capitalizeFirstLetter(booking.PaymentStatus);
         const statusStyle = {
@@ -242,13 +243,14 @@ const Profile = () => {
             </Modal>
             <NavigateBar />
             <div>
-                <h2>โปรไฟล์</h2>
-                <p><strong>ชื่อผู้ใช้:</strong> {profile.username}</p>
-                <p><strong>ชื่อ-นามสกุล:</strong> {profile.fullname}</p>
-                <p><strong>อีเมลล์:</strong> {profile.email}</p>
-                <p><strong>เบอร์โทรศัพท์:</strong> {profile.phoneNumber}</p>
-                <p><strong>เพศ:</strong> {profile.gender}</p>
-                <Button variant="primary" onClick={() => setShowModal(true)}>เเก้ไขโปรไฟล์</Button>
+                <h2 className="profile-title">โปรไฟล์</h2>
+                <p className="profile-info"><strong>ชื่อผู้ใช้:</strong> {profile.username}</p>
+                <p className="profile-info"><strong>ชื่อ-นามสกุล:</strong> {profile.fullname}</p>
+                <p className="profile-info"><strong>อีเมลล์:</strong> {profile.email}</p>
+                <p className="profile-info"><strong>เบอร์โทรศัพท์:</strong> {profile.phoneNumber}</p>
+                <p className="profile-info"><strong>เพศ:</strong> {profile.gender}</p>
+
+                <Button variant="primary" className="mobile-friendly-button" onClick={() => setShowModal(true)} style={{fontSize:"18px",margin: '10px'}}>เเก้ไขโปรไฟล์</Button>
                 {/* Modal for editing profile */}
                 <Modal show={showModal} onHide={() => setShowModal(false)}>
                     <Modal.Header closeButton>
@@ -305,13 +307,12 @@ const Profile = () => {
                     </Modal.Footer>
                 </Modal>
                 <p></p>
-                <h3>การจองของฉัน</h3>
-                <Table striped bordered hover size="sm">
-                    <thead>
+                <h3 className="profile-title">การจองของฉัน</h3>
+                <Table striped bordered hover size="sm" className="table-custom">                    <thead>
                         <tr>
                             <th>#</th>
                             <th>ชื่อทัวร์</th>
-                            <th>วันที่ทำรายการการจอง</th>
+                            <th>วันที่ทำการจอง</th>
                             <th>รายละเอียดทัวร์</th>
                             <th>วันที่ไป</th>
                             <th>ราคาทั้งหมด</th>
@@ -327,11 +328,11 @@ const Profile = () => {
                                 <td>{booking.EventName}</td>
                                 <td>{booking.BookingDate}</td>
                                 <td>{booking.EventDetail}</td>
-                                <td>{booking.InitDates} ถึง {booking.DeadlineDates}</td>
+                                <td>{booking.TourDateInit} ถึง {booking.TourDateFinish}</td>
                                 <td>{booking.Total_Price}   บาท</td>
                                 <td>{booking.Amount} ท่าน</td>
                                 <td style={{ color: getStatusColor(booking.PaymentStatus), fontWeight: 'bold' }}>
-                                    {renderPaymentStatus(booking,booking.BookingID)}
+                                    {renderPaymentStatus(booking, booking.BookingID)}
                                 </td>
                                 <td>
                                     <Receipt onClick={() => handleReceiptClick(booking.Receipt.formats.small.url)} style={{ cursor: 'pointer' }} />
@@ -339,9 +340,8 @@ const Profile = () => {
                             </tr>
                         ))}
                     </tbody>
-                    <Button variant="secondary" className="w-100 mt-3" onClick={handleLogout}>ออกจากระบบ</Button>
-
                 </Table>
+                <Button variant="secondary" className="mobile-friendly-button" onClick={handleLogout} style={{fontSize:"18px"}}>ออกจากระบบ</Button>
             </div>
         </>
     );

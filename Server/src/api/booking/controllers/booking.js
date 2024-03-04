@@ -42,8 +42,8 @@ module.exports = createCoreController('api::booking.booking', ({ strapi }) => ({
                 Receipt: entity.Receipt,
                 EventName: entity.Tour_Table.EventName,
                 EventDetail: entity.Tour_Table.EventDetail,
-                InitDates: formatDate(entity.Tour_Table.InitDates),
-                DeadlineDates: formatDate(entity.Tour_Table.DeadlineDates),
+                TourDateInit: formatDate(entity.Tour_Table.TourDateInit),
+                TourDateFinish: formatDate(entity.Tour_Table.TourDateFinish),
                 Price: entity.Tour_Table.Price,
                 Username: ctx.state.user.username
             }));

@@ -16,20 +16,14 @@
       "type": "string",
       "default": "ไม่มี"
     },
-    "Star": {
-      "type": "string"
-    },
-    "Eating": {
-      "type": "string"
-    },
     "EventDetail": {
       "type": "text",
       "default": "ไม่มี"
     },
-    "InitDates": {
+    "TourDateInit": {
       "type": "date"
     },
-    "DeadlineDates": {
+    "TourDateFinish": {
       "type": "date"
     },
     "Price": {
@@ -57,6 +51,12 @@
       "relation": "oneToOne",
       "target": "api::booking.booking",
       "mappedBy": "Tour_Table"
+    },
+    "MealAmount": {
+      "type": "integer"
+    },
+    "Star": {
+      "type": "integer"
     }
   }
 }

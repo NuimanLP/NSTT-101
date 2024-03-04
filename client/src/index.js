@@ -7,10 +7,7 @@ import {
   createBrowserRouter,
   RouterProvider,
 } from "react-router-dom";
-import RegisterPage from './compo/RegisterPage';
-import Profile from './compo/Profile'; 
 import NavigateBar from './compo/Navbar';
-import LoginForm from './compo/LoginForm';
 import Tourid from './Detail/Tourid';
 import Interface from './Payment/interface.jsx'
 import Transaction from './Payment/transaction.jsx'
@@ -22,18 +19,18 @@ const router = createBrowserRouter([
     path: "/",
     element: <App/>,
   },
-  {
-    path: "/login",
-    element: <LoginForm/>
-  },
-  {
-    path: "/register",
-    element: <RegisterPage/>,
-  },
-  {
-    path : "/profile",
-    element: <Profile/>,
-  },
+  // {
+  //   path: "/login",
+  //   element: <LoginForm/>
+  // },
+  // {
+  //   path: "/register",
+  //   element: <RegisterPage/>,
+  // },
+  // {
+  //   path : "/profile",
+  //   element: <Profile/>,
+  // },
   {
     path : "/test",
     element: <NavigateBar/>,

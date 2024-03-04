@@ -1,6 +1,6 @@
 import { Navbar,Row,Container,Col,Nav,NavDropdown } from "react-bootstrap"
 import logo from "../Media/as.png"
-import "../CSS/Navbar.css"
+import "./Navbar.css"
 import gmail from "../Media/Email.png"
 import Dropdown from 'react-bootstrap/Dropdown';
 import { FaSquarePhone} from "react-icons/fa6";

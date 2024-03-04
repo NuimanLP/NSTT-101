@@ -4,6 +4,8 @@ import NavigateBar from "./Navbar"
 import Checklogin from "../compo/Navigate.js"
 import { useParams } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
+import ResetScroll from '../compo/resetScroll.jsx';
+import axios from 'axios';
 
 function Interface(){
     const [name, setName] = useState('')
@@ -22,9 +24,15 @@ function Interface(){
         setSurName(e.target.value)
     }
 
+    const handleClick = (e) =>  {
+        //axios.post()
+        navigate(`/transaction/${id}`,{id:id})
+    }
+
     return(
         <div>
             <Checklogin/>
+            <ResetScroll/>
             <div className='body'>
                 <div className='container0'>
                     <label>ข้อมูลผู้ติดต่อ</label>
@@ -52,12 +60,8 @@ function Interface(){
                         </div>
                     </div>
                     <div className='box'>
-                        <form action={()=>{navigate(`/transaction/${id}`,{id:id})}}>
-                            <a href="http://localhost:3000/" className='kanit-medium'>ย้อนกลับ</a>
-                            <button type="submit">ถัดไป</button>
-                        </form>
-                        
-                        
+                            <a href="#" onClick={()=>{navigate(-1)}} className='kanit-medium'>ย้อนกลับ</a>
+                            <button onClick={()=>{navigate(`/transaction/${id}`,{id:id})}}>ถัดไป</button>
                     </div>
                 </div>
                 

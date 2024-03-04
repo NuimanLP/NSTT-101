@@ -3,8 +3,12 @@ import React, {useState} from "react";
 import NavigateBar from "./Navbar"
 import Qrcode from "../Media/Qrcode.png";
 import { MdOutlineUploadFile } from "react-icons/md";
+import { useNavigate, useParams } from 'react-router-dom';
 
 function Transaction(){
+
+    const navigate = useNavigate()
+    const {id} = useParams(null)
 
     return(
         <div>
@@ -33,10 +37,8 @@ function Transaction(){
                     </div>
                     
                     <div className='box'>
-                    <form action="http://localhost:3000/paidPayment">
-                            <a href='#'className='kanit-medium'>ย้อนกลับ</a>
-                            <button type="submit">ถัดไป</button>
-                        </form>
+                            <a href="#" onClick={()=>{navigate(-1)}} className='kanit-medium'>ย้อนกลับ</a>
+                            <button onClick={()=>{navigate(`/booking/${id}`,{id:id})}}>ถัดไป</button>
                     </div>
                 </div>
                 

@@ -872,9 +872,10 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
       'oneToMany',
       'api::booking.booking'
     >;
-    Fullname: Attribute.String;
+    Firstname: Attribute.String;
     PhoneNumber: Attribute.String;
     Gender: Attribute.String;
+    Lastname: Attribute.String;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<

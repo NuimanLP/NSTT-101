@@ -71,13 +71,16 @@
       "target": "api::booking.booking",
       "mappedBy": "owner"
     },
-    "Fullname": {
+    "Firstname": {
       "type": "string"
     },
     "PhoneNumber": {
       "type": "string"
     },
     "Gender": {
+      "type": "string"
+    },
+    "Lastname": {
       "type": "string"
     }
   }

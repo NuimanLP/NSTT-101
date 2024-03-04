@@ -8,20 +8,21 @@ import ResetScroll from '../compo/resetScroll.jsx';
 import axios from 'axios';
 
 function Interface(){
-    const [name, setName] = useState('')
-    const [surName, setSurName] = useState('')
-    /*const [email, setEmail] = useState('')
-    const [contact, setContact] = useState('')
-    const [seat, setSeat] = useState('')
-*/
+    const [seat, setSeat] = useState(0)
+
     const navigate = useNavigate()
     const {id} = useParams(null)
     
-    const handleNameChange = (e) => {
-        setName(e.target.value);
+    const handleSeatChange = (e) => {
+        setSeat(e.target.value)
     }
-    const handleSurNameChange = (e) => {
-        setSurName(e.target.value)
+    const handleAdd = () => {
+        setSeat(seat => seat+1)
+    }
+    const handleRemove = () => {
+        if (seat > 0) {
+            setSeat(seat => seat-1)
+        } 
     }
 
     const handleClick = (e) =>  {
@@ -39,24 +40,24 @@ function Interface(){
                     <div className='input-box'>
                         <label className='kanit-medium'>ชื่อ-นามสกุล</label>
                         <div className='name'>
-                            <input className='input' placeholder='first name'></input>
-                            <input className = 'input' placeholder='last name'></input>
+                            <label className='input'>test</label>
+                            <label className='input'>test</label>
                         </div>
                     </div>
                     <div className='input-box'>
                         <label className='kanit-medium'>email</label>
-                        <div className='email'><input className='input' placeholder='email'></input></div>
+                        <div className='email'><label className='input'>test</label></div>
                     </div>
                     <div className='input-box'>
-                        <label className='kanit-medium'>เบอร์โทร</label>
-                        <div className='email'><input className='input' placeholder='contract'></input></div>
+                        <label className='kanit-medium' >เบอร์โทร</label>
+                        <div className='email'><label className='input'>test</label></div>
                     </div>
                     <div className='seat'>
                         <label className='kanit-medium'>จำนวนที่นั่ง</label>
                         <div style={{display:'flex'}}>
-                            <button className='button'>-</button>
-                            <input className='seat-input' placeholder='จำนวนที่นั่ง'></input>
-                            <button className='button'>+</button>
+                            <button className='button' onClick={handleRemove}>-</button>
+                            <input className='seat-input' placeholder='จำนวนที่นั่ง' onChange={handleSeatChange} value={seat}></input>
+                            <button className='button' onClick={handleAdd}>+</button>
                         </div>
                     </div>
                     <div className='box'>

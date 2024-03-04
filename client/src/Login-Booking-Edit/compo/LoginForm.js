@@ -3,8 +3,8 @@ import { Form, Button, Alert, Container, Spinner, InputGroup } from 'react-boots
 import axios from 'axios';
 import { useNavigate, Link } from 'react-router-dom';
 import '../CSS/LoginForm.css';
-import NavigateBar from "../Navbar.js";
-import '../Navbar.css';
+import NavigateBar from "../../Navbar.js";
+import '../../Navbar.css';
 import { EyeFill, EyeSlashFill } from 'react-bootstrap-icons';
 import config from '../../config';
 

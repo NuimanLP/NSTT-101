@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import { Button, Form, Container, InputGroup, FormControl} from 'react-bootstrap';
 import axios from 'axios';
 import { EyeFill, EyeSlashFill } from 'react-bootstrap-icons';
-import NavigateBar from "../Navbar.js";
-import '../Navbar.css'; 
+import NavigateBar from "../../Navbar.js";
+import '../../Navbar.css';
 import '../CSS/Register.css';
 import config from '../../config';
 

@@ -9,7 +9,7 @@ import {
 } from "react-router-dom";
 import RegisterPage from './Login-Booking-Edit/compo/RegisterPage.js';
 import Profile from './Login-Booking-Edit/compo/Profile.js'; 
-import NavigateBar from './Login-Booking-Edit/Navbar.js';
+import NavigateBar from './Navbar.js';
 
 const router = createBrowserRouter([
   {

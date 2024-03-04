@@ -8,17 +8,18 @@
     "description": ""
   },
   "options": {
-    "draftAndPublish": true
+    "draftAndPublish": false
   },
   "pluginOptions": {},
   "attributes": {
     "EventName": {
-      "type": "string"
+      "type": "string",
+      "default": "ไม่มี"
     },
     "EventDescription": {
       "type": "text"
     },
-    "TourDateStart": {
+    "TourDateInit": {
       "type": "date"
     },
     "Price": {
@@ -40,12 +41,6 @@
     },
     "Category": {
       "type": "string"
-    },
-    "Booking": {
-      "type": "relation",
-      "relation": "oneToOne",
-      "target": "api::booking.booking",
-      "mappedBy": "Tour"
     },
     "Plans": {
       "type": "relation",
@@ -71,8 +66,11 @@
     "TourAmount": {
       "type": "integer"
     },
-    "Tourid": {
-      "type": "string"
+    "Booking": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::booking.booking",
+      "mappedBy": "Tour_Table"
     }
   }
 }

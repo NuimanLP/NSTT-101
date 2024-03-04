@@ -1,0 +1,182 @@
+.body {
+    height: 3000px;
+    width: 100%;
+    background-color: rgba(240, 240, 240, 1);
+    background-size: cover;
+    display: flex;
+    justify-content: flex-start;
+}
+
+.row {
+    padding: 30px 0px 0px 30px;
+    gap: 20px;
+}
+
+.element {
+    display: flex;
+    flex-direction: column;
+    border-radius: 5px;
+    width: 95vw;
+    height: 225px;
+    gap: 25px;
+}
+
+.information {
+    display: flex;
+    font-size: 30px;
+    color: #795695;
+    padding: 10px 0px 0px 0px;
+    width: 100%;
+    height: 15%;
+}
+
+.overall {
+    width: 100%;
+    height: 85%;
+    display: flex;
+    flex-direction: row;
+    gap: 40px;
+}
+
+.overall-children {
+    display: flex;
+    height: 100%;
+    width: 33.33%;
+    box-shadow: 1px 1px 1px 1px rgba(162, 162, 162, 0.752);
+    background-color: white ;
+    border-radius: 3px;
+}
+
+.overall-children-image {
+    height: 100%;
+    width: 40%;
+    padding: 10px;
+}
+
+.overall-children-info {
+    height: 100%;
+    width: 60%;
+}
+
+.quantity {
+    font-size: 50px;
+    width: 100%;
+    height: 60%;
+    padding-left: 15px;
+    padding-top: 10px;
+}
+
+.quantity-name {
+    width: 100%;
+    height: 60%;
+    font-size: 23px;
+    padding-left: 15px;
+}
+
+.inika-regular {
+    font-family: "Inika", serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.plus-jakarta {
+    font-family: "Plus Jakarta Sans", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+  }
+.gap100 {
+    height: 100px;
+}
+
+.entries {
+    display: flex;
+    width: 95vw;
+    height: 3000px;
+    gap: 90px;
+}
+
+.entries-filter {
+    width: 25%;
+    height: 1000px;
+}
+
+.entries-list {
+    width: 65%;
+    height: 1000px;
+}
+
+.hundred {
+    width: 100%;
+}
+
+.border-shadow {
+    box-shadow: 1px 1px 1px 1px rgba(162, 162, 162, 0.752);
+}
+
+.check {
+    width: 20px;
+    height: 20px;
+}
+
+.clear {
+    color: #795695;
+    padding-top: 20px;
+    padding-right: 20px;
+    font-size: 20px;
+}
+.clear :hover {
+    cursor: pointer;
+    font-size: 21px;
+}
+
+.kanit-thin {
+    font-family: "Kanit", sans-serif;
+    font-weight: 100;
+    font-style: normal;
+  }
+.kanit-bold {
+    font-family: "Kanit", sans-serif;
+    font-weight: 700;
+    font-style: normal;
+}
+.kanit-semibold {
+    font-family: "Kanit", sans-serif;
+    font-weight: 600;
+    font-style: normal;
+  }
+.kanit-regular {
+    font-family: "Kanit", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+  }
+  .kanit-medium {
+    font-family: "Kanit", sans-serif;
+    font-weight: 500;
+    font-style: normal;
+  }
+  .bor {
+    border-right: 45px solid transparent;
+    border-left: 45px solid transparent;
+  }
+  .showdetail:hover {
+    cursor: pointer;
+  }
+
+  .editbutton:hover {
+    cursor: pointer;
+  }
+
+  .triangle-up {
+	width: 0;
+	height: 0;
+	border-left: 30px solid transparent;
+	border-right: 30px solid transparent;
+	border-bottom: 48px solid #371F77;
+    position: relative;
+    left: 29px;
+    z-index: 0;
+}
+.star {
+    color: #D9D9D9
+}

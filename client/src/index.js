@@ -3,11 +3,37 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import {
+  createBrowserRouter,
+  RouterProvider,
+} from "react-router-dom";
+import RegisterPage from './Login-Booking-Edit/component/RegisterPage.js';
+import Profile from './Login-Booking-Edit/component/Profile.js'; 
+import NavigateBar from './compo/Navbar.js';
+
+const router = createBrowserRouter([
+  {
+    path: "/login",
+    element: <App/>,
+  },
+  {
+    path: "/register",
+    element: <RegisterPage/>,
+  },
+  {
+    path : "/profile",
+    element: <Profile/>,
+  },
+  {
+    path : "/test",
+    element: <NavigateBar/>,
+  },
+]);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <App />
+     <RouterProvider router={router} />
   </React.StrictMode>
 );
 

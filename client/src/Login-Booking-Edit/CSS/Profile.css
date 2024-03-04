@@ -1,0 +1,62 @@
+.required-asterisk {
+    color: red;
+}
+
+.profile-title {
+    font-size: 28.5px;
+    margin: 9px;
+
+}
+
+.profile-info {
+    font-size: 21px;
+    margin: 10px;
+
+}
+
+.table-custom th,
+.table-custom td {
+    font-size: 18px;
+}
+
+.mobile-friendly-button {
+    padding: 5px 10px;
+    font-size: 16px;
+    min-width: 10px;
+    margin: 13.5px;
+}
+
+
+@media (max-width: 559px) {
+    .mobile-friendly-button {
+        padding: 5px 10px;
+        font-size: 10px;
+        min-width: 10px;
+        margin: 13.5px;
+    }
+    
+      /*TableBookedTour*/
+    .table-custom th, .table-custom td {
+        padding: 8px;
+        font-size: 14px;
+      }
+      /*HIDE COLUMN and Rows*/
+    .table-custom th:nth-child(3), .table-custom td:nth-child(3),
+    .table-custom th:nth-child(5), .table-custom td:nth-child(5) {
+        display: none;
+    }
+      /* TitleProfile */
+    .profile-title {
+        font-size: 24px;
+        margin: 9px;
+    
+    }
+      /* InfoProfile */
+    .profile-info {
+        font-size: 18px;
+        margin: 10px;
+    
+    }
+}
+
+

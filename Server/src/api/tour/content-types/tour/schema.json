@@ -68,7 +68,7 @@
     },
     "Booking": {
       "type": "relation",
-      "relation": "oneToOne",
+      "relation": "oneToMany",
       "target": "api::booking.booking",
       "mappedBy": "Tour_Table"
     }

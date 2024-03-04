@@ -807,7 +807,7 @@ export interface ApiBookingBooking extends Schema.CollectionType {
     Receipt: Attribute.Media;
     Tour_Table: Attribute.Relation<
       'api::booking.booking',
-      'oneToOne',
+      'manyToOne',
       'api::tour.tour'
     >;
     owner: Attribute.Relation<
@@ -927,7 +927,7 @@ export interface ApiTourTour extends Schema.CollectionType {
     TourAmount: Attribute.Integer;
     Booking: Attribute.Relation<
       'api::tour.tour',
-      'oneToOne',
+      'oneToMany',
       'api::booking.booking'
     >;
     createdAt: Attribute.DateTime;

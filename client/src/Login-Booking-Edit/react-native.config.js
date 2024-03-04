@@ -1,0 +1,3 @@
+moduleexport ={
+    assets: ['./assets/']
+}

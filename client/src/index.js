@@ -13,24 +13,27 @@ import Interface from './Payment/interface.jsx'
 import Transaction from './Payment/transaction.jsx'
 import PaidPayment from './Payment/paidPayment.jsx';
 import Booking from './Payment/booking.jsx';
+import LoginForm from './Login-Booking-Edit/LoginForm';
+import RegisterPage from './Login-Booking-Edit/RegisterPage';
+import Profile from './Login-Booking-Edit/Profile';
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <App/>,
   },
-  // {
-  //   path: "/login",
-  //   element: <LoginForm/>
-  // },
-  // {
-  //   path: "/register",
-  //   element: <RegisterPage/>,
-  // },
-  // {
-  //   path : "/profile",
-  //   element: <Profile/>,
-  // },
+  {
+    path: "/login",
+    element: <LoginForm/>
+  },
+  {
+    path: "/register",
+    element: <RegisterPage/>,
+  },
+  {
+    path : "/profile",
+    element: <Profile/>,
+  },
   {
     path : "/test",
     element: <NavigateBar/>,

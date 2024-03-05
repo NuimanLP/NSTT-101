@@ -798,7 +798,7 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
       'manyToOne',
       'plugin::users-permissions.role'
     >;
-    Fullname: Attribute.String;
+    Firstname: Attribute.String;
     PhoneNumber: Attribute.String;
     Gender: Attribute.String;
     EmergencyContact: Attribute.String;
@@ -807,6 +807,7 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
       'oneToMany',
       'api::booking.booking'
     >;
+    Lastname: Attribute.String;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<

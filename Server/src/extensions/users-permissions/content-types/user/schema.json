@@ -65,7 +65,7 @@
       "inversedBy": "users",
       "configurable": false
     },
-    "Fullname": {
+    "Firstname": {
       "type": "string"
     },
     "PhoneNumber": {
@@ -82,6 +82,9 @@
       "relation": "oneToMany",
       "target": "api::booking.booking",
       "mappedBy": "owner"
+    },
+    "Lastname": {
+      "type": "string"
     }
   }
 }

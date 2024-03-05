@@ -8,7 +8,7 @@ import { Receipt } from 'react-bootstrap-icons';
 import config from '../../config.js';
 const Profile = () => {
     const [profile, setProfile] = useState({
-        username: '', Fullname: '', email: '', PhoneNumber: ''
+        username: '', Firstname: '', Lastname: '', email: '', PhoneNumber: ''
     });
     const [error, setError] = useState('');
     const [showModal, setShowModal] = useState(false);
@@ -129,7 +129,8 @@ const Profile = () => {
                 setProfile({
                     id: response.data.id,
                     username: response.data.username,
-                    fullname: response.data.fullname || '',
+                    Firstname: response.data.Firstname || '',
+                    Lastname: response.data.Lastname || '',
                     email: response.data.email,
                     phoneNumber: response.data.phoneNumber || '',
                     gender: response.data.gender || '',
@@ -174,7 +175,8 @@ const Profile = () => {
                 setProfile({
                     id: userData.id,
                     username: userData.username,
-                    fullname: userData.Fullname || '',
+                    Firstname: response.data.Firstname || '',
+                    Lastname: response.data.Lastname || '',
                     email: userData.email,
                     phoneNumber: userData.PhoneNumber || '',
                     gender: userData.Gender || '',
@@ -189,6 +191,12 @@ const Profile = () => {
     const handleEditProfileChange = (e) => {
         setEditProfile({ ...editProfile, [e.target.name]: e.target.value });
     };
+    // const handleFullnameChange = (e) => {
+    //     const fullname = e.target.value;
+    //     const [Firstname, Lastname = ''] = fullname.split(' ');
+    //     setEditProfile({ ...editProfile, Firstname, Lastname });
+    // };
+
     const handleSaveChanges = () => {
         const jwt = sessionStorage.getItem('jwt');
         if (!jwt) {
@@ -202,7 +210,8 @@ const Profile = () => {
 
         const payload = {
             username: editProfile.username,
-            Fullname: editProfile.Fullname,
+            Firstname: editProfile.Firstname,
+            Lastname: editProfile.Lastname,
             PhoneNumber: editProfile.PhoneNumber,
             Gender: editProfile.Gender
         };
@@ -245,12 +254,13 @@ const Profile = () => {
             <div>
                 <h2 className="profile-title">โปรไฟล์</h2>
                 <p className="profile-info"><strong>ชื่อผู้ใช้:</strong> {profile.username}</p>
-                <p className="profile-info"><strong>ชื่อ-นามสกุล:</strong> {profile.fullname}</p>
+                <p className="profile-info"><strong>ชื่อ:</strong> {profile.Firstname}</p>
+                <p className="profile-info"><strong>นามสกุล:</strong> {profile.Lastname}</p>
                 <p className="profile-info"><strong>อีเมลล์:</strong> {profile.email}</p>
                 <p className="profile-info"><strong>เบอร์โทรศัพท์:</strong> {profile.phoneNumber}</p>
                 <p className="profile-info"><strong>เพศ:</strong> {profile.gender}</p>
 
-                <Button variant="primary" className="mobile-friendly-button" onClick={() => setShowModal(true)} style={{fontSize:"18px",margin: '10px'}}>เเก้ไขโปรไฟล์</Button>
+                <Button variant="primary" className="mobile-friendly-button" onClick={() => setShowModal(true)} style={{ fontSize: "18px", margin: '10px' }}>เเก้ไขโปรไฟล์</Button>
                 {/* Modal for editing profile */}
                 <Modal show={showModal} onHide={() => setShowModal(false)}>
                     <Modal.Header closeButton>
@@ -271,14 +281,25 @@ const Profile = () => {
                             </Form.Group>
 
                             <Form.Group className="mb-3">
-                                <Form.Label>ชื่อ-นามสกุล</Form.Label>
+                                <Form.Label>ชื่อ</Form.Label>
                                 <Form.Control
                                     type="text"
-                                    name="Fullname"
-                                    value={editProfile.Fullname}
+                                    name="Firstname"
+                                    value={editProfile.Firstname}
                                     onChange={handleEditProfileChange}
                                 />
                             </Form.Group>
+
+                            <Form.Group className="mb-3">
+                                <Form.Label>นามสกุล</Form.Label>
+                                <Form.Control
+                                    type="text"
+                                    name="Lastname"
+                                    value={editProfile.Lastname}
+                                    onChange={handleEditProfileChange}
+                                />
+                            </Form.Group>
+
 
                             <Form.Group className="mb-3">
                                 <Form.Label>เบอร์โทรศัพท์</Form.Label>
@@ -309,18 +330,18 @@ const Profile = () => {
                 <p></p>
                 <h3 className="profile-title">การจองของฉัน</h3>
                 <Table striped bordered hover size="sm" className="table-custom">                    <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>ชื่อทัวร์</th>
-                            <th>วันที่ทำการจอง</th>
-                            <th>รายละเอียดทัวร์</th>
-                            <th>วันที่ไป</th>
-                            <th>ราคาทั้งหมด</th>
-                            <th>จำนวนคน</th>
-                            <th>สถานะการชำระเงิน</th>
-                            <th>ใบเสร็จ</th>
-                        </tr>
-                    </thead>
+                    <tr>
+                        <th>#</th>
+                        <th>ชื่อทัวร์</th>
+                        <th>วันที่ทำการจอง</th>
+                        <th>รายละเอียดทัวร์</th>
+                        <th>วันที่ไป</th>
+                        <th>ราคาทั้งหมด</th>
+                        <th>จำนวนคน</th>
+                        <th>สถานะการชำระเงิน</th>
+                        <th>ใบเสร็จ</th>
+                    </tr>
+                </thead>
                     <tbody>
                         {bookings.map((booking, index) => (
                             <tr key={index}>
@@ -341,7 +362,7 @@ const Profile = () => {
                         ))}
                     </tbody>
                 </Table>
-                <Button variant="secondary" className="mobile-friendly-button" onClick={handleLogout} style={{fontSize:"18px"}}>ออกจากระบบ</Button>
+                <Button variant="secondary" className="mobile-friendly-button" onClick={handleLogout} style={{ fontSize: "18px" }}>ออกจากระบบ</Button>
             </div>
         </>
     );

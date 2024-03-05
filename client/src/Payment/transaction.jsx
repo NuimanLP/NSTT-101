@@ -1,5 +1,5 @@
 import "./payment.css"
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import NavigateBar from '../compo/Navbar.js';
 import { MdOutlineUploadFile } from "react-icons/md";
 import { useNavigate, useParams } from 'react-router-dom';
@@ -10,7 +10,8 @@ function Transaction() {
     const [TourData, setTourData] = useState();
     const [cost, setCost] = useState(0); 
     const [total, setTotal] = useState(0);
-    const [img, setImg] = useState(null); 
+    const [tourFile, setTourFile] = useState(null)
+    const imageref = useRef(null);
     const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNzA5NjI5MjcwLCJleHAiOjE3MTIyMjEyNzB9.f3zAqgQ5HjfROxfHLbS8s64UI5nNN1xphuxCeAV1Mic';
     const navigate = useNavigate();
     const { id, seat } = useParams(null);
@@ -30,6 +31,38 @@ function Transaction() {
         }
     };
 
+    const handleAddImage = async () => {
+        try {
+
+          const uploadPromises = [];
+          for (const file of tourFile) {
+            const formData = new FormData();
+            formData.append('ref', 'api::tour.tour');
+            formData.append('field', 'Image');
+            formData.append('refId', id);
+            formData.append('files', file);
+    
+            const uploadPromise = axios.post('http://localhost:1337/api/upload', formData);
+            uploadPromises.push(uploadPromise);
+          }
+    
+          const uploadResponses = await Promise.all(uploadPromises);
+    
+          console.log("Tour created successfully with images:", uploadResponses);
+    
+        } catch (error) {
+          console.error('Error creating tour:', error);
+        }
+      };
+
+      const handleFileChange = (e) => {
+        const files = Array.from(imageref.current.files);
+        setTourFile(files);
+      };
+      const handleClick = async () =>  {
+        handleAddImage()
+        navigate(`/bookingTour/${id}/${seat}/${total}`, { id: id }, { seat: seat }, { total: total });
+      }
     useEffect(() => {
         fetchTour();
     }, []);
@@ -66,7 +99,8 @@ function Transaction() {
                             <div className='cost-box-2'>
                                 <div><label className='kanit-medium' style={{ float: 'right' }}>เเจ้งการโอนเงิน</label></div>
                                 <div>
-                                    <button className='cost-button'> <MdOutlineUploadFile /> อัปโหลดสลิปหลักฐานการโอน</button>
+                                    <MdOutlineUploadFile />
+                                    <input type="file" ref={imageref} onChange={handleFileChange} className='cost-button' placeholder="อัปโหลดสลิปหลักฐานการโอน"></input>
                                 </div>
                             </div>
 
@@ -76,7 +110,7 @@ function Transaction() {
 
                     <div className='box'>
                         <a href="#" onClick={() => { navigate(-1) }} className='kanit-medium'>ย้อนกลับ</a>
-                        <button onClick={() => { navigate(`/bookingTour/${id}/${seat}/${total}`, { id: id }, { seat: seat }, { total: total }) }}>ถัดไป</button>
+                        <button onClick={handleClick}>ถัดไป</button>
                     </div>
                 </div>
 

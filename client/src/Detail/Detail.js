@@ -34,13 +34,13 @@ function Detail(props) {
   const handleCreatePlan = async () => {
     try {
       // Create a new plan
-      const response = await axios.post('http://localhost:1337/api/plans', {
+      const response = await axios.post('http://localhost:1337/api/plans', {data:{
         data: {
           Day: "+",
           Description: "กดเพื่อแก้ไข",
           // ... other properties
         }
-      });
+      }});
 
       // Connect the newly created plan to the tour
       const updateTourResponse = await axios.put(`http://localhost:1337/api/tours/${props.id}`, {

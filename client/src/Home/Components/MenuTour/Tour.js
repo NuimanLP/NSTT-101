@@ -8,170 +8,155 @@ import NavigateBar from "../../../compo/Navbar.js";
 import water from "../../Source/water.png";
 import Sidebar from "../../../compo/sidebar.js";
 function Tour() {
-    const [data, setData] = useState([]);
-    const [selectedDate, setSelectedDate] = useState(new Date());
-    const [date, setDate] = useState(new Date());
-    const [searchTerm, setSearchTerm] = useState("");
-    const [sliderValue, setSliderValue] = useState(10000);
-    const [formattedDate, setFormattedDate] = useState(); 
-    const [check, setCheck] = useState({
-        oneDayTrip: true,
-        multiDayTrip: true
-    });
+    function Tour() {
+        const [data, setData] = useState([]);
+        const [selectedDate, setSelectedDate] = useState(new Date());
+        const [date, setDate] = useState(new Date());
+        const [searchTerm, setSearchTerm] = useState("");
+        const [sliderValue, setSliderValue] = useState(9999);
+        const [formattedDate, setFormattedDate] = useState();
+        const [check, setCheck] = useState({
+            oneDayTrip: true,
+            multiDayTrip: true
+        });
+        const formatDate = (date) => {
+            const year = date.getFullYear();
+            const month = String(date.getMonth() + 1).padStart(2, '0');
+            const day = String(date.getDate()).padStart(2, '0');
+            return `${year}-${month}-${day}`;
+        };
+        const fetchData = async () => {
+            try {
+                let response;
 
-    const formatDate = (date) => {
-        const year = date.getFullYear();
-        const month = String(date.getMonth() + 1).padStart(2, '0');
-        const day = String(date.getDate()).padStart(2, '0');
-        return `${year}-${month}-${day}`;
-    };
+                if (formattedDate) {
+                    response = await axios.get(`http://localhost:1337/api/tours?filters[TourDateStart][$eq]=${formattedDate}`);
+                } else {
+                    response = await axios.get("http://localhost:1337/api/tours");
+                }
 
-    const fetchData = async () => {
-        try {
-            let response;
+                setData(response.data.data.map(item => item.attributes));
+            } catch (error) {
+                console.error("Error fetching data:", error);
+            }
+        };
+        const handleSliderChange = (event) => {
+            setSliderValue(event.target.value);
+        };
 
-            if (formattedDate) {
-                response = await axios.get(`http://localhost:1337/api/tours?filters[TourDateStart][$eq]=${formattedDate}`);
-            } else {
-                response = await axios.get("http://localhost:1337/api/tours");
+        const sliders = async () => {
+            try {
+                const response = await axios.get(`http://localhost:1337/api/tours?filters[Price][$lte]=${sliderValue}`);
+                setData(response.data.data.map(item => item.attributes));
+            } catch (error) {
+                console.error("Error fetching data:", error);
+            }
+        };
+        const filter = async () => {
+            try {
+                const response = await axios.get(`http://localhost:1337/api/tours?populate=*&filters[$and][0][Price][$lte]=${sliderValue}&filters[$or][1][Category][$eq]=${check.oneDayTrip ? 'One-day Trip' : ''}&filters[$or][2][Category][$eq]=${check.multiDayTrip ? 'Multi-day Trip' : ''}`);
+
+                const map = response.data.data.map((element) => ({
+                    Price: element.attributes.Price,
+                    Id: element.id,
+                    Star: element.attributes.Star,
+                    Category: element.attributes.Category,
+                    Meal: element.attributes.MealAmount,
+                    CurrentSeat: element.attributes.CurrentSeat,
+                    TotalSeat: element.attributes.AvailableSeat,
+                    Tourplan: element.attributes.EventDescription,
+                    DayCount: element.attributes.TimeCount,
+                    TourDateStart: element.attributes.TourDateStart,
+                    TourDateFinish: element.attributes.TourDateFinish,
+                    TourAmount: element.attributes.TourAmount,
+                    EventName: element.attributes.EventName,
+                    image: element.attributes.Image.data[0].attributes.url
+                }));
+                const filteredData = formattedDate
+                    ? map.filter(item => formatDate(new Date(item.TourDateStart)) === formattedDate)
+                    : map;
+
+                setData(filteredData);
+
+                if (date === formattedDate) {
+                    console.log("yes");
+                } else {
+                    console.log("no");
+                    console.log(date);
+                }
+
+            } catch (error) {
+                console.error("Error fetching data:", error);
+            }
+        };
+        const handleCalendarChange = async (date) => {
+            setDate(date);
+            setSelectedDate(date);
+            const formattedDate = formatDate(date);
+            setFormattedDate(formattedDate);
+            await filter();
+        };
+
+        const search = (searchTerm) => {
+            if (!searchTerm) {
+                fetchData();  // Fetch all data if search term is empty
+                return;
             }
 
-            setData(response.data.data.map(item => item.attributes));
-        } catch (error) {
-            console.error("Error fetching data:", error);
-        }
-    };
+            const filteredData = data.filter(item =>
+                item.EventName.toLowerCase().includes(searchTerm.toLowerCase())
+            );
 
-    const handleSliderChange = (event) => {
-        setSliderValue(event.target.value);
-    };
-
-    const sliders = async () => {
-        try {
-            const response = await axios.get(`http://localhost:1337/api/tours?filters[Price][$lte]=${sliderValue}`);
-            setData(response.data.data.map(item => item.attributes));
-        } catch (error) {
-            console.error("Error fetching data:", error);
-        }
-    };
-
-    const filter = async () => {
-        try {
-            const response = await axios.get(`http://localhost:1337/api/tours?populate=*&filters[$and][0][Price][$lte]=${
-                sliderValue}&filters[$or][1][Category][$eq]=${check.oneDayTrip ? 'One-day Trip' : ''}&filters[$or][2][Category][$eq]=${
-                    check.multiDayTrip ? 'Multi-day Trip' : ''}`);
-            
-            const map = response.data.data.map((element) => ({
-                Price: element.attributes.Price,
-                Id: element.id,
-                Star: element.attributes.Star,
-                Category: element.attributes.Category,
-                Meal: element.attributes.MealAmount,
-                CurrentSeat: element.attributes.CurrentSeat,
-                TotalSeat: element.attributes.AvailableSeat,
-                Tourplan: element.attributes.EventDescription,
-                DayCount: element.attributes.TimeCount,
-                TourDateStart: element.attributes.TourDateInit,
-                TourDateFinish: element.attributes.TourDateFinish,
-                TourAmount: element.attributes.TourAmount,
-                EventName: element.attributes.EventName,
-                image: element.attributes.Image.data[0].attributes.url,
-                Seatleft: element.attributes.AvailableSeat - element.attributes.CurrentSeat
-            }));
-    
-            const filteredData = formattedDate
-                ? map.filter(item => formatDate(new Date(item.TourDateStart)) === formattedDate)
-                : map;
-    
             setData(filteredData);
-    
-            if (date === formattedDate) {
-                console.log("yes");
+        };
+        const handleCheckboxChange = (event) => {
+            const { name, checked } = event.target;
+            setCheck(prevState => ({
+                ...prevState,
+                [name]: checked
+            }));
+        };
+
+        const handleClearDate = async () => {
+            setDate(new Date());
+            setSelectedDate(new Date());
+            await filter();
+        };
+        useEffect(() => {
+            fetchData();
+        }, [formattedDate]);
+
+        useEffect(() => {
+            sliders();
+        }, [sliderValue]);
+
+        useEffect(() => {
+            if (searchTerm === '') {
+                filter();
             } else {
-                console.log("no");
-                console.log(date);
+                search(searchTerm);
             }
-            
-        } catch (error) {
-            console.error("Error fetching data:", error);
-        }
-    };
+        }, [searchTerm, sliderValue, check, selectedDate, formattedDate]);
 
-    const handleCalendarChange = async (date) => {
-        setDate(date);
-        setSelectedDate(date);
-        const formattedDate = formatDate(date);
-        setFormattedDate(formattedDate);
-        await filter();
-    };
+        return (
+            <div>
+                <NavigateBar main="body" />
+                <Sidebar main="body" />
+                <div className="gap100"></div>
+                <div id="body" className="body">
+                    <div className="row">
+                        <div className="element">
+                            <div style={{ display: "flex", justifyContent: "center" }}>
+                                <img src={water} style={{ borderRadius: "15px", display: "flex", justifyContent: "center", marginTop: "30px" }} width="1800" height="600" alt="water" />
+                            </div>
 
-    const search = (searchTerm) => {
-        if (!searchTerm) {
-            fetchData();  // Fetch all data if search term is empty
-            return;
-        }
-
-        const filteredData = data.filter(item =>
-            item.EventName.toLowerCase().includes(searchTerm.toLowerCase())
-        );
-
-        setData(filteredData);
-    };
-
-    const handleCheckboxChange = (event) => {
-        const { name, checked } = event.target;
-        setCheck(prevState => ({
-            ...prevState,
-            [name]: checked
-        }));
-    };
-    const clear = () => { 
-        setSearchTerm("") 
-        setSliderValue(10000) 
-        document.getElementById("name").value = "" 
-}
-
-    const handleClearDate = async () => {
-        setDate(new Date());
-        setSelectedDate(new Date());
-        await filter();
-    };
-
-    useEffect(() => {
-        fetchData();
-    }, [formattedDate]);
-
-    useEffect(() => {
-        sliders();
-    }, [sliderValue]);
-
-    useEffect(() => {
-        if (searchTerm === '') {
-            filter();
-        } else {
-            search(searchTerm);
-        }
-    }, [searchTerm, sliderValue, check, selectedDate, formattedDate]);
-
-    return (
-        <div>
-            <NavigateBar main="body"/>
-            <Sidebar main="body"/>
-            <div className="gap100"></div>
-            <div id="body" className="body">
-                <div className="row">
-                    <div className="element">
-                        <div style={{ display: "flex", justifyContent: "center" }}>
-                            <img src={water} style={{ borderRadius: "15px", display: "flex", justifyContent: "center",marginTop: "30px" }} width="1800" height="600" alt="water" />
-                        </div>
-
-                        <div className="entries">
-                            <div className="entries-filter" style={{ gap: "20px", display: "flex", flexDirection: "column" }}>
-                                <input className="border-shadow kanit-medium"
-                                    placeholder="ค้นหาทัวร์..."
-                                    onSearch={(value) => setSearchTerm(value)}
-                                    style={{ fontSize: "20px", width: "88%", padding: "20px", borderRadius: "5px", border: "1px solid #ccc", height: "1%" }}
-                                />
+                            <div className="entries">
+                                <div className="entries-filter" style={{ gap: "20px", display: "flex", flexDirection: "column" }}>
+                                    <Input.Search className="border-shadow kanit-medium"
+                                        placeholder="ค้นหาทัวร์..."
+                                        onSearch={(value) => setSearchTerm(value)}
+                                        style={{ fontSize: "20px", width: "88%", padding: "20px", borderRadius: "5px", border: "1px solid #ccc", height: "1%" }}
+                                    />
                                     <div className="border-shadow" style={{ backgroundColor: "white", width: "100%", height: "150px", borderRadius: "10px 10px 0px 0px", display: "flex", flexDirection: "column", gap: "10px" }}>
                                         <div style={{ display: "flex", justifyContent: "space-between" }}>
                                             <div className="kanit-medium" style={{ fontSize: "25px", paddingLeft: "25px", paddingTop: "20px" }}><b>ช่วงราคา</b></div>
@@ -239,19 +224,20 @@ function Tour() {
                                             </div>
                                         </div>
                                     </div>
-                            </div>
-                            <div className="entries-list">
-                                <div style={{ height: "70px" }}></div>
-                                <div className="border-shadow" style={{ borderRadius: "10px", width: "100%", height: "1200px" }}>
-                                    <ListTour data={data} />
+                                </div>
+                                <div className="entries-list">
+                                    <div style={{ height: "70px" }}></div>
+                                    <div className="border-shadow" style={{ borderRadius: "10px", width: "100%", height: "1200px" }}>
+                                        <ListTour data={data} />
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    );
+        );
+    }
 }
 
 export default Tour;

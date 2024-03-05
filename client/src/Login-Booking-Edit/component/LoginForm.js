@@ -64,7 +64,7 @@ const LoginForm = () => {
             if (userResponse.data.role.name === 'Admin') {
                 navigate('/admin');
             } else if (userResponse.data.role.name === 'Login-User') {
-                navigate('/profile');
+                navigate('/');
             }
         } catch (error) {
             console.error(error);

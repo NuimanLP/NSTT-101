@@ -1,4 +1,3 @@
-
 import "../Admin/admin.css"
 import { axioss } from "../axios"
 import NavigateBar from "../../../compo/Navbar"
@@ -79,8 +78,7 @@ function ListTour(props) {
 
                 return( 
                     
-                    <div style={{ backgroundColor: "white", width: "100%", height: "550px", borderRadius: "15px", display: "flex", flexDirection: "column" }}>
-                    
+                    <div style={{ backgroundColor: "white", width: "100%", height: "500px", borderRadius: "10px", display: "flex", flexDirection: "column" }}>
                         <div id="top" style={{ width: "100%", height: "80%", display: "flex", flexDirection: "row" }}>
                             <div id="tour-face" style={{gap: "10px", height: "100%", width: "40%", paddingLeft: "10px", paddingTop: "3px", display: "flex", flexDirection: "column" }}>
                                 <div id="tour-info" style={{ width: "95%", height: "15%", display: "flex", flexDirection: "row" }}>
@@ -88,7 +86,7 @@ function ListTour(props) {
                                         <div className="inika-regular" style={{ paddingLeft: "20px", alignItems: "center", height: "100%", width: "100%", display: "flex", fontSize: "19px", color: "white" }}>
                                             <b>รหัส {String(record.Id).padStart(3, '0')}</b>
                                         </div>
-                                        <div className="triangle-up"></div>
+                                        <div className="triangle"></div>
                                     </div>
                                     <div style={{ backgroundColor: "#D9D9D9", width: "100%", height: "100%", borderRadius: "0px 8px 5px 0px", display: "flex", alignItems: "center", justifyContent: "center", gap: "5px" }}>
                                         <img src={rocket} style={{ width: "25px", height: "25px" }}></img>
@@ -101,7 +99,7 @@ function ListTour(props) {
                             <div id="tour-detail" style={{ height: "100%", width: "60%", display: "flex", flexDirection: "column" }}>
                                 <div className="kanit-medium" style={{ fontSize: "25px", width: "100%", height: "10%", paddingTop: "25px", display: "flex", flexDirection: "row", justifyContent: "space-between" }}>
                                     <div style={{ paddingLeft: "10px" }}><b>{record.EventName}</b></div>
-                                    <div style={{ paddingRight: "10px" }}><img className="editbutton" style={{ height: "90%" }} src={edit}></img></div>
+                                    {/* <div style={{ paddingRight: "10px" }}><img className="editbutton" style={{ height: "90%" }} src={edit}></img></div> */}
                                 </div>
                                 <div style={{ width: "100%", height: "90%" }}>
                                     <div style={{ width: "100%", height: "10%" }}></div>
@@ -139,7 +137,7 @@ function ListTour(props) {
                                             <div className="kanit-medium" style={{ color: "rgba(0,0,0,0.5)" }}><b>ที่พัก</b></div>
                                         </div>
                                         <div style={{ display: "flex", justifyContent: "center", alignItems: "center", flexDirection: "column", height: "100%", width: "25%", borderTop: "2px solid #D9D9D9", borderBottom: "2px solid #D9D9D9" }}>
-                                            <div className="kanit-medium"style={{color: "rgba(0,0,0,0.5)",fontSize:"20px" }}><b>{record.Seatleft}</b></div>
+                                            <div className="kanit-medium"style={{ color: "rgba(0,0,0,0.5)" }}><b>{record.Seatleft}</b></div>
                                             <div className="kanit-medium" style={{ color: "rgba(0,0,0,0.5)" }}><b>จำนวนที่นั่งเหลือ</b></div>
                                         </div>
                                     </div>
@@ -152,7 +150,7 @@ function ListTour(props) {
 
                         <div id="bottom" style={{ zIndex: "0", width: "95%", height: "15%", display: "flex", justifyContent: "flex-end" }}>
                             <div style={{ width: "90%", height: "100%", backgroundColor: "#D9D9D9", borderRadius: "0px 8px 25px 25px", paddingRight: "60px", paddingTop: "20px", justifyContent: "flex-end", display: "flex" }}>
-                                <div onClick={()=>{navigate(`/tour/${record.Id}`,{id:record.Id})}}className="showdetail kanit-medium" style={{ backgroundColor: "#F36C60", height: "40px", width: "140px", borderRadius: "5px", display: "flex", justifyContent: "center", alignItems: "center", color: "white", fontSize: "20px" }}>
+                                <div onClick={()=>{navigate(`/tour/${record.Id}`,{id:record.Id})}} className="showdetail kanit-medium" style={{ backgroundColor: "#F36C60", height: "40px", width: "140px", borderRadius: "5px", display: "flex", justifyContent: "center", alignItems: "center", color: "white", fontSize: "20px" }}>
                                     ดูรายละเอียด
                                 </div>
                             </div>

@@ -79,7 +79,7 @@ export default function BookingPage() {
             <NavigateBar main="main"/>
             <Sidebar main="main"/>
             <div className="gap100"></div>
-            <div id="main" className="body" style={{justifyContent:"",flexDirection:"column",alignItems:"center",gap:"20px"}}>
+            <div id="main" className="body" style={{justifyContent:"",flexDirection:"column",alignItems:"center",gap:"20px",transition:"0.5s"}}>
                 <div className="kanit-medium" style={{marginTop:"20px",width:"85%",display:"flex",justifyContent:"center",alignItems:"center"}}>
                     <div style={{fontSize:"30px",color:"#795695"}}>
                         การจองทั้งหมด

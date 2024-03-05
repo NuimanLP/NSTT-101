@@ -171,7 +171,7 @@
     cursor: pointer;
   }
 
-  .triangle-up {
+  .triangle {
 	width: 0;
 	height: 0;
 	border-left: 30px solid transparent;

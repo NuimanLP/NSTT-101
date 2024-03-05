@@ -46,7 +46,6 @@
   height: 45px;
   flex-shrink: 0;
   background: #371F77;
-  border-radius: 15px 0px 0px 0px
 }
 
 .barmenu0{
@@ -364,6 +363,7 @@
 }
 
 .Btn {
+  visibility: hidden;
   display: flex;
   align-items: center;
   justify-content: flex-start;

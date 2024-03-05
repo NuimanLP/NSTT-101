@@ -38,11 +38,11 @@ function Tourid() {
           {data && (
             <div key={data.id} className="position-relative" style={{ position: 'relative' }}>
               <div className='barmenu0' style={{ position: 'absolute', left: '192px' }}><img /></div>
-              <div className='triangle-up' style={{ position: 'absolute', left: '210px' }}><img src='https://cdn-icons-png.flaticon.com/128/3916/3916882.png' alt='Marker' width='26px' height='26px' style={{ marginLeft: '50px', marginTop: '10px' }} /></div>
+              <div className='triangle-up' style={{ position: 'absolute', left: '210px' }}><img src='https://cdn-icons-png.flaticon.com/128/3916/3916882.png' alt='Marker' width='26px' height='26px' style={{ marginLeft: '20px', marginTop: '10px' }} /></div>
               <div className='barmenu' style={{ position: 'absolute', left: 0 }}>
                 <div className='NameTour0' style={{ marginLeft: '37px', marginTop: '0px' }}><h>รหัส{data.attributes.Tourid}</h></div>
               </div>
-              <div className='textbarmenu0' style={{ position: 'absolute', left: '320px', marginTop: '5px' }}>{data.attributes.Category}</div>
+              <div className='textbarmenu0' style={{ position: 'absolute', left: '285px', marginTop: '5px' }}>{data.attributes.Category}</div>
             </div>
           )}
           <div>

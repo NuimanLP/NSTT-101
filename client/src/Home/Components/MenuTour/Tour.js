@@ -7,7 +7,7 @@ import { Input } from "antd";
 import NavigateBar from "../../../compo/Navbar.js";
 import water from "../../Source/water.png";
 import Sidebar from "../../../compo/sidebar.js";
-function Tour() {
+
     function Tour() {
         const [data, setData] = useState([]);
         const [selectedDate, setSelectedDate] = useState(new Date());
@@ -104,7 +104,7 @@ function Tour() {
             }
 
             const filteredData = data.filter(item =>
-                item.EventName.toLowerCase().includes(searchTerm.toLowerCase())
+                item.EventName.includes(searchTerm)
             );
 
             setData(filteredData);
@@ -138,12 +138,15 @@ function Tour() {
             }
         }, [searchTerm, sliderValue, check, selectedDate, formattedDate]);
 
+        useEffect(()=> {
+            filter()
+        },[])
         return (
             <div>
                 <NavigateBar main="body" />
                 <Sidebar main="body" />
                 <div className="gap100"></div>
-                <div id="body" className="body">
+                <div id="body" className="body" style={{transition:"0.5s"}}>
                     <div className="row">
                         <div className="element">
                             <div style={{ display: "flex", justifyContent: "center" }}>
@@ -155,7 +158,7 @@ function Tour() {
                                     <Input.Search className="border-shadow kanit-medium"
                                         placeholder="ค้นหาทัวร์..."
                                         onSearch={(value) => setSearchTerm(value)}
-                                        style={{ fontSize: "20px", width: "88%", padding: "20px", borderRadius: "5px", border: "1px solid #ccc", height: "1%" }}
+                                        size="large"
                                     />
                                     <div className="border-shadow" style={{ backgroundColor: "white", width: "100%", height: "150px", borderRadius: "10px 10px 0px 0px", display: "flex", flexDirection: "column", gap: "10px" }}>
                                         <div style={{ display: "flex", justifyContent: "space-between" }}>
@@ -238,6 +241,6 @@ function Tour() {
             </div>
         );
     }
-}
+
 
 export default Tour;

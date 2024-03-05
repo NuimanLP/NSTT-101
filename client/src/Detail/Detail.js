@@ -10,7 +10,7 @@ function Detail(props) {
 
   // Edit states
   const [editDay, setEditDay] = useState(null);
-  const [editDescription, setEditDescription] = useState('แก้ไข');
+  const [editDescription, setEditDescription] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
 
   const fetchAPI = async () => {

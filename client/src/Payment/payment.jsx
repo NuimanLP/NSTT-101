@@ -6,30 +6,31 @@ import { useNavigate } from 'react-router-dom';
 import ResetScroll from '../Payment/resetScroll.jsx';
 import { API } from './axiosAPI.js';
 import axios from 'axios';
-
+import Sidebar from "../compo/sidebar.js";
 function Payment(){
     const [userData, setUserData] = useState()
     const [seat, setSeat] = useState(1);
-    const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNzA5NjE4MDgyLCJleHAiOjE3MTIyMTAwODJ9.OV0X3Rj1VHprNu40IC8RmYDevoeapGTRTRAlotiu2NI'
-
     const navigate = useNavigate();
     const {id} = useParams(null);
-    
+    const [max,setMax] = useState()
+
     const fetchUser = async () => {
         try{
-            const Data = await axios.get(`${API.prefix}${API.user}`, {
-                headers: { Authorization: `Bearer ${token}` }
-            });
-            
+            const Data = await axios.get(`${API.prefix}${API.user}`);
             setUserData(Data.data)
         }catch (error) {
             console.error("Error fetching data:", error);
         }
     };
-
+    const fetchBooking = async() => {
+        const response = await axios.get(`http://localhost:1337/api/tours/${id}`)
+        setMax(response.data.data.attributes.AvailableSeat - response.data.data.attributes.CurrentSeat)
+    }
     const handleAdd = () => {
         if (seat === '') setSeat(0);
-        setSeat(seat => seat+1);
+        if(seat < max){
+            setSeat(seat => seat+1)
+        }
     }
     const handleRemove = () => {
         if (seat === '') setSeat(0);
@@ -42,49 +43,59 @@ function Payment(){
     }
     useEffect(() => {
         fetchUser()
+        fetchBooking()
     },[]);
 
     return(
-        <div>
-            <NavigateBar/>
+        <div style={{backgroundColor:"rgba(217, 217, 217, 0.39)"}}>
+            <NavigateBar main="payment-body"/>
+            <Sidebar main="payment-body"/>
             <ResetScroll/>
-            <div className='payment-body'>
-                <div className='container1'>
-                <label>ข้อมูลผู้ติดต่อ</label>
-                    <div className='input-box'>
-                        <label className='kanit-medium'>ชื่อ-นามสกุล</label>
-                        <div className='name'>
-                            <label className='input'>{userData && userData.Firstname}</label>
-                            <label className='input'>{userData && userData.Lastname}</label>
+            <div style={{height:"80px"}}></div>
+            <div id="payment-body" className='payment-body'>
+                <div className="payment-center">
+                    <div className="booker-head kanit-medium">ข้อมูลติดต่อ</div>
+                    <div className="booker-detail">
+                        <div className='input-box'>
+                            <label className='kanit-medium'>ชื่อ-นามสกุล</label>
+                            <div className='name'>
+                                <label className='input'>{userData && userData.Firstname}</label>
+                                <label className='input'>{userData && userData.Lastname}</label>
+                            </div>
                         </div>
-                    </div>
-                    <div className='input-box'>
-                        <label className='kanit-medium'>email</label>
-                        <div className='email'><label className='input'>{userData && userData.email}</label></div>
-                    </div>
-                    <div className='input-box'>
-                        <label className='kanit-medium'>เบอร์โทร</label>
-                        <div className='email'><label className='input'>{userData && userData.PhoneNumber}</label></div>
-                    </div>
-                    <div className='seat'>
-                        <label className='kanit-medium'>จำนวนที่นั่ง</label>
-                        <div style={{display:'flex'}}>
-                            <button className='button' onClick={handleRemove}>-</button>
-                            <input 
-                            className='seat-input' 
-                            placeholder='จำนวนที่นั่ง' 
-                            value={isNaN(seat) ? '' : seat} 
-                            onChange={(e) => setSeat(parseInt(e.target.value))}>
-                            </input>
-                            <button className='button' onClick={handleAdd}>+</button>
+                        <div className='input-box'>
+                            <label className='kanit-medium'>email</label>
+                            <div className='email'><label className='input'>{userData && userData.email}</label></div>
                         </div>
-                    </div>
-                    <div className='box'>
-                            <a href="#" onClick={()=>{navigate(-1)}} className='kanit-medium'>ย้อนกลับ</a>
-                            <button onClick={handleClick}>ถัดไป</button>
+                        <div className='input-box'>
+                            <label className='kanit-medium'>เบอร์โทร</label>
+                            <div className='email'><label className='input'>{userData && userData.PhoneNumber}</label></div>
+                        </div>
+                        <div className='seat' style={{display:"flex",gap:"20px",flexDirection:"column"}}>
+                            <label className='kanit-medium'>จำนวนที่นั่ง</label>
+                            <div style={{ display: 'flex' }}>
+                                <button className='editSeatButton kanit-medium' onClick={handleRemove}>-</button>
+                                <input
+                                    type="number"
+                                    max={max}
+                                    min={0}
+                                    className='seat-input'
+                                    placeholder='จำนวนที่นั่ง'
+                                    value={isNaN(seat) ? '' : seat}
+                                    onChange={(e) => setSeat(parseInt(e.target.value))}
+                                >
+                                </input>
+                                <button className='editSeatButton kanit-medium' onClick={handleAdd}>+</button>
+                            </div>
+                        </div>
+                        <div style={{height:"100px"}}></div>
+                        <div className='box-bottom'>
+                            <a href="#" style={{color:"rgba(0, 0, 0, 0.75)"}}onClick={() => { navigate(-1) }} className='kanit-medium'>&lt; ย้อนกลับ</a>
+                            <button className="next-button kanit-medium"onClick={handleClick}>ถัดไป</button>
+                        </div>
                     </div>
                 </div>
-                
+
             </div>
         </div>
     )

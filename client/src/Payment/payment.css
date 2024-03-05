@@ -1,12 +1,80 @@
 .payment-body {
-    background-color: rgba(217, 217, 217, 0.39);
     background-size: cover;
     background-position: center top;
     margin: auto;
-    width: 50%;
+    width: 100vw;
+    height: 100vh;
     padding: 10%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
+.payment-center {
+    background-color: white;
+    border-radius: 10px;
+    width: 40%;
+    height: 85vh;
+    display: flex;
+    flex-direction: column;
+}
 .container1{
     margin:40%
+}
+
+.booker-head{
+    width: 100%;
+    height: 10%;
+    padding-left: 25px;
+    padding-top: 25px;
+    font-size: 20px;
+    color: #795695;
+}
+
+.booker-detail{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    padding-top: 50px;
+    padding-left: 50px;
+    gap: 30px
+}
+
+.kanit-regular {
+    font-family: "Kanit", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+  }
+  .kanit-medium {
+    font-family: "Kanit", sans-serif;
+    font-weight: 500;
+    font-style: normal;
+  }
+
+.editSeatButton {
+    background-color: #795695;
+    color: white;
+    width: 35px;
+    height: 35px;
+    border-radius: 5px;
+}
+
+.box-bottom{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    padding-right: 30px;
+}
+
+.next-button {
+    color: white;
+    background-color: rgba(243, 108, 96, 1);
+    border-radius: 10px;
+    width: 80px;
+}
+
+@media screen and (max-width: 700px) { 
+    .payment-body {
+        width: 75%;
+    }
 }

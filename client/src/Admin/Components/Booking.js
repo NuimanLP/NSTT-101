@@ -9,6 +9,7 @@ import "./Booking.css"
 import "./Admin/admin.css"
 import BookingTable from "./BookingTable.js"
 import { GrFormRefresh } from "react-icons/gr";
+import config from "../../config.js"
 
 export default function BookingPage() {
     const [id,setId] = useState()
@@ -20,13 +21,13 @@ export default function BookingPage() {
     const [name,setname] = useState()
 
     const fetchtourid = async() => {
-        const response = await axios.get("http://localhost:1337/api/tours/listAllBooking")
+        const response = await axios.get(`${config.serverUrlPrefix}/tours/listAllBooking`)
         setId(response.data.map((element)=>({
             Id: element.id,
         })))
         setTourLength(response.data.length)
         setBooking(response.data.map((element)=>({
-            Bookings: element.bookings
+            Bookings: element.Booking
         })))
         setCurrent(booking[index]?.Bookings?.map((element)=>({
             Id: element.id,
@@ -57,7 +58,7 @@ export default function BookingPage() {
             TotalPrice: element.Total_Price,
             Receipt: element.Receipt?.url
         })))
-        console.log(current)
+        console.log(booking)
     }
 
     useEffect(()=>{

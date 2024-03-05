@@ -7,6 +7,7 @@ import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import ListTour from "./details";
 import { Input } from "antd";
+import Sidebar from "../../../compo/sidebar.js";
 
 function Tour() {
     const [data, setData] = useState();
@@ -130,10 +131,10 @@ function Tour() {
 
     return (
         <div>
-            <NavigateBar />
-
+            <NavigateBar main="body" />
+            <Sidebar main="body"/>
             <div className="gap100"></div>
-            <div className="body">
+            <div id="body" className="body" style={{transition:"0.5s"}}>
                 <div className="row">
                     <div className="element">
                         <div style={{ display: "flex", justifyContent: "center" }}>

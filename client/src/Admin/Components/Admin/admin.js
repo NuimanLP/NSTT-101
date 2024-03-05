@@ -9,7 +9,8 @@ import axios from "axios";
 import ListTour from "../Table/tour"
 import { Calendar } from "react-calendar"
 import 'react-calendar/dist/Calendar.css';
-import Sidebar from "../sidebar"
+import Sidebar from "../../../compo/sidebar.js"
+import config from "../../../config.js"
 
 function Admin() {
     const [booklenght,setBookLenght] = useState()
@@ -31,19 +32,19 @@ function Admin() {
 
     const filter = async () => {
         try {
-            const response = await axios.get(`http://localhost:1337/api/tours?populate=*&filters[$and][0][Price][$lte]=${sliderValue}&filters[$or][1][Category][$eq]=${check.oneDayTrip ? 'One-day Trip' : ''}&filters[$or][2][Category][$eq]=${check.multiDayTrip ? 'Multi-day Trip' : ''}`);
-            const responsebook = await axios.get("http://localhost:1337/api/bookings")
-            //const responseUser = await axios.get("http://localhost:1337/api/users")
-            const full = await axios.get(`http://localhost:1337/api/tours?populate=*`)
-            //setUserAmount(responseUser.data.length)
+            const response = await axios.get(`${config.serverUrlPrefix}/tours?populate=*&filters[$and][0][Price][$lte]=${sliderValue}&filters[$or][1][Category][$eq]=${check.oneDayTrip ? 'One-day Trip' : ''}&filters[$or][2][Category][$eq]=${check.multiDayTrip ? 'Multi-day Trip' : ''}`);
+            const responsebook = await axios.get(`${config.serverUrlPrefix}/bookings`)
+            const responseUser = await axios.get(`${config.serverUrlPrefix}/users`)
+            const full = await axios.get(`${config.serverUrlPrefix}/tours?populate=*`)
+            setUserAmount(responseUser.data.length)
             setTourLenght(full.data.data.length)
             setBookLenght(responsebook.data.data.length)
             const map = response.data.data.map((element) => ({
                 Price: element.attributes.Price,
                 Id: element.id,
                 Star: element.attributes.Star,
-                Category: element.attributes.Categories,
-                Meal: element.attributes.Eating,
+                Category: element.attributes.Category,
+                Meal: element.attributes.MealAmount,
                 CurrentSeat: element.attributes.CurrentSeat,
                 TotalSeat: element.attributes.AvailableSeat,
                 Tourplan: element.attributes.EventDescription,
@@ -98,8 +99,8 @@ function Admin() {
     }
     return(
         <div style={{width:"100vw",height:"100vh"}}>
-            <NavigateBar/>
-            <Sidebar/>
+            <NavigateBar main="main"/>
+            <Sidebar main="main"/>
             <div className="main" id="main" style={{marginLeft:"0px"}}>
                 <div className="gap100"></div>
                 <div className="body">
@@ -132,7 +133,7 @@ function Admin() {
                                         <FaUser size={140} />
                                     </div>
                                     <div className="overall-children-info plus-jakarta">
-                                        {/* <div className="quantity plus-jakarta"><b>{userAmount}</b></div> */}
+                                        <div className="quantity plus-jakarta"><b>{userAmount}</b></div>
                                         <div className="quantity-name">Total Users</div>
                                     </div>
                                 </div>

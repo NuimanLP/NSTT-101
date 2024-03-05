@@ -6,24 +6,28 @@ import { FaUserCircle, FaFacebook, FaLine } from "react-icons/fa";
 import Hamburger from "../Admin/Source/Hamburger.png"
 import { useContext,useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import "./sidebar.css"
 
-function NavigateBar() {
+function NavigateBar(props) {
 
     const navigate = useNavigate()
     const logout = () => {
         navigate("/")
         sessionStorage.setItem("jwt","")
+        sessionStorage.setItem("role","")
+        sessionStorage.setItem("username","")
     }
     const checklogin = () => {
         if(sessionStorage.getItem("jwt")){
             return (
-                <div class="dropdown">
-                    <FaUserCircle className="pointer" size={35} color="white" />
-                    <div class="dropdown-content">
-                        <div className="kanit-medium">บัญชีของท่าน</div>
-                        <div className="kanit-regular pointer">รายละเอียดบัญชี</div>
-                        <div className="kanit-regular pointer" onClick={()=>{logout()}}>ออกจากระบบ</div>
+                <div style={{gap:"20px",display:"flex",flexDirection:"row",height:"100%",alignItems:"center"}}>
+                    <div className="kanit-regular" style={{color:"white"}}>{sessionStorage.getItem("username")}</div>
+                    <div class="dropdown">
+                        <FaUserCircle className="pointer" size={35} color="white" />
+                        <div class="dropdown-content">
+                            <div className="kanit-medium">บัญชีของท่าน</div>
+                            <div className="kanit-regular pointer" onClick={() => { navigate("/profile") }}>รายละเอียดบัญชี</div>
+                            <div className="kanit-regular pointer" onClick={() => { logout() }}>ออกจากระบบ</div>
+                        </div>
                     </div>
                 </div>
             )
@@ -38,8 +42,8 @@ function NavigateBar() {
     }
     function openNav() {
         document.getElementById("mySidebar").style.width = "250px";
-        document.getElementById("main").style.marginLeft = "250px"
-        document.getElementById("main").style.filter = 'blur(3px)'
+        document.getElementById(`${props.main}`).style.marginLeft = "250px"
+        document.getElementById(`${props.main}`).style.filter = 'blur(3px)'
     }
 
     return(
@@ -49,6 +53,7 @@ function NavigateBar() {
                     <img onClick={()=>{openNav()}} className="hamburger" src={Hamburger} style={{width:"40px",height:"40px"}}></img>
                 </div>
                 <div className="right">
+                    
                     {checklogin()}
                 </div>
             </div>

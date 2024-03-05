@@ -6,7 +6,7 @@ import '../CSS/LoginForm.css';
 import NavigateBar from "../../compo/Navbar.js";
 import { EyeFill, EyeSlashFill } from 'react-bootstrap-icons';
 import config from '../../config.js';
-
+import Sidebar from '../../compo/sidebar.js';
 
 
 const LoginForm = () => {
@@ -77,7 +77,8 @@ const LoginForm = () => {
 
     return (
         <div>
-            <NavigateBar/>
+            <NavigateBar main="Login-Container"/>
+            <Sidebar main="Login-Container"/>
             <Form.Group style={{ display: "none" }}>
                 <NavigateBar />
                 <Form.Label>Honeypot</Form.Label>

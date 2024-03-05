@@ -2,10 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { Button, Modal, Form, Table, OverlayTrigger, Popover } from 'react-bootstrap';
 import axios from 'axios';
 import NavigateBar from "../../compo/Navbar.js";
-import '../../compo/Navbar.css';
 import '../CSS/Profile.css';
 import { Receipt } from 'react-bootstrap-icons';
 import config from '../../config.js';
+import Sidebar from '../../compo/sidebar.js';
+
 const Profile = () => {
     const [profile, setProfile] = useState({
         username: '', Fullname: '', email: '', PhoneNumber: ''
@@ -229,7 +230,9 @@ const Profile = () => {
     }
 
     return (
-        <>
+        <div style={{width:"100vw",height:"100vh"}}>
+            <NavigateBar main="profile" />
+            <Sidebar main="profile"/>
             <Modal show={showReceiptModal} onHide={() => setShowReceiptModal(false)}>
                 <Modal.Header closeButton>
                     <Modal.Title>ใบเสร็จ</Modal.Title>
@@ -241,8 +244,8 @@ const Profile = () => {
                     <Button variant="secondary" onClick={() => setShowReceiptModal(false)}>ปิด</Button>
                 </Modal.Footer>
             </Modal>
-            <NavigateBar />
-            <div>
+            <div style={{height:"15vh"}}></div>
+            <div id="profile" style={{transition:"0.5s"}}>
                 <h2 className="profile-title">โปรไฟล์</h2>
                 <p className="profile-info"><strong>ชื่อผู้ใช้:</strong> {profile.username}</p>
                 <p className="profile-info"><strong>ชื่อ-นามสกุล:</strong> {profile.fullname}</p>
@@ -343,7 +346,7 @@ const Profile = () => {
                 </Table>
                 <Button variant="secondary" className="mobile-friendly-button" onClick={handleLogout} style={{fontSize:"18px"}}>ออกจากระบบ</Button>
             </div>
-        </>
+        </div>
     );
 };
 

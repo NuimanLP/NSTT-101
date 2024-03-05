@@ -6,7 +6,7 @@ import NavigateBar from "../../compo/Navbar.js";
 import '../../compo/Navbar.css';
 import '../CSS/Register.css';
 import config from '../../config.js';
-
+import Sidebar from '../../compo/sidebar.js';
 
 const RegisterPage = () => {
     const [username, setUsername] = useState('');
@@ -71,10 +71,13 @@ const RegisterPage = () => {
 
     return (
         <>
-            <NavigateBar />
-            <Container className="d-flex flex-column align-items-center justify-content-center register-border" style={{ marginTop: '50px' }}>
+            <Sidebar main="register"/>
+            <NavigateBar main="register"/>
+            <Container id="register" className="d-flex flex-column align-items-center justify-content-center" style={{height:"100vh"}}>
+                <div style={{height:"10vh"}}>
+                </div>
                 <h2>เข้าสู่ระบบ</h2>
-                <Form onSubmit={handleSubmit} className="w-100" style={{ maxWidth: '320px' }}>
+                <Form onSubmit={handleSubmit} className="w-100 register-border" style={{ maxWidth: '320px' }}>
                     <Form.Group controlId="formBasicUsername">
                         <Form.Label>ชื่อผู้ใช้</Form.Label>
                         <Form.Control

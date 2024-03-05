@@ -62,13 +62,24 @@ function ListTour(props) {
             )
         }
     }
+    function checkDate(start,end) {
+        if (start == end){
+            return (
+                    <div>{start}</div>   
+            )
+        }else{
+            return(
+                    <div>{start} ถึง {end}</div>
+            )
+        }
+    }
     const columns = [
         {   
             render: (record) => {
 
                 return( 
                     
-                    <div style={{ backgroundColor: "white", width: "100%", height: "500px", borderRadius: "10px", display: "flex", flexDirection: "column" }}>
+                    <div style={{ backgroundColor: "white", width: "100%", height: "550px", borderRadius: "15px", display: "flex", flexDirection: "column" }}>
                     
                         <div id="top" style={{ width: "100%", height: "80%", display: "flex", flexDirection: "row" }}>
                             <div id="tour-face" style={{gap: "10px", height: "100%", width: "40%", paddingLeft: "10px", paddingTop: "3px", display: "flex", flexDirection: "column" }}>
@@ -100,7 +111,7 @@ function ListTour(props) {
                                     </div>
                                     <div style={{ gap: "20px", width: "95%", height: "10%", display: "flex", alignItems: "center", paddingLeft: "25px" }}>
                                         <img style={{ height: "60%" }} src={date}></img>
-                                        <div className="kanit-medium">day</div>
+                                        <div className="kanit-medium">{checkDate(record.TourDateStart,record.TourDateFinish)}</div>
                                     </div>
                                     <div style={{ gap: "20px", width: "95%", height: "10%", display: "flex", alignItems: "center", paddingLeft: "25px" }}>
                                         <img style={{ height: "60%" }} src={book}></img>
@@ -141,7 +152,7 @@ function ListTour(props) {
 
                         <div id="bottom" style={{ zIndex: "0", width: "95%", height: "15%", display: "flex", justifyContent: "flex-end" }}>
                             <div style={{ width: "90%", height: "100%", backgroundColor: "#D9D9D9", borderRadius: "0px 8px 25px 25px", paddingRight: "60px", paddingTop: "20px", justifyContent: "flex-end", display: "flex" }}>
-                                <div onClick={()=>{navigate(`/edit/${record.Id}`,{id:record.Id})}}className="showdetail kanit-medium" style={{ backgroundColor: "#F36C60", height: "40px", width: "140px", borderRadius: "5px", display: "flex", justifyContent: "center", alignItems: "center", color: "white", fontSize: "20px" }}>
+                                <div onClick={()=>{navigate(`/tour/${record.Id}`,{id:record.Id})}}className="showdetail kanit-medium" style={{ backgroundColor: "#F36C60", height: "40px", width: "140px", borderRadius: "5px", display: "flex", justifyContent: "center", alignItems: "center", color: "white", fontSize: "20px" }}>
                                     ดูรายละเอียด
                                 </div>
                             </div>
@@ -156,7 +167,7 @@ function ListTour(props) {
         
     ]
     return (
-        <Table dataSource={props.data} columns={columns} />
+        <Table pagination={{ pageSize: 2 }} dataSource={props.data} columns={columns} />
     )
 }
 export default ListTour;

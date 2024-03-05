@@ -10,7 +10,7 @@ module.exports = createCoreController('api::tour.tour', ({ strapi }) => ({
     async listAllBooking() {
         let tour = await strapi.db.query('api::tour.tour').findMany({
             populate: {
-                bookings: {
+                Booking: {
                     populate: {
                         Receipt: true
                     }

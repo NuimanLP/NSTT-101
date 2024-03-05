@@ -6,6 +6,7 @@ import { FaUserCircle, FaFacebook, FaLine } from "react-icons/fa";
 import Hamburger from "../Admin/Source/Hamburger.png"
 import { useContext,useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import axios from "axios"
 
 function NavigateBar(props) {
 
@@ -13,7 +14,9 @@ function NavigateBar(props) {
     const logout = () => {
         navigate("/")
         sessionStorage.clear()
+        delete axios.defaults.headers.common["Authorization"]
     }
+
     const checklogin = () => {
         if(sessionStorage.getItem("jwt")){
             return (

@@ -10,7 +10,7 @@ function Detail(props) {
 
   // Edit states
   const [editDay, setEditDay] = useState(null);
-  const [editDescription, setEditDescription] = useState(null);
+  const [editDescription, setEditDescription] = useState('แก้ไข');
   const [isEditing, setIsEditing] = useState(false);
 
   const fetchAPI = async () => {
@@ -97,10 +97,23 @@ function Detail(props) {
   };
   function isAdmin() {
     if(sessionStorage.getItem("role")=="Admin"){
-      document.getElementById("Btn").style.visibility = "visible"
+      return(
+        <button id="Btn" className='Btn' style={{ marginTop: '2%', marginBottom: '2%' }} onClick={handleCreatePlan}>
+          <div className='sign'>+</div>
+          <div className='text'>Create</div>
+        </button>
+      )
     }
   }
-
+  function isAdmin2(id){
+    if(sessionStorage.getItem("role")==="Admin"){
+      return (
+        <button className='deleteButton' onClick={() => handleDeletePlan(id)}>
+          <img src='https://cdn-icons-png.flaticon.com/128/10741/10741845.png' alt='' width="30px" />
+        </button>
+      )
+    }
+  }
   useEffect(() => {
     fetchAPI();
     fetchAPIPlan();
@@ -108,15 +121,11 @@ function Detail(props) {
 
   return (
     <div>
-      {isAdmin}
       {data && (
         <div className='Detail' style={{ marginTop: '30px' }}>
           <div className='TextDetail' style={{ marginLeft: '40px' }}>รายละเอียดทัวร์</div>
           <div>
-            <button id="Btn" className='Btn' style={{marginTop:'2%',marginBottom:'2%'}} onClick={handleCreatePlan}>
-              <div className='sign'>+</div>
-              <div className='text'>Create</div>
-            </button>
+            {isAdmin()}
           </div>
           {data && (
             <div key={data.id} className='TextDetail0' style={{ marginLeft: '40px' }}>
@@ -161,9 +170,7 @@ function Detail(props) {
                   </div>
                 )}
                 <div style={{marginTop:'5%',marginLeft:'88%'}}>
-                  <button className='deleteButton' onClick={() => handleDeletePlan(val.id)}>
-                    <img src='https://cdn-icons-png.flaticon.com/128/10741/10741845.png' alt='' width="30px"/>
-                  </button>
+                  {isAdmin2(val.id)}
                 </div>
               </div>
             </div>

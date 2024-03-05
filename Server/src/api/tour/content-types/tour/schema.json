@@ -71,6 +71,18 @@
       "relation": "oneToMany",
       "target": "api::booking.booking",
       "mappedBy": "Tour_Table"
+    },
+    "ShoppingCount": {
+      "type": "integer"
+    },
+    "EventCount": {
+      "type": "integer"
+    },
+    "Vehicle": {
+      "type": "string"
+    },
+    "Free": {
+      "type": "string"
     }
   }
 }

@@ -1,0 +1,12 @@
+.payment-body {
+    background-color: rgba(217, 217, 217, 0.39);
+    background-size: cover;
+    background-position: center top;
+    margin: auto;
+    width: 50%;
+    padding: 10%;
+}
+
+.container1{
+    margin:40%
+}

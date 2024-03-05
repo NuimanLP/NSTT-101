@@ -13,6 +13,10 @@ import NavigateBar from './compo/Navbar.js';
 import Admin from "./Admin/Components/Admin/admin.js"
 import Tour from "./Home/Components/MenuTour/Tour.js"
 import BookingPage from './Admin/Components/Booking.js';
+import Payment from './Payment/payment.jsx'
+import Transaction from './Payment/transaction.jsx'
+import Booking from './Payment/booking.jsx'
+import PaidPayment from './Payment/paidPayment.jsx'
 const router = createBrowserRouter([
   {
     path: "/login",
@@ -39,9 +43,25 @@ const router = createBrowserRouter([
     element: <Tour/>
   },
   {
+    path: "/payment/:id",
+    element: <Payment/>
+  },
+  {
+    path:"/transaction/:id/:seat",
+    element: <Transaction/>
+  },
+  {
+    path:"/successPaid",
+    element: <PaidPayment/>
+  },
+  {
+    path:"/bookingTour/:id/:seat/:total",
+    element: <Booking/>
+  },
+  {
     path: "/booking",
     element: <BookingPage/>
-  }
+  },
 
 ]);
 

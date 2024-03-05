@@ -1,7 +1,7 @@
 import { Table } from "antd";
 import "../admin.css"
 import { axioss } from "../axios.js"
-import NavigateBar from "../../../compo/Navbar.js"
+import NavigateBar from "../Navbar"
 import water from "../../Source/water.png"
 import {useState,useEffect} from "react"
 import axios from "axios";
@@ -50,7 +50,7 @@ function ListTour(props) {
                                     </div>
                                     <div style={{ gap: "20px", width: "95%", height: "10%", display: "flex", alignItems: "center", paddingLeft: "25px" }}>
                                         <img style={{ height: "60%" }} src={date}></img>
-                                        <div className="kanit-medium">day</div>
+                                        <div className="kanit-medium">{record.TourDateStart}</div>
                                     </div>
                                     <div style={{ gap: "20px", width: "95%", height: "10%", display: "flex", alignItems: "center", paddingLeft: "25px" }}>
                                         <img style={{ height: "60%" }} src={book}></img>

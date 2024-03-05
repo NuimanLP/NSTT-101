@@ -1,16 +1,14 @@
-import "./Tour.css";
-import NavigateBar from "../../../compo/Navbar.js";
-import water from "../../Source/water.png";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import ListTour from "./details";
 import { Input } from "antd";
-import Sidebar from "../../../compo/sidebar.js";
+import NavigateBar from "../Navbar";
+import water from "../../Source/water.png";
 
 function Tour() {
-    const [data, setData] = useState();
+    const [data, setData] = useState([]);
     const [selectedDate, setSelectedDate] = useState(new Date());
     const [date, setDate] = useState(new Date());
     const [searchTerm, setSearchTerm] = useState("");
@@ -28,10 +26,21 @@ function Tour() {
         return `${year}-${month}-${day}`;
     };
 
-    useEffect(() => {
-        const formattedDate = formatDate(selectedDate);
-        console.log(formattedDate);
-    }, [selectedDate]);
+    const fetchData = async () => {
+        try {
+            let response;
+
+            if (formattedDate) {
+                response = await axios.get(`http://localhost:1337/api/tours?filters[TourDateStart][$eq]=${formattedDate}`);
+            } else {
+                response = await axios.get("http://localhost:1337/api/tours");
+            }
+
+            setData(response.data.data.map(item => item.attributes));
+        } catch (error) {
+            console.error("Error fetching data:", error);
+        }
+    };
 
     const handleSliderChange = (event) => {
         setSliderValue(event.target.value);
@@ -46,27 +55,8 @@ function Tour() {
         }
     };
 
-    useEffect(() => {
-        sliders();
-    }, [sliderValue]);
-
-    const formatted = async () => {
-        try {
-            const formattedDate = formatDate(selectedDate);
-            const response = await axios.get(`http://localhost:1337/api/tours?filters[TourDateStart][$eq]=${formattedDate}`);
-            setData(response.data.data.map(item => item.attributes));
-        } catch (error) {
-            console.error("Error fetching data:", error);
-        }
-    };
-
-    useEffect(() => {
-        formatted();
-    }, [formattedDate]);
-
     const filter = async () => {
         try {
-            // const formattedDate = formatDate(selectedDate);
             const response = await axios.get(`http://localhost:1337/api/tours?populate=*&filters[$and][0][Price][$lte]=${
                 sliderValue}&filters[$or][1][Category][$eq]=${check.oneDayTrip ? 'One-day Trip' : ''}&filters[$or][2][Category][$eq]=${
                     check.multiDayTrip ? 'Multi-day Trip' : ''}`);
@@ -86,33 +76,45 @@ function Tour() {
                 TourAmount: element.attributes.TourAmount,
                 EventName: element.attributes.EventName,
                 image: element.attributes.Image.data[0].attributes.url
-            })).filter((element) => {
-                return (
-                    element.EventName.toLowerCase().includes(searchTerm.toLowerCase())
-                );
-            });
-            setData(map);
+            }));
+    
+            const filteredData = formattedDate
+                ? map.filter(item => formatDate(new Date(item.TourDateStart)) === formattedDate)
+                : map;
+    
+            setData(filteredData);
+    
+            if (date === formattedDate) {
+                console.log("yes");
+            } else {
+                console.log("no");
+                console.log(date);
+            }
+            
         } catch (error) {
             console.error("Error fetching data:", error);
         }
     };
 
-    useEffect(() => {
-        filter();
-    }, [searchTerm, sliderValue, check, selectedDate, formattedDate]);
-    
-
     const handleCalendarChange = async (date) => {
         setDate(date);
         setSelectedDate(date);
         const formattedDate = formatDate(date);
-        setFormattedDate(formattedDate); // เพิ่มบรรทัดนี้
+        setFormattedDate(formattedDate);
         await filter();
     };
-    
 
-    const searchHandler = (value) => {
-        setSearchTerm(value);
+    const search = (searchTerm) => {
+        if (!searchTerm) {
+            fetchData();  // Fetch all data if search term is empty
+            return;
+        }
+
+        const filteredData = data.filter(item =>
+            item.EventName.toLowerCase().includes(searchTerm.toLowerCase())
+        );
+
+        setData(filteredData);
     };
 
     const handleCheckboxChange = (event) => {
@@ -129,25 +131,44 @@ function Tour() {
         await filter();
     };
 
+    useEffect(() => {
+        fetchData();
+    }, [formattedDate]);
+
+    useEffect(() => {
+        sliders();
+    }, [sliderValue]);
+
+    useEffect(() => {
+        if (searchTerm === '') {
+            filter();
+        } else {
+            search(searchTerm);
+        }
+    }, [searchTerm, sliderValue, check, selectedDate, formattedDate]);
+
     return (
         <div>
-            <NavigateBar main="body" />
-            <Sidebar main="body"/>
+            <NavigateBar />
+
             <div className="gap100"></div>
-            <div id="body" className="body" style={{transition:"0.5s"}}>
+            <div className="body">
                 <div className="row">
                     <div className="element">
                         <div style={{ display: "flex", justifyContent: "center" }}>
-                            <img src={water} style={{ borderRadius: "15px", display: "flex", justifyContent: "center" }} width="1800" height="600" alt="water" />
+                            <img src={water} style={{ borderRadius: "15px", display: "flex", justifyContent: "center",marginTop: "30px" }} width="1800" height="600" alt="water" />
                         </div>
 
                         <div className="entries">
                             <div className="entries-filter" style={{ gap: "20px", display: "flex", flexDirection: "column" }}>
-                                <Input.Search placeholder="ค้นหาทัวร์..." onSearch={searchHandler} style={{ width: "88%", padding: "20px", borderRadius: "5px", border: "1px solid #ccc" }} />
-                                <div className="border-shadow" style={{ backgroundColor: "white", width: "100%", height: "110px", borderRadius: "10px 10px 0px 0px", display: "flex", flexDirection: "column", gap: "15px" }}>
+                                <Input.Search className="border-shadow"
+                                    placeholder="ค้นหาทัวร์..."
+                                    onSearch={(value) => setSearchTerm(value)}
+                                    style={{ width: "100%", borderRadius: "1px", border: "0px solid #ccc" }}
+                                />
+                                <div className="border-shadow" style={{ backgroundColor: "white", width: "100%", height: "110px", borderRadius: "10px 10px 10px 10px", display: "flex", flexDirection: "column", gap: "15px" }}>
                                     <div style={{ display: "flex", justifyContent: "space-between" }}>
                                         <div style={{ fontSize: "25px", paddingLeft: "10px", paddingTop: "20px" }}><b>ช่วงราคา</b></div>
-                                        <div onClick={handleClearDate} style={{ fontSize: "20px", color: "#795695", paddingRight: "20px", paddingTop: "20px", cursor: "pointer" }}><u><b>ล้างค่าวันที่</b></u></div>
                                     </div>
                                     <div className="slidecontainer">
                                         <input
@@ -163,7 +184,7 @@ function Tour() {
                                     </div>
                                 </div>
 
-                                <div style={{ backgroundColor: "white", width: "100%", height: "170px", display: "flex", flexDirection: "column", paddingTop: "15px", gap: "15px" }}>
+                                <div className="border-shadow" style={{ backgroundColor: "white", width: "100%", height: "150px", display: "flex", flexDirection: "column", paddingTop: "15px", borderRadius: "10px 10px 10px 10px", gap: "15px" }}>
                                     <div style={{ fontSize: "25px", paddingLeft: "20px" }}><b>ประเภททัวร์</b></div>
                                     <div>
                                         <div style={{ display: "flex", width: "100%", height: "40px" }}>
@@ -180,7 +201,7 @@ function Tour() {
                                         </div>
 
                                         <div style={{ display: "flex", width: "100%", height: "40px" }}>
-                                            <div style={{ paddingLeft: "35px", paddingTop: "5px", display: "flex", alignItems: "center", width: "100%", gap: "10px" }}>
+                                            <div style={{ paddingLeft: "35px", paddingTop: "3px", display: "flex", alignItems: "center", width: "100%", gap: "10px" }}>
                                                 <input
                                                     className="check"
                                                     type="checkbox"
@@ -191,7 +212,8 @@ function Tour() {
                                                 <div>Multi-day Trip</div>
                                             </div>
                                         </div>
-                                        <div style={{ marginTop: "20px", display: "flex", justifyContent: "center" }}>
+                                        <div onClick={handleClearDate} style={{ fontSize: "20px", color: "#795695", paddingRight: "20px", paddingTop: "20px", cursor: "pointer" }}><u><b>ล้างค่าวันที่</b></u></div>
+                                        <div className="border-shadow" style={{ marginTop: "3px", display: "flex", justifyContent: "center" }}>
                                             <Calendar
                                                 onChange={handleCalendarChange}
                                                 value={date}

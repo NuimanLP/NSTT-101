@@ -76,8 +76,8 @@ export default function BookingPage() {
 
     return (
         <div>
-            <NavigateBar/>
-            <Sidebar/>
+            <NavigateBar main="main"/>
+            <Sidebar main="main"/>
             <div className="gap100"></div>
             <div id="main" className="body" style={{justifyContent:"",flexDirection:"column",alignItems:"center",gap:"20px"}}>
                 <div className="kanit-medium" style={{marginTop:"20px",width:"85%",display:"flex",justifyContent:"center",alignItems:"center"}}>

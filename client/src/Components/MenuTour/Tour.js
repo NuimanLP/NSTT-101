@@ -1,25 +1,46 @@
-import "./Tour.css";
-import NavigateBar from "../Navbar";
-import water from "../../Source/water.png";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import ListTour from "./details";
-import Search from "antd/es/input/Search";
+import { Input } from "antd";
+import NavigateBar from "../Navbar";
+import water from "../../Source/water.png";
 
 function Tour() {
-    const [data, setData] = useState();
-    const [raw, setRaw] = useState()
-    // const [start, setstart] = useState(false);
-    // const [end, setend] = useState(false);
-    const [date, setDate] = useState();
+    const [data, setData] = useState([]);
+    const [selectedDate, setSelectedDate] = useState(new Date());
+    const [date, setDate] = useState(new Date());
     const [searchTerm, setSearchTerm] = useState("");
     const [sliderValue, setSliderValue] = useState(9999);
+    const [formattedDate, setFormattedDate] = useState(); 
     const [check, setCheck] = useState({
         oneDayTrip: true,
         multiDayTrip: true
     });
+
+    const formatDate = (date) => {
+        const year = date.getFullYear();
+        const month = String(date.getMonth() + 1).padStart(2, '0');
+        const day = String(date.getDate()).padStart(2, '0');
+        return `${year}-${month}-${day}`;
+    };
+
+    const fetchData = async () => {
+        try {
+            let response;
+
+            if (formattedDate) {
+                response = await axios.get(`http://localhost:1337/api/tours?filters[TourDateStart][$eq]=${formattedDate}`);
+            } else {
+                response = await axios.get("http://localhost:1337/api/tours");
+            }
+
+            setData(response.data.data.map(item => item.attributes));
+        } catch (error) {
+            console.error("Error fetching data:", error);
+        }
+    };
 
     const handleSliderChange = (event) => {
         setSliderValue(event.target.value);
@@ -28,70 +49,18 @@ function Tour() {
     const sliders = async () => {
         try {
             const response = await axios.get(`http://localhost:1337/api/tours?filters[Price][$lte]=${sliderValue}`);
-            setData(response.data.data.attributes);
+            setData(response.data.data.map(item => item.attributes));
         } catch (error) {
             console.error("Error fetching data:", error);
         }
     };
 
-    // const checks = async () => {
-    //     try {
-    //         const response = await axios.get(`http://localhost:1337/api/tours?filters[Category][$eq]=${check.oneDayTrip ? 'One-day Trip' : ''}${check.multiDayTrip ? 'Multi-day Trip' : ''}`);
-    //         setData(response.data.data);
-    //     } catch (error) {
-    //         console.error("Error fetching data:", error);
-    //     }
-    // };
-
-    useEffect(() => {
-        sliders();
-    }, [sliderValue]);
-
-    // const datetime = async () => {
-    //     try {
-    //         const response = await axios.get(`http://localhost:1337/api/tours?filters[TourDateStart][$gte]=${date}&filters[TourDateFinish][$lte]=${date}`);
-    //         setData(response.data.data.attributes);
-    //     } catch (error) {
-    //         console.error("Error fetching data:", error);
-    //     }
-    // }
-
-    // useEffect(() => {
-    //     fetchAPI();
-    // }, []);
-
-    // const fetchAPI = async () => {
-    //     try {
-    //         const response = await axios.get("http://localhost:1337/api/tours?populate=*");
-    //         setRaw(response)  
-    //         const map = response.data.data.map((element)=>({
-    //             Price: element.attributes.Price,
-    //             Id: element.id,
-    //             Star: element.attributes.Star,
-    //             Category: element.attributes.Category,
-    //             Meal: element.attributes.MealAmount,
-    //             CurrentSeat: element.attributes.CurrentSeat,
-    //             TotalSeat: element.attributes.AvailableSeat,
-    //             Tourplan: element.attributes.EventDescription,
-    //             DayCount: element.attributes.TimeCount,
-    //             TourDateStart: element.attributes.TourDateStart,
-    //             TourDateFinish: element.attributes.TourDateFinish,
-    //             TourAmount: element.attributes.TourAmount,
-    //             EventName: element.attributes.EventName,
-    //             image: element.attributes.Image.data[0].attributes.url
-    //         }))
-    //         setData(map)
-    // ;
-
-    //     } catch (error) {
-    //         console.error("Error fetching data:", error);
-    //     }
-    // };
-
     const filter = async () => {
         try {
-            const response = await axios.get(`http://localhost:1337/api/tours?populate=*&filters[$and][0][Price][$lte]=${sliderValue}&filters[$or][1][Category][$eq]=${check.oneDayTrip ? 'One-day Trip' : ''}&filters[$or][2][Category][$eq]=${check.multiDayTrip ? 'Multi-day Trip' : ''}`);
-            setRaw(response)
+            const response = await axios.get(`http://localhost:1337/api/tours?populate=*&filters[$and][0][Price][$lte]=${
+                sliderValue}&filters[$or][1][Category][$eq]=${check.oneDayTrip ? 'One-day Trip' : ''}&filters[$or][2][Category][$eq]=${
+                    check.multiDayTrip ? 'Multi-day Trip' : ''}`);
+            
             const map = response.data.data.map((element) => ({
                 Price: element.attributes.Price,
                 Id: element.id,
@@ -107,24 +76,45 @@ function Tour() {
                 TourAmount: element.attributes.TourAmount,
                 EventName: element.attributes.EventName,
                 image: element.attributes.Image.data[0].attributes.url
-            })).filter((element) => {
-                return (
-                    element.EventName.toLowerCase().includes(searchTerm.toLowerCase())
-                )
-            })
-            setData(map)
-                ;
-
+            }));
+    
+            const filteredData = formattedDate
+                ? map.filter(item => formatDate(new Date(item.TourDateStart)) === formattedDate)
+                : map;
+    
+            setData(filteredData);
+    
+            if (date === formattedDate) {
+                console.log("yes");
+            } else {
+                console.log("no");
+                console.log(date);
+            }
+            
         } catch (error) {
             console.error("Error fetching data:", error);
         }
     };
-    useEffect(() => {
-        filter()
-    }, [searchTerm, sliderValue, check,date])
 
-    const search = (e) => {
-        setSearchTerm(e.target.value);
+    const handleCalendarChange = async (date) => {
+        setDate(date);
+        setSelectedDate(date);
+        const formattedDate = formatDate(date);
+        setFormattedDate(formattedDate);
+        await filter();
+    };
+
+    const search = (searchTerm) => {
+        if (!searchTerm) {
+            fetchData();  // Fetch all data if search term is empty
+            return;
+        }
+
+        const filteredData = data.filter(item =>
+            item.EventName.toLowerCase().includes(searchTerm.toLowerCase())
+        );
+
+        setData(filteredData);
     };
 
     const handleCheckboxChange = (event) => {
@@ -134,9 +124,28 @@ function Tour() {
             [name]: checked
         }));
     };
-    const onChange = date => {
-        setDate(date);
+
+    const handleClearDate = async () => {
+        setDate(new Date());
+        setSelectedDate(new Date());
+        await filter();
     };
+
+    useEffect(() => {
+        fetchData();
+    }, [formattedDate]);
+
+    useEffect(() => {
+        sliders();
+    }, [sliderValue]);
+
+    useEffect(() => {
+        if (searchTerm === '') {
+            filter();
+        } else {
+            search(searchTerm);
+        }
+    }, [searchTerm, sliderValue, check, selectedDate, formattedDate]);
 
     return (
         <div>
@@ -147,16 +156,19 @@ function Tour() {
                 <div className="row">
                     <div className="element">
                         <div style={{ display: "flex", justifyContent: "center" }}>
-                            <img src={water} style={{ borderRadius: "15px", display: "flex", justifyContent: "center" }} width="1800" height="600" alt="water" />
+                            <img src={water} style={{ borderRadius: "15px", display: "flex", justifyContent: "center",marginTop: "30px" }} width="1800" height="600" alt="water" />
                         </div>
 
                         <div className="entries">
                             <div className="entries-filter" style={{ gap: "20px", display: "flex", flexDirection: "column" }}>
-                                <input type="text" placeholder="ค้นหาทัวร์..." onChange={search} style={{ width: "88%", padding: "20px", borderRadius: "5px", border: "1px solid #ccc" }} />
-                                <div className="border-shadow" style={{ backgroundColor: "white", width: "100%", height: "110px", borderRadius: "10px 10px 0px 0px", display: "flex", flexDirection: "column", gap: "15px" }}>
+                                <Input.Search className="border-shadow"
+                                    placeholder="ค้นหาทัวร์..."
+                                    onSearch={(value) => setSearchTerm(value)}
+                                    style={{ width: "100%", borderRadius: "1px", border: "0px solid #ccc" }}
+                                />
+                                <div className="border-shadow" style={{ backgroundColor: "white", width: "100%", height: "110px", borderRadius: "10px 10px 10px 10px", display: "flex", flexDirection: "column", gap: "15px" }}>
                                     <div style={{ display: "flex", justifyContent: "space-between" }}>
                                         <div style={{ fontSize: "25px", paddingLeft: "10px", paddingTop: "20px" }}><b>ช่วงราคา</b></div>
-                                        <div onClick={() => { console.log(date.toLocaleDateString()) }} style={{ fontSize: "20px", color: "#795695", paddingRight: "20px", paddingTop: "20px" }}><u><b>ล้างค่า</b></u></div>
                                     </div>
                                     <div className="slidecontainer">
                                         <input
@@ -172,7 +184,7 @@ function Tour() {
                                     </div>
                                 </div>
 
-                                <div style={{ backgroundColor: "white", width: "100%", height: "170px", display: "flex", flexDirection: "column", paddingTop: "15px", gap: "15px" }}>
+                                <div className="border-shadow" style={{ backgroundColor: "white", width: "100%", height: "150px", display: "flex", flexDirection: "column", paddingTop: "15px", borderRadius: "10px 10px 10px 10px", gap: "15px" }}>
                                     <div style={{ fontSize: "25px", paddingLeft: "20px" }}><b>ประเภททัวร์</b></div>
                                     <div>
                                         <div style={{ display: "flex", width: "100%", height: "40px" }}>
@@ -189,7 +201,7 @@ function Tour() {
                                         </div>
 
                                         <div style={{ display: "flex", width: "100%", height: "40px" }}>
-                                            <div style={{ paddingLeft: "35px", paddingTop: "5px", display: "flex", alignItems: "center", width: "100%", gap: "10px" }}>
+                                            <div style={{ paddingLeft: "35px", paddingTop: "3px", display: "flex", alignItems: "center", width: "100%", gap: "10px" }}>
                                                 <input
                                                     className="check"
                                                     type="checkbox"
@@ -200,15 +212,15 @@ function Tour() {
                                                 <div>Multi-day Trip</div>
                                             </div>
                                         </div>
-                                        <div style={{ marginTop: "20px", display: "flex", justifyContent: "center" }}>
+                                        <div onClick={handleClearDate} style={{ fontSize: "20px", color: "#795695", paddingRight: "20px", paddingTop: "20px", cursor: "pointer" }}><u><b>ล้างค่าวันที่</b></u></div>
+                                        <div className="border-shadow" style={{ marginTop: "3px", display: "flex", justifyContent: "center" }}>
                                             <Calendar
-                                                onChange={onChange}
+                                                onChange={handleCalendarChange}
                                                 value={date}
                                             />
                                         </div>
                                     </div>
                                 </div>
-
                             </div>
                             <div className="entries-list">
                                 <div style={{ height: "70px" }}></div>
@@ -216,33 +228,7 @@ function Tour() {
                                     <ListTour data={data} />
                                 </div>
                             </div>
-
-                            {/* {data && data
-                                .filter(val => {
-                                    return (
-                                        (check.oneDayTrip && val.attributes.Category === 'One-day') ||
-                                        (check.multiDayTrip && val.attributes.Category === 'Multi-day ') ||
-                                        (!check.oneDayTrip && !check.multiDayTrip)
-                                    ) && (
-                                            searchTerm === "" ||
-                                            val.attributes.EventName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                                            val.attributes.EventDescription.toLowerCase().includes(searchTerm.toLowerCase())
-                                        );
-                                })
-                                .map(val => (
-                                    <div className="entries-list" key={val.id}>
-                                        <div style={{ height: "70px" }}></div>
-                                        <div>{val.attributes.EventName}</div>
-                                        <div>{val.attributes.EventDescription}</div>
-                                        <div>{val.attributes.TimeCount}</div>
-                                        <div>{val.attributes.Price}</div>
-                                        <div>{val.attributes.Category}</div>
-                                        <div className="border-shadow" style={{ backgroundColor: "white", borderRadius: "10px", width: "100%", height: "1200px" }}></div>
-                                    </div>
-                                ))} */}
-
                         </div>
-
                     </div>
                 </div>
             </div>

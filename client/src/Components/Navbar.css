@@ -96,6 +96,11 @@
       background-color: #3e8e41;
 }
 
+.dropdown img {
+    margin-right: 5px;
+    
+}
+
 .test {
     display: flex;
     justify-content: space-between;
@@ -112,6 +117,15 @@
     font-weight: 700;
     font-style: normal;
 }
+
+.clear-button {
+    background-color: transparent;
+    border: none;
+    color: white; /* สีของตัวหนังสือ */
+    cursor: pointer;
+    font-size: 16px;
+}
+
 .navbar {
     display: flex;
     flex-direction: column;

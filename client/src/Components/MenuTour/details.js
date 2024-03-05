@@ -40,7 +40,7 @@ function ListTour(props) {
                             <div id="tour-detail" style={{ height: "100%", width: "60%", display: "flex", flexDirection: "column" }}>
                                 <div className="kanit-medium" style={{ fontSize: "25px", width: "100%", height: "10%", paddingTop: "25px", display: "flex", flexDirection: "row", justifyContent: "space-between" }}>
                                     <div style={{ paddingLeft: "10px" }}><b>{record.EventName}</b></div>
-                                    <div style={{ paddingRight: "10px" }}><img className="editbutton" style={{ height: "90%" }} src={edit}></img></div>
+                                    {/* <div style={{ paddingRight: "10px" }}><img className="editbutton" style={{ height: "90%" }} src={edit}></img></div> */}
                                 </div>
                                 <div style={{ width: "100%", height: "90%" }}>
                                     <div style={{ width: "100%", height: "10%" }}></div>
@@ -50,7 +50,7 @@ function ListTour(props) {
                                     </div>
                                     <div style={{ gap: "20px", width: "95%", height: "10%", display: "flex", alignItems: "center", paddingLeft: "25px" }}>
                                         <img style={{ height: "60%" }} src={date}></img>
-                                        <div className="kanit-medium">day</div>
+                                        <div className="kanit-medium">{record.TourDateStart}</div>
                                     </div>
                                     <div style={{ gap: "20px", width: "95%", height: "10%", display: "flex", alignItems: "center", paddingLeft: "25px" }}>
                                         <img style={{ height: "60%" }} src={book}></img>

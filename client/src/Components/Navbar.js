@@ -16,13 +16,13 @@ function NavigateBar() {
             <div className="contact">
                 <div className="left">
                     <img src={icon} width="60" height="60"></img>
-                    <div className="white">เข้าสู่ระบบ</div>
+                    <button className="clear-button">เข้าสู่ระบบ</button>
                 </div>
                 <div className="right">
                     <div class="dropdown">
-                        <img src={line} width="55" height="55"></img>
-                        <img src={facebook} width="60" height="60"></img>
-                        <img src={gmail} width="60" height="60"></img>
+                        <img src={line} width="50" height="50"></img>
+                        <img src={facebook} width="50" height="50"></img>
+                        <img src={gmail} width="50" height="50"></img>
                         <div class="dropdown-content">
                             <a href="#">Link 1</a>
                             <a href="#">Link 2</a>

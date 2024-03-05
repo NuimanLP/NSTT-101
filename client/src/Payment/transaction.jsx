@@ -8,8 +8,9 @@ import { API } from './axiosAPI.js';
 
 function Transaction() {
     const [TourData, setTourData] = useState();
-    const [cost, setCost] = useState(0); // Initialize with 0
-    const [total, setTotal] = useState(0); // Initialize with 0
+    const [cost, setCost] = useState(0); 
+    const [total, setTotal] = useState(0);
+    const [img, setImg] = useState(null); 
     const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNzA5NjI5MjcwLCJleHAiOjE3MTIyMjEyNzB9.f3zAqgQ5HjfROxfHLbS8s64UI5nNN1xphuxCeAV1Mic';
     const navigate = useNavigate();
     const { id, seat } = useParams(null);
@@ -19,7 +20,6 @@ function Transaction() {
             const Data = await axios.get(`${API.prefix}${API.tour}/${id}`, {
                 headers: { Authorization: `Bearer ${token}` }
             });
-            console.log(Data);
             const tourAttributes = Data.data.data.attributes;
             setTourData(tourAttributes);
             const tourCost = tourAttributes.Price;
@@ -47,7 +47,7 @@ function Transaction() {
 
                     <div>
                         <div style={{ textAlign: 'center' }}><label>วิธีการชำระเงิน</label></div>
-                        <img src='' width='60%' height='60%' />
+                        <img src=''></img>
                         <div style={{ display: 'flex' }}>
                             <div className='cost-box'>
                                 <div style={{ display: "flex" }}>

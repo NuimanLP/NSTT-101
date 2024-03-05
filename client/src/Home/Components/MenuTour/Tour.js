@@ -4,15 +4,15 @@ import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import ListTour from "./details";
 import { Input } from "antd";
-import NavigateBar from "../Navbar";
+import NavigateBar from "../../../compo/Navbar.js";
 import water from "../../Source/water.png";
-
+import Sidebar from "../../../compo/sidebar.js";
 function Tour() {
     const [data, setData] = useState([]);
     const [selectedDate, setSelectedDate] = useState(new Date());
     const [date, setDate] = useState(new Date());
     const [searchTerm, setSearchTerm] = useState("");
-    const [sliderValue, setSliderValue] = useState(9999);
+    const [sliderValue, setSliderValue] = useState(10000);
     const [formattedDate, setFormattedDate] = useState(); 
     const [check, setCheck] = useState({
         oneDayTrip: true,
@@ -71,11 +71,12 @@ function Tour() {
                 TotalSeat: element.attributes.AvailableSeat,
                 Tourplan: element.attributes.EventDescription,
                 DayCount: element.attributes.TimeCount,
-                TourDateStart: element.attributes.TourDateStart,
+                TourDateStart: element.attributes.TourDateInit,
                 TourDateFinish: element.attributes.TourDateFinish,
                 TourAmount: element.attributes.TourAmount,
                 EventName: element.attributes.EventName,
-                image: element.attributes.Image.data[0].attributes.url
+                image: element.attributes.Image.data[0].attributes.url,
+                Seatleft: element.attributes.AvailableSeat - element.attributes.CurrentSeat
             }));
     
             const filteredData = formattedDate
@@ -124,6 +125,11 @@ function Tour() {
             [name]: checked
         }));
     };
+    const clear = () => { 
+        setSearchTerm("") 
+        setSliderValue(10000) 
+        document.getElementById("name").value = "" 
+}
 
     const handleClearDate = async () => {
         setDate(new Date());
@@ -149,10 +155,10 @@ function Tour() {
 
     return (
         <div>
-            <NavigateBar />
-
+            <NavigateBar main="body"/>
+            <Sidebar main="body"/>
             <div className="gap100"></div>
-            <div className="body">
+            <div id="body" className="body">
                 <div className="row">
                     <div className="element">
                         <div style={{ display: "flex", justifyContent: "center" }}>
@@ -161,66 +167,78 @@ function Tour() {
 
                         <div className="entries">
                             <div className="entries-filter" style={{ gap: "20px", display: "flex", flexDirection: "column" }}>
-                                <Input.Search className="border-shadow"
+                                <input className="border-shadow kanit-medium"
                                     placeholder="ค้นหาทัวร์..."
                                     onSearch={(value) => setSearchTerm(value)}
-                                    style={{ width: "100%", borderRadius: "1px", border: "0px solid #ccc" }}
+                                    style={{ fontSize: "20px", width: "88%", padding: "20px", borderRadius: "5px", border: "1px solid #ccc", height: "1%" }}
                                 />
-                                <div className="border-shadow" style={{ backgroundColor: "white", width: "100%", height: "110px", borderRadius: "10px 10px 10px 10px", display: "flex", flexDirection: "column", gap: "15px" }}>
-                                    <div style={{ display: "flex", justifyContent: "space-between" }}>
-                                        <div style={{ fontSize: "25px", paddingLeft: "10px", paddingTop: "20px" }}><b>ช่วงราคา</b></div>
-                                    </div>
-                                    <div className="slidecontainer">
-                                        <input
-                                            type="range"
-                                            min="0"
-                                            max="9999"
-                                            value={sliderValue}
-                                            onChange={handleSliderChange}
-                                            className="slider"
-                                            id="myRange"
-                                        />
-                                        {sliderValue}
-                                    </div>
-                                </div>
-
-                                <div className="border-shadow" style={{ backgroundColor: "white", width: "100%", height: "150px", display: "flex", flexDirection: "column", paddingTop: "15px", borderRadius: "10px 10px 10px 10px", gap: "15px" }}>
-                                    <div style={{ fontSize: "25px", paddingLeft: "20px" }}><b>ประเภททัวร์</b></div>
-                                    <div>
-                                        <div style={{ display: "flex", width: "100%", height: "40px" }}>
-                                            <div style={{ paddingLeft: "35px", paddingTop: "5px", display: "flex", alignItems: "center", width: "100%", gap: "10px" }}>
-                                                <input
-                                                    className="check"
-                                                    type="checkbox"
-                                                    name="oneDayTrip"
-                                                    checked={check.oneDayTrip}
-                                                    onChange={handleCheckboxChange}
-                                                />
-                                                <div>One-day Trip</div>
-                                            </div>
+                                    <div className="border-shadow" style={{ backgroundColor: "white", width: "100%", height: "150px", borderRadius: "10px 10px 0px 0px", display: "flex", flexDirection: "column", gap: "10px" }}>
+                                        <div style={{ display: "flex", justifyContent: "space-between" }}>
+                                            <div className="kanit-medium" style={{ fontSize: "25px", paddingLeft: "25px", paddingTop: "20px" }}><b>ช่วงราคา</b></div>
+                                            <div className="clear kanit-medium" style={{ fontSize: "20px", color: "#795695", paddingRight: "20px", paddingTop: "20px" }}><u><b>ล้างค่า</b></u></div>
                                         </div>
-
-                                        <div style={{ display: "flex", width: "100%", height: "40px" }}>
-                                            <div style={{ paddingLeft: "35px", paddingTop: "3px", display: "flex", alignItems: "center", width: "100%", gap: "10px" }}>
-                                                <input
-                                                    className="check"
-                                                    type="checkbox"
-                                                    name="multiDayTrip"
-                                                    checked={check.multiDayTrip}
-                                                    onChange={handleCheckboxChange}
-                                                />
-                                                <div>Multi-day Trip</div>
-                                            </div>
-                                        </div>
-                                        <div onClick={handleClearDate} style={{ fontSize: "20px", color: "#795695", paddingRight: "20px", paddingTop: "20px", cursor: "pointer" }}><u><b>ล้างค่าวันที่</b></u></div>
-                                        <div className="border-shadow" style={{ marginTop: "3px", display: "flex", justifyContent: "center" }}>
-                                            <Calendar
-                                                onChange={handleCalendarChange}
-                                                value={date}
+                                        <div style={{ display: "flex", justifyContent: "center" }}>
+                                            <input
+                                                type="range"
+                                                min="0"
+                                                max="10000"
+                                                value={sliderValue}
+                                                onChange={handleSliderChange}
+                                                className="priceSlider"
+                                                id="myRange"
                                             />
                                         </div>
+
+                                        <div style={{ display: "flex", justifyContent: "flex-end", gap: "10px", paddingRight: "20px" }}>
+                                            <div className="kanit-regular" style={{ fontSize: "20px" }}>ราคาสูงสุด</div>
+                                            <div style={{ display: "flex", alignItems: "center" }}>
+                                                <input onChange={handleSliderChange} min="0" max="10000" className="kanit-medium" style={{ textAlign: "center", width: "100px", fontSize: "25px", height: "30px" }} type="number" value={sliderValue}></input>
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
+
+                                    <div style={{ backgroundColor: "white", width: "100%", height: "170px", display: "flex", flexDirection: "column", paddingTop: "15px", gap: "15px" }}>
+                                        <div className="kanit-medium" style={{ fontSize: "25px", paddingLeft: "20px" }}><b>ประเภททัวร์</b></div>
+                                        <div>
+                                            <div style={{ display: "flex", width: "100%", height: "40px" }}>
+                                                <div style={{ paddingLeft: "35px", paddingTop: "5px", display: "flex", alignItems: "center", width: "100%", gap: "10px" }}>
+                                                    <input
+                                                        id="onetourcheck"
+                                                        className="check"
+                                                        type="checkbox"
+                                                        name="oneDayTrip"
+                                                        checked={check.oneDayTrip}
+                                                        onChange={handleCheckboxChange}
+                                                    />
+                                                    <div>One-day Trip</div>
+                                                </div>
+                                            </div>
+
+                                            <div style={{ display: "flex", width: "100%", height: "40px" }}>
+                                                <div style={{ paddingLeft: "35px", paddingTop: "5px", display: "flex", alignItems: "center", width: "100%", gap: "10px" }}>
+                                                    <input
+                                                        id="multitourcheck"
+                                                        className="check"
+                                                        type="checkbox"
+                                                        name="multiDayTrip"
+                                                        checked={check.multiDayTrip}
+                                                        onChange={handleCheckboxChange}
+                                                    />
+                                                    <div>Multi-day Trip</div>
+                                                </div>
+                                            </div>
+
+
+                                        </div>
+                                    </div>
+                                    <div style={{ height: "400px", backgroundColor: "white", borderRadius: "10px" }}>
+                                        <div style={{ marginTop: "20px", display: "flex", justifyContent: "center", flexDirection: "column", gap: "10px" }}>
+                                            <div className="kanit-medium" style={{ paddingLeft: "25px", paddingTop: "20px", fontSize: "25px" }}><b>ระบุวันที่</b></div>
+                                            <div style={{ display: "flex", justifyContent: "center" }}>
+                                                <Calendar onChange={handleCalendarChange} value={date} />
+                                            </div>
+                                        </div>
+                                    </div>
                             </div>
                             <div className="entries-list">
                                 <div style={{ height: "70px" }}></div>

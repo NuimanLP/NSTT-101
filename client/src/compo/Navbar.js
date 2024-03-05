@@ -12,9 +12,7 @@ function NavigateBar(props) {
     const navigate = useNavigate()
     const logout = () => {
         navigate("/")
-        sessionStorage.setItem("jwt","")
-        sessionStorage.setItem("role","")
-        sessionStorage.setItem("username","")
+        sessionStorage.clear()
     }
     const checklogin = () => {
         if(sessionStorage.getItem("jwt")){

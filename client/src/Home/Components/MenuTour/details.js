@@ -1,7 +1,6 @@
 import { Table } from "antd";
 import "../admin.css"
 import { axioss } from "../axios.js"
-import NavigateBar from "../Navbar"
 import water from "../../Source/water.png"
 import {useState,useEffect} from "react"
 import axios from "axios";
@@ -11,9 +10,80 @@ import book from "../../Source/book.png"
 import edit from "../../Source/edit.png"
 import { IoMdStar } from "react-icons/io"
 import rocket from "../../Source/rocket.png"
+import { useNavigate } from "react-router-dom";
 
 function ListTour(props) {
-    
+    const navigate = useNavigate()
+    function starUp(star) {
+        if(star==1){
+            return(
+                <div>
+                    <IoMdStar id="star" className="star" style={{color:"yellow"}}/>
+                    <IoMdStar id="star" className="star" />
+                    <IoMdStar id="star" className="star" />
+                </div>
+            )
+        }else if(star==2){
+            return (
+                <div>
+                    <IoMdStar id="star" className="star" style={{color:"yellow"}}/>
+                    <IoMdStar id="star" className="star" style={{color:"yellow"}}/>
+                    <IoMdStar id="star" className="star" />
+                </div>  
+            )
+        }else if(star==0){
+            return (
+                <div>
+                    <IoMdStar id="star" className="star"/>
+                    <IoMdStar id="star" className="star"/>
+                    <IoMdStar id="star" className="star"/>
+                </div>
+            )
+        }else{
+            return (
+            <div>
+                <IoMdStar id="star" className="star" style={{color:"yellow"}}/>
+                <IoMdStar id="star" className="star" style={{color:"yellow"}}/>
+                <IoMdStar id="star" className="star" style={{color:"yellow"}}/>
+            </div>  
+            )
+        }
+    }
+    function starDown(star) {
+        if(star==4){
+            return (
+                <div>
+                    <IoMdStar id="star" className="star" style={{color:"yellow"}}/>
+                    <IoMdStar id="star" className="star" />
+                </div>
+            )
+        }else if(star==5){
+            return(
+                <div>
+                    <IoMdStar id="star" className="star" style={{color:"yellow"}}/>
+                    <IoMdStar id="star" className="star" style={{color:"yellow"}}/>
+                </div>
+            )
+        }else if(star==0 || star==1 || star==2 || star==3){
+            return(
+            <div>
+                <IoMdStar id="star" className="star"/>
+                <IoMdStar id="star" className="star"/>
+            </div>
+            )
+        }
+    }
+    function checkDate(start,end) {
+        if (start == end){
+            return (
+                    <div>{start}</div>   
+            )
+        }else{
+            return(
+                    <div>{start} ถึง {end}</div>
+            )
+        }
+    }
     const columns = [
         {   
             render: (record) => {
@@ -50,7 +120,7 @@ function ListTour(props) {
                                     </div>
                                     <div style={{ gap: "20px", width: "95%", height: "10%", display: "flex", alignItems: "center", paddingLeft: "25px" }}>
                                         <img style={{ height: "60%" }} src={date}></img>
-                                        <div className="kanit-medium">{record.TourDateStart}</div>
+                                        <div className="kanit-medium">{checkDate(record.TourDateStart,record.TourDateFinish)}</div>
                                     </div>
                                     <div style={{ gap: "20px", width: "95%", height: "10%", display: "flex", alignItems: "center", paddingLeft: "25px" }}>
                                         <img style={{ height: "60%" }} src={book}></img>
@@ -69,20 +139,17 @@ function ListTour(props) {
                                         <div style={{ display: "flex", justifyContent: "center", alignItems: "center", flexDirection: "column", height: "100%", width: "25%", borderTop: "2px solid #D9D9D9", borderBottom: "2px solid #D9D9D9", borderRight: "2px solid #D9D9D9" }}>
                                             <div style={{ display: "flex", flexDirection: "column" }}>
                                                 <div style={{ display: "flex", flexDirection: "row" }}>
-                                                    <IoMdStar className="star" />
-                                                    <IoMdStar className="star" />
-                                                    <IoMdStar className="star" />
+                                                    {starUp(record.Star)}
                                                 </div>
                                                 <div style={{ display: "flex", flexDirection: "row", justifyContent: "center" }}>
-                                                    <IoMdStar className="star" />
-                                                    <IoMdStar className="star" />
+                                                    {starDown(record.Star)}
                                                 </div>
                                             </div>
                                             <div className="kanit-medium" style={{ color: "rgba(0,0,0,0.5)" }}><b>ที่พัก</b></div>
                                         </div>
                                         <div style={{ display: "flex", justifyContent: "center", alignItems: "center", flexDirection: "column", height: "100%", width: "25%", borderTop: "2px solid #D9D9D9", borderBottom: "2px solid #D9D9D9" }}>
-                                            <div className="kanit-medium"style={{ color: "rgba(0,0,0,0.5)" }}><b>{record.CurrentSeat}/{record.TotalSeat}</b></div>
-                                            <div className="kanit-medium" style={{ color: "rgba(0,0,0,0.5)" }}><b>จำนวนที่นั่ง</b></div>
+                                            <div className="kanit-medium"style={{ color: "rgba(0,0,0,0.5)" }}><b>{record.Seatleft}</b></div>
+                                            <div className="kanit-medium" style={{ color: "rgba(0,0,0,0.5)" }}><b>จำนวนที่นั่งเหลือ</b></div>
                                         </div>
                                     </div>
                                     <div className="kanit-medium" style={{ display: "flex", width: "90%", justifyContent: "flex-end", paddingTop: "10px", fontSize: "20px" }}>
@@ -94,7 +161,7 @@ function ListTour(props) {
 
                         <div id="bottom" style={{ zIndex: "0", width: "95%", height: "15%", display: "flex", justifyContent: "flex-end" }}>
                             <div style={{ width: "90%", height: "100%", backgroundColor: "#D9D9D9", borderRadius: "0px 8px 25px 25px", paddingRight: "60px", paddingTop: "20px", justifyContent: "flex-end", display: "flex" }}>
-                                <div className="showdetail kanit-medium" style={{ backgroundColor: "#F36C60", height: "40px", width: "140px", borderRadius: "5px", display: "flex", justifyContent: "center", alignItems: "center", color: "white", fontSize: "20px" }}>
+                                <div onClick={()=>{navigate(`/tour/${record.Id}`,{id:record.Id})}} className="showdetail kanit-medium" style={{ backgroundColor: "#F36C60", height: "40px", width: "140px", borderRadius: "5px", display: "flex", justifyContent: "center", alignItems: "center", color: "white", fontSize: "20px" }}>
                                     ดูรายละเอียด
                                 </div>
                             </div>
@@ -109,7 +176,7 @@ function ListTour(props) {
         
     ]
     return (
-        <Table dataSource={props.data} columns={columns} />
+        <Table pagination={{ pageSize: 2 }} dataSource={props.data} columns={columns} />
     )
 }
 export default ListTour;

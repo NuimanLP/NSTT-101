@@ -13,11 +13,12 @@ import Sidebar from "../../../compo/sidebar.js"
 import config from "../../../config.js"
 
 function Admin() {
+    const [selectedDate, setSelectedDate] = useState(new Date());
+    const [date, setDate] = useState(new Date());
     const [booklenght,setBookLenght] = useState()
     const [userAmount,setUserAmount] = useState()
+    const [formattedDate, setFormattedDate] = useState(); 
     const [data, setData] = useState();
-    const [raw, setRaw] = useState()
-    const [date, setDate] = useState();
     const [searchTerm, setSearchTerm] = useState("");
     const [sliderValue, setSliderValue] = useState(10000);
     const [check, setCheck] = useState({
@@ -25,20 +26,49 @@ function Admin() {
         multiDayTrip: true
     });
     const [tourlenght,setTourLenght] = useState(0)
+    const formatDate = (date) => {
+        const year = date.getFullYear();
+        const month = String(date.getMonth() + 1).padStart(2, '0');
+        const day = String(date.getDate()).padStart(2, '0');
+        return `${year}-${month}-${day}`;
+    };
+
+    const fetchData = async () => {
+        try {
+            let response;
+
+            if (formattedDate) {
+                response = await axios.get(`http://localhost:1337/api/tours?filters[TourDateStart][$eq]=${formattedDate}`);
+            } else {
+                response = await axios.get("http://localhost:1337/api/tours");
+            }
+
+            setData(response.data.data.map(item => item.attributes));
+        } catch (error) {
+            console.error("Error fetching data:", error);
+        }
+    };
 
     const handleSliderChange = (event) => {
         setSliderValue(event.target.value);
     };
 
+    const sliders = async () => {
+        try {
+            const response = await axios.get(`http://localhost:1337/api/tours?filters[Price][$lte]=${sliderValue}`);
+            setData(response.data.data.map(item => item.attributes));
+        } catch (error) {
+            console.error("Error fetching data:", error);
+        }
+    };
+
     const filter = async () => {
         try {
-            const response = await axios.get(`${config.serverUrlPrefix}/tours?populate=*&filters[$and][0][Price][$lte]=${sliderValue}&filters[$or][1][Category][$eq]=${check.oneDayTrip ? 'One-day Trip' : ''}&filters[$or][2][Category][$eq]=${check.multiDayTrip ? 'Multi-day Trip' : ''}`);
+            const response = await axios.get(`http://localhost:1337/api/tours?populate=*&filters[$and][0][Price][$lte]=${
+                sliderValue}&filters[$or][1][Category][$eq]=${check.oneDayTrip ? 'One-day Trip' : ''}&filters[$or][2][Category][$eq]=${
+                    check.multiDayTrip ? 'Multi-day Trip' : ''}`);
             const responsebook = await axios.get(`${config.serverUrlPrefix}/bookings`)
             const responseUser = await axios.get(`${config.serverUrlPrefix}/users`)
-            const full = await axios.get(`${config.serverUrlPrefix}/tours?populate=*`)
-            setUserAmount(responseUser.data.length)
-            setTourLenght(full.data.data.length)
-            setBookLenght(responsebook.data.data.length)
             const map = response.data.data.map((element) => ({
                 Price: element.attributes.Price,
                 Id: element.id,
@@ -55,29 +85,47 @@ function Admin() {
                 EventName: element.attributes.EventName,
                 image: element.attributes.Image.data[0].attributes.url,
                 Seatleft: element.attributes.AvailableSeat-element.attributes.CurrentSeat
-                
-            })).filter((element) => {
-                return (
-                    element.EventName.toLowerCase().includes(searchTerm.toLowerCase())
-                )
-            })
-            setData(map)
-           
-
+            }));
+    
+            const filteredData = formattedDate
+                ? map.filter(item => formatDate(new Date(item.TourDateStart)) === formattedDate)
+                : map;
+            setUserAmount(responseUser.data.length)
+            setTourLenght(response.data.data.length)
+            setBookLenght(responsebook.data.data.length)
+            setData(filteredData);
+    
+            if (date === formattedDate) {
+                console.log("yes");
+            } else {
+                console.log("no");
+                console.log(date);
+            }
+            
         } catch (error) {
             console.error("Error fetching data:", error);
         }
     };
 
-    useEffect(() => {
-        filter()
-    }, [searchTerm, sliderValue, check])
+    const handleCalendarChange = async (date) => {
+        setDate(date);
+        setSelectedDate(date);
+        const formattedDate = formatDate(date);
+        setFormattedDate(formattedDate);
+        await filter();
+    };
 
-    useEffect(() => {
-        filter()
-    }, [])
-    const search = (e) => {
-        setSearchTerm(e.target.value);
+    const search = (searchTerm) => {
+        if (!searchTerm) {
+            fetchData();  // Fetch all data if search term is empty
+            return;
+        }
+
+        const filteredData = data.filter(item =>
+            item.EventName.toLowerCase().includes(searchTerm.toLowerCase())
+        );
+
+        setData(filteredData);
     };
 
     const handleCheckboxChange = (event) => {
@@ -87,16 +135,37 @@ function Admin() {
             [name]: checked
         }));
     };
-    const onChange = date => {
-        setDate(date);
+
+    const handleClearDate = async () => {
+        setDate(new Date());
+        setSelectedDate(new Date());
+        await filter();
     };
 
     const clear = () => {
         setSearchTerm("")
         setSliderValue(10000)
         document.getElementById("name").value = ""
-        console.log(userAmount)
     }
+
+    useEffect(() => {
+        fetchData();
+    }, [formattedDate]);
+
+    useEffect(() => {
+        sliders();
+    }, [sliderValue]);
+
+    useEffect(() => {
+        if (searchTerm === '') {
+            filter();
+        } else {
+            search(searchTerm);
+        }
+    }, [searchTerm, sliderValue, check, selectedDate, formattedDate]);
+    useEffect(() => {
+        filter()
+    },[])
     return(
         <div style={{width:"100vw",height:"100vh"}}>
             <NavigateBar main="main"/>
@@ -112,7 +181,7 @@ function Admin() {
                             <div className="overall">
                                 <div className="overall-children">
                                     <div className="overall-children-image">
-                                        <IoEarth size={160} />
+                                        <IoEarth size={140} />
                                     </div>
                                     <div className="overall-children-info plus-jakarta">
                                         <div className="quantity"><b>{tourlenght}</b></div>
@@ -145,7 +214,11 @@ function Admin() {
 
                             <div className="entries">
                                 <div className="entries-filter" style={{ gap: "20px", display: "flex", flexDirection: "column" }}>
-                                    <input id="name" className="kanit-medium" type="text" placeholder="ค้นหาทัวร์..." onChange={search} style={{ fontSize: "20px", width: "88%", padding: "20px", borderRadius: "5px", border: "1px solid #ccc", height: "1%" }} />
+                                <input className="border-shadow kanit-medium"
+                                    placeholder="ค้นหาทัวร์..."
+                                    onSearch={(value) => setSearchTerm(value)}
+                                    style={{ fontSize: "20px", width: "88%", padding: "20px", borderRadius: "5px", border: "1px solid #ccc", height: "1%" }}
+                                />
                                     <div className="border-shadow" style={{ backgroundColor: "white", width: "100%", height: "150px", borderRadius: "10px 10px 0px 0px", display: "flex", flexDirection: "column", gap: "10px" }}>
                                         <div style={{ display: "flex", justifyContent: "space-between" }}>
                                             <div className="kanit-medium" style={{ fontSize: "25px", paddingLeft: "25px", paddingTop: "20px" }}><b>ช่วงราคา</b></div>
@@ -168,8 +241,6 @@ function Admin() {
                                             <div style={{ display: "flex", alignItems: "center" }}>
                                                 <input onChange={handleSliderChange} min="0" max="10000" className="kanit-medium" style={{ textAlign: "center", width: "100px", fontSize: "25px", height: "30px" }} type="number" value={sliderValue}></input>
                                             </div>
-
-
                                         </div>
                                     </div>
 
@@ -211,7 +282,7 @@ function Admin() {
                                         <div style={{ marginTop: "20px", display: "flex", justifyContent: "center", flexDirection: "column", gap: "10px" }}>
                                             <div className="kanit-medium" style={{ paddingLeft: "25px", paddingTop: "20px", fontSize: "25px" }}><b>ระบุวันที่</b></div>
                                             <div style={{ display: "flex", justifyContent: "center" }}>
-                                                <Calendar onChange={onChange} value={date} />
+                                                <Calendar onChange={handleCalendarChange} value={date} />
                                             </div>
 
                                         </div>

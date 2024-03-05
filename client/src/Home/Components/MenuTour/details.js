@@ -1,7 +1,7 @@
 import { Table } from "antd";
 import "../admin.css"
 import { axioss } from "../axios.js"
-import NavigateBar from "../Navbar"
+import NavigateBar from "../../../compo/Navbar.js"
 import water from "../../Source/water.png"
 import {useState,useEffect} from "react"
 import axios from "axios";

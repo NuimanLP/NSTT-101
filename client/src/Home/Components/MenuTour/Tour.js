@@ -1,5 +1,5 @@
 import "./Tour.css";
-import NavigateBar from "../Navbar";
+import NavigateBar from "../../../compo/Navbar.js";
 import water from "../../Source/water.png";
 import { useEffect, useState } from "react";
 import axios from "axios";

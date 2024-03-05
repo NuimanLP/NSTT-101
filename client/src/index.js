@@ -10,7 +10,9 @@ import {
 import RegisterPage from './Login-Booking-Edit/component/RegisterPage.js';
 import Profile from './Login-Booking-Edit/component/Profile.js'; 
 import NavigateBar from './compo/Navbar.js';
-
+import Admin from "./Admin/Components/Admin/admin.js"
+import Tour from "./Home/Components/MenuTour/Tour.js"
+import BookingPage from './Admin/Components/Booking.js';
 const router = createBrowserRouter([
   {
     path: "/login",
@@ -28,6 +30,19 @@ const router = createBrowserRouter([
     path : "/test",
     element: <NavigateBar/>,
   },
+  {
+    path: "/admin",
+    element: <Admin/>
+  },
+  {
+    path: "/",
+    element: <Tour/>
+  },
+  {
+    path: "/booking",
+    element: <BookingPage/>
+  }
+
 ]);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));

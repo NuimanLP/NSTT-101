@@ -4,7 +4,6 @@ import axios from 'axios';
 import { useNavigate, Link } from 'react-router-dom';
 import '../CSS/LoginForm.css';
 import NavigateBar from "../../compo/Navbar.js";
-import '../../compo/Navbar.css';
 import { EyeFill, EyeSlashFill } from 'react-bootstrap-icons';
 import config from '../../config.js';
 
@@ -77,9 +76,10 @@ const LoginForm = () => {
 
 
     return (
-        <>
-            <NavigateBar />
+        <div>
+            <NavigateBar/>
             <Form.Group style={{ display: "none" }}>
+                <NavigateBar />
                 <Form.Label>Honeypot</Form.Label>
                 <Form.Control
                     type="text"
@@ -89,8 +89,9 @@ const LoginForm = () => {
                 />
             </Form.Group>
 
-            <Container className="login-container">
-                <Form onSubmit={handleSubmit} className="form-container">
+            <Container id="Login-Container" className="Login-Container" style={{height:"100vh"}}>
+                
+                <Form onSubmit={handleSubmit} className="Form-Container">
                     {errMsg && (
                         <Alert variant="danger">{errMsg}</Alert>
                     )}
@@ -133,7 +134,7 @@ const LoginForm = () => {
                     <Link to="/register" className="btn btn-link">สมัครสมาชิก</Link>
                 </Form>
             </Container>
-        </>
+        </div>
     );
 };
 

@@ -81,4 +81,13 @@ module.exports = createCoreController('api::booking.booking', ({ strapi }) => ({
             return ctx.internalServerError('Failed to update PaymentStatus.');
         }
     },
+    async Check(ctx) {
+        const entityId = ctx.params.id;
+        const updated = await strapi.entityService.update('api::booking.booking', entityId, {
+            data: {
+                PaymentStatus: "เสร็จสมบูรณ์"
+            }
+        })
+        return "ตรวจสอบเรียบร้อย"
+    }
 }));

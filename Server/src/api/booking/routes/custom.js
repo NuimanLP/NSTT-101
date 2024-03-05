@@ -9,7 +9,12 @@ module.exports = {
         method: 'PUT',
         path: '/bookings/:id/update-payment-status',
         handler: 'booking.updatePaymentStatus',
-    },
+      },
+      {
+        method: 'PUT',
+        path: '/bookings/:id/Check',
+        handler: 'booking.Check'
+      }
     ],
   };
   

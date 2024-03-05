@@ -11,13 +11,13 @@ import RegisterPage from './Login-Booking-Edit/component/RegisterPage.js';
 import Profile from './Login-Booking-Edit/component/Profile.js'; 
 import NavigateBar from './compo/Navbar.js';
 import Admin from "./Admin/Components/Admin/admin.js"
-import Tour from "./Home/Components/MenuTour/Tour.js"
 import BookingPage from './Admin/Components/Booking.js';
 import Payment from './Payment/payment.jsx'
 import Transaction from './Payment/transaction.jsx'
 import Booking from './Payment/booking.jsx'
 import PaidPayment from './Payment/paidPayment.jsx'
 import Tourid from "./Detail/Tourid.js"
+import Tour from "./Home/Components/MenuTour/Tour.js"
 const router = createBrowserRouter([
   {
     path: "/login",

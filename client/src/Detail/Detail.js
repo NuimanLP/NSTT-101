@@ -95,6 +95,11 @@ function Detail(props) {
       console.log('Error details:', error.response.data);
     }
   };
+  function isAdmin() {
+    if(sessionStorage.getItem("role")=="Admin"){
+      document.getElementById("Btn").style.visibility = "visible"
+    }
+  }
 
   useEffect(() => {
     fetchAPI();
@@ -103,11 +108,12 @@ function Detail(props) {
 
   return (
     <div>
+      {isAdmin}
       {data && (
         <div className='Detail' style={{ marginTop: '30px' }}>
           <div className='TextDetail' style={{ marginLeft: '40px' }}>รายละเอียดทัวร์</div>
           <div>
-            <button className='Btn' style={{marginTop:'2%',marginBottom:'2%'}} onClick={handleCreatePlan}>
+            <button id="Btn" className='Btn' style={{marginTop:'2%',marginBottom:'2%'}} onClick={handleCreatePlan}>
               <div className='sign'>+</div>
               <div className='text'>Create</div>
             </button>

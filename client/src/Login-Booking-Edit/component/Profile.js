@@ -2,14 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { Button, Modal, Form, Table, OverlayTrigger, Popover } from 'react-bootstrap';
 import axios from 'axios';
 import NavigateBar from "../../compo/Navbar.js";
+import '../../compo/Navbar.css';
 import '../CSS/Profile.css';
 import { Receipt } from 'react-bootstrap-icons';
 import config from '../../config.js';
-import Sidebar from '../../compo/sidebar.js';
-
 const Profile = () => {
     const [profile, setProfile] = useState({
-        username: '', Fullname: '', email: '', PhoneNumber: ''
+        username: '', Firstname: '', Lastname: '', email: '', PhoneNumber: ''
     });
     const [error, setError] = useState('');
     const [showModal, setShowModal] = useState(false);
@@ -48,7 +47,7 @@ const Profile = () => {
     };
     //RenderPaymentText
     const renderPaymentStatus = (booking, bookingID) => {
-        // console.log('renderPaymentStatus bookingId:', bookingID);
+        console.log('renderPaymentStatus bookingId:', bookingID);
         const status = capitalizeFirstLetter(booking.PaymentStatus);
         const statusStyle = {
             fontWeight: 'bold',
@@ -72,7 +71,7 @@ const Profile = () => {
     };
     //Cancel PopOver
     const cancelPopover = (bookingID) => {
-        // console.log('cancelPopover bookingId:', bookingID);
+        console.log('cancelPopover bookingId:', bookingID);
         return (
             <Popover id="popover-cancel-tour">
                 <Popover.Header as="h3">ยกเลิกทัวร์</Popover.Header>
@@ -88,7 +87,7 @@ const Profile = () => {
     //CanclePayment
     const cancelBookingPayment = async (bookingsId) => {
         try {
-            // console.log(`Cancelling booking payment for ID: ${bookingsId}`);
+            console.log(`Cancelling booking payment for ID: ${bookingsId}`);
             const response = await axios.put(
                 `${config.serverUrlPrefix}/bookings/${bookingsId}/update-payment-status`,
                 { PaymentStatus: "ยกเลิก" },
@@ -130,7 +129,8 @@ const Profile = () => {
                 setProfile({
                     id: response.data.id,
                     username: response.data.username,
-                    fullname: response.data.fullname || '',
+                    Firstname: response.data.Firstname || '',
+                    Lastname: response.data.Lastname || '',
                     email: response.data.email,
                     phoneNumber: response.data.phoneNumber || '',
                     gender: response.data.gender || '',
@@ -152,7 +152,7 @@ const Profile = () => {
                 .then(response => {
                     const userbookedTours = response.data;
                     setBookings(userbookedTours);
-                    // console.log(userbookedTours);
+                    console.log(userbookedTours);
                 })
         } catch (error) {
             console.error('Error fetching bookings:', error);
@@ -175,7 +175,8 @@ const Profile = () => {
                 setProfile({
                     id: userData.id,
                     username: userData.username,
-                    fullname: userData.Fullname || '',
+                    Firstname: response.data.Firstname || '',
+                    Lastname: response.data.Lastname || '',
                     email: userData.email,
                     phoneNumber: userData.PhoneNumber || '',
                     gender: userData.Gender || '',
@@ -186,11 +187,16 @@ const Profile = () => {
                 console.error('Error fetching user profile:', error);
                 setError('โหลดโปรไฟล์ไม่สำเร็จ กรุณาลองใหม่อีกครั้งในภายหลัง');
             });
-        
     }, []);
     const handleEditProfileChange = (e) => {
         setEditProfile({ ...editProfile, [e.target.name]: e.target.value });
     };
+    // const handleFullnameChange = (e) => {
+    //     const fullname = e.target.value;
+    //     const [Firstname, Lastname = ''] = fullname.split(' ');
+    //     setEditProfile({ ...editProfile, Firstname, Lastname });
+    // };
+
     const handleSaveChanges = () => {
         const jwt = sessionStorage.getItem('jwt');
         if (!jwt) {
@@ -204,7 +210,8 @@ const Profile = () => {
 
         const payload = {
             username: editProfile.username,
-            Fullname: editProfile.Fullname,
+            Firstname: editProfile.Firstname,
+            Lastname: editProfile.Lastname,
             PhoneNumber: editProfile.PhoneNumber,
             Gender: editProfile.Gender
         };
@@ -213,7 +220,7 @@ const Profile = () => {
             headers: { Authorization: `Bearer ${jwt}` },
         })
             .then(response => {
-                // console.log('Profile updated successfully:', response.data);
+                console.log('Profile updated successfully:', response.data);
                 setProfile(prev => ({ ...prev, ...response.data }));
                 fetchUserProfile();
                 setShowModal(false);
@@ -231,9 +238,7 @@ const Profile = () => {
     }
 
     return (
-        <div style={{width:"100vw",height:"100vh"}}>
-            <NavigateBar main="profile" />
-            <Sidebar main="profile"/>
+        <>
             <Modal show={showReceiptModal} onHide={() => setShowReceiptModal(false)}>
                 <Modal.Header closeButton>
                     <Modal.Title>ใบเสร็จ</Modal.Title>
@@ -245,16 +250,17 @@ const Profile = () => {
                     <Button variant="secondary" onClick={() => setShowReceiptModal(false)}>ปิด</Button>
                 </Modal.Footer>
             </Modal>
-            <div style={{height:"15vh"}}></div>
-            <div id="profile" style={{transition:"0.5s"}}>
+            <NavigateBar />
+            <div>
                 <h2 className="profile-title">โปรไฟล์</h2>
                 <p className="profile-info"><strong>ชื่อผู้ใช้:</strong> {profile.username}</p>
-                <p className="profile-info"><strong>ชื่อ-นามสกุล:</strong> {profile.fullname}</p>
+                <p className="profile-info"><strong>ชื่อ:</strong> {profile.Firstname}</p>
+                <p className="profile-info"><strong>นามสกุล:</strong> {profile.Lastname}</p>
                 <p className="profile-info"><strong>อีเมลล์:</strong> {profile.email}</p>
                 <p className="profile-info"><strong>เบอร์โทรศัพท์:</strong> {profile.phoneNumber}</p>
                 <p className="profile-info"><strong>เพศ:</strong> {profile.gender}</p>
 
-                <Button variant="primary" className="mobile-friendly-button" onClick={() => setShowModal(true)} style={{fontSize:"18px",margin: '10px'}}>เเก้ไขโปรไฟล์</Button>
+                <Button variant="primary" className="mobile-friendly-button" onClick={() => setShowModal(true)} style={{ fontSize: "18px", margin: '10px' }}>เเก้ไขโปรไฟล์</Button>
                 {/* Modal for editing profile */}
                 <Modal show={showModal} onHide={() => setShowModal(false)}>
                     <Modal.Header closeButton>
@@ -275,14 +281,25 @@ const Profile = () => {
                             </Form.Group>
 
                             <Form.Group className="mb-3">
-                                <Form.Label>ชื่อ-นามสกุล</Form.Label>
+                                <Form.Label>ชื่อ</Form.Label>
                                 <Form.Control
                                     type="text"
-                                    name="Fullname"
-                                    value={editProfile.Fullname}
+                                    name="Firstname"
+                                    value={editProfile.Firstname}
                                     onChange={handleEditProfileChange}
                                 />
                             </Form.Group>
+
+                            <Form.Group className="mb-3">
+                                <Form.Label>นามสกุล</Form.Label>
+                                <Form.Control
+                                    type="text"
+                                    name="Lastname"
+                                    value={editProfile.Lastname}
+                                    onChange={handleEditProfileChange}
+                                />
+                            </Form.Group>
+
 
                             <Form.Group className="mb-3">
                                 <Form.Label>เบอร์โทรศัพท์</Form.Label>
@@ -313,18 +330,18 @@ const Profile = () => {
                 <p></p>
                 <h3 className="profile-title">การจองของฉัน</h3>
                 <Table striped bordered hover size="sm" className="table-custom">                    <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>ชื่อทัวร์</th>
-                            <th>วันที่ทำการจอง</th>
-                            <th>รายละเอียดทัวร์</th>
-                            <th>วันที่ไป</th>
-                            <th>ราคาทั้งหมด</th>
-                            <th>จำนวนคน</th>
-                            <th>สถานะการชำระเงิน</th>
-                            <th>ใบเสร็จ</th>
-                        </tr>
-                    </thead>
+                    <tr>
+                        <th>#</th>
+                        <th>ชื่อทัวร์</th>
+                        <th>วันที่ทำการจอง</th>
+                        <th>รายละเอียดทัวร์</th>
+                        <th>วันที่ไป</th>
+                        <th>ราคาทั้งหมด</th>
+                        <th>จำนวนคน</th>
+                        <th>สถานะการชำระเงิน</th>
+                        <th>ใบเสร็จ</th>
+                    </tr>
+                </thead>
                     <tbody>
                         {bookings.map((booking, index) => (
                             <tr key={index}>
@@ -345,9 +362,9 @@ const Profile = () => {
                         ))}
                     </tbody>
                 </Table>
-                <Button variant="secondary" className="mobile-friendly-button" onClick={handleLogout} style={{fontSize:"18px"}}>ออกจากระบบ</Button>
+                <Button variant="secondary" className="mobile-friendly-button" onClick={handleLogout} style={{ fontSize: "18px" }}>ออกจากระบบ</Button>
             </div>
-        </div>
+        </>
     );
 };
 

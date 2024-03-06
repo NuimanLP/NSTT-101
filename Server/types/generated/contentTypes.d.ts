@@ -362,6 +362,161 @@ export interface AdminTransferTokenPermission extends Schema.CollectionType {
   };
 }
 
+export interface ApiBookingBooking extends Schema.CollectionType {
+  collectionName: 'bookings';
+  info: {
+    singularName: 'booking';
+    pluralName: 'bookings';
+    displayName: 'Booking';
+    description: '';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    Amount: Attribute.Integer;
+    BookingDate: Attribute.DateTime;
+    Total_Price: Attribute.Decimal;
+    PaymentStatus: Attribute.String;
+    Receipt: Attribute.Media;
+    Tour_Table: Attribute.Relation<
+      'api::booking.booking',
+      'manyToOne',
+      'api::tour.tour'
+    >;
+    owner: Attribute.Relation<
+      'api::booking.booking',
+      'manyToOne',
+      'plugin::users-permissions.user'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::booking.booking',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::booking.booking',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiHighlightHighlight extends Schema.CollectionType {
+  collectionName: 'highlights';
+  info: {
+    singularName: 'highlight';
+    pluralName: 'highlights';
+    displayName: 'Highlight';
+    description: '';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    Name: Attribute.String;
+    Image: Attribute.Media;
+    Plans: Attribute.Relation<
+      'api::highlight.highlight',
+      'manyToMany',
+      'api::plan.plan'
+    >;
+    Count: Attribute.Boolean;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::highlight.highlight',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::highlight.highlight',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiPlanPlan extends Schema.CollectionType {
+  collectionName: 'plans';
+  info: {
+    singularName: 'plan';
+    pluralName: 'plans';
+    displayName: 'Plan';
+    description: '';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    Day: Attribute.Integer;
+    Description: Attribute.Text;
+    Highlights: Attribute.Relation<
+      'api::plan.plan',
+      'manyToMany',
+      'api::highlight.highlight'
+    >;
+    Tour: Attribute.Relation<'api::plan.plan', 'manyToOne', 'api::tour.tour'>;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<'api::plan.plan', 'oneToOne', 'admin::user'> &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<'api::plan.plan', 'oneToOne', 'admin::user'> &
+      Attribute.Private;
+  };
+}
+
+export interface ApiTourTour extends Schema.CollectionType {
+  collectionName: 'tours';
+  info: {
+    singularName: 'tour';
+    pluralName: 'tours';
+    displayName: 'Tour';
+    description: '';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    EventName: Attribute.String &
+      Attribute.DefaultTo<'\u0E44\u0E21\u0E48\u0E21\u0E35'>;
+    EventDescription: Attribute.Text;
+    TourDateInit: Attribute.Date;
+    Price: Attribute.Decimal;
+    AvailableSeat: Attribute.Integer;
+    Image: Attribute.Media;
+    Category: Attribute.String;
+    Plans: Attribute.Relation<'api::tour.tour', 'oneToMany', 'api::plan.plan'>;
+    TourDateFinish: Attribute.Date;
+    Star: Attribute.Integer;
+    MealAmount: Attribute.Integer;
+    TimeCount: Attribute.String;
+    CurrentSeat: Attribute.Integer;
+    TourAmount: Attribute.Integer;
+    Booking: Attribute.Relation<
+      'api::tour.tour',
+      'oneToMany',
+      'api::booking.booking'
+    >;
+    ShoppingCount: Attribute.Integer;
+    EventCount: Attribute.Integer;
+    Vehicle: Attribute.String;
+    Free: Attribute.String;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<'api::tour.tour', 'oneToOne', 'admin::user'> &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<'api::tour.tour', 'oneToOne', 'admin::user'> &
+      Attribute.Private;
+  };
+}
+
 export interface PluginUploadFile extends Schema.CollectionType {
   collectionName: 'files';
   info: {
@@ -789,161 +944,6 @@ export interface PluginI18NLocale extends Schema.CollectionType {
   };
 }
 
-export interface ApiBookingBooking extends Schema.CollectionType {
-  collectionName: 'bookings';
-  info: {
-    singularName: 'booking';
-    pluralName: 'bookings';
-    displayName: 'Booking';
-    description: '';
-  };
-  options: {
-    draftAndPublish: false;
-  };
-  attributes: {
-    Amount: Attribute.Integer;
-    BookingDate: Attribute.DateTime;
-    Total_Price: Attribute.Decimal;
-    PaymentStatus: Attribute.String;
-    Receipt: Attribute.Media;
-    Tour_Table: Attribute.Relation<
-      'api::booking.booking',
-      'manyToOne',
-      'api::tour.tour'
-    >;
-    owner: Attribute.Relation<
-      'api::booking.booking',
-      'manyToOne',
-      'plugin::users-permissions.user'
-    >;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'api::booking.booking',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<
-      'api::booking.booking',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-  };
-}
-
-export interface ApiHighlightHighlight extends Schema.CollectionType {
-  collectionName: 'highlights';
-  info: {
-    singularName: 'highlight';
-    pluralName: 'highlights';
-    displayName: 'Highlight';
-    description: '';
-  };
-  options: {
-    draftAndPublish: false;
-  };
-  attributes: {
-    Name: Attribute.String;
-    Image: Attribute.Media;
-    Plans: Attribute.Relation<
-      'api::highlight.highlight',
-      'manyToMany',
-      'api::plan.plan'
-    >;
-    Count: Attribute.Boolean;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'api::highlight.highlight',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<
-      'api::highlight.highlight',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-  };
-}
-
-export interface ApiPlanPlan extends Schema.CollectionType {
-  collectionName: 'plans';
-  info: {
-    singularName: 'plan';
-    pluralName: 'plans';
-    displayName: 'Plan';
-    description: '';
-  };
-  options: {
-    draftAndPublish: false;
-  };
-  attributes: {
-    Day: Attribute.Integer;
-    Description: Attribute.Text;
-    Highlights: Attribute.Relation<
-      'api::plan.plan',
-      'manyToMany',
-      'api::highlight.highlight'
-    >;
-    Tour: Attribute.Relation<'api::plan.plan', 'manyToOne', 'api::tour.tour'>;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<'api::plan.plan', 'oneToOne', 'admin::user'> &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<'api::plan.plan', 'oneToOne', 'admin::user'> &
-      Attribute.Private;
-  };
-}
-
-export interface ApiTourTour extends Schema.CollectionType {
-  collectionName: 'tours';
-  info: {
-    singularName: 'tour';
-    pluralName: 'tours';
-    displayName: 'Tour';
-    description: '';
-  };
-  options: {
-    draftAndPublish: false;
-  };
-  attributes: {
-    EventName: Attribute.String &
-      Attribute.DefaultTo<'\u0E44\u0E21\u0E48\u0E21\u0E35'>;
-    EventDescription: Attribute.Text;
-    TourDateInit: Attribute.Date;
-    Price: Attribute.Decimal;
-    AvailableSeat: Attribute.Integer;
-    Image: Attribute.Media;
-    Category: Attribute.String;
-    Plans: Attribute.Relation<'api::tour.tour', 'oneToMany', 'api::plan.plan'>;
-    TourDateFinish: Attribute.Date;
-    Star: Attribute.Integer;
-    MealAmount: Attribute.Integer;
-    TimeCount: Attribute.String;
-    CurrentSeat: Attribute.Integer;
-    TourAmount: Attribute.Integer;
-    Booking: Attribute.Relation<
-      'api::tour.tour',
-      'oneToMany',
-      'api::booking.booking'
-    >;
-    ShoppingCount: Attribute.Integer;
-    EventCount: Attribute.Integer;
-    Vehicle: Attribute.String;
-    Free: Attribute.String;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<'api::tour.tour', 'oneToOne', 'admin::user'> &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<'api::tour.tour', 'oneToOne', 'admin::user'> &
-      Attribute.Private;
-  };
-}
-
 declare module '@strapi/types' {
   export module Shared {
     export interface ContentTypes {
@@ -954,6 +954,10 @@ declare module '@strapi/types' {
       'admin::api-token-permission': AdminApiTokenPermission;
       'admin::transfer-token': AdminTransferToken;
       'admin::transfer-token-permission': AdminTransferTokenPermission;
+      'api::booking.booking': ApiBookingBooking;
+      'api::highlight.highlight': ApiHighlightHighlight;
+      'api::plan.plan': ApiPlanPlan;
+      'api::tour.tour': ApiTourTour;
       'plugin::upload.file': PluginUploadFile;
       'plugin::upload.folder': PluginUploadFolder;
       'plugin::content-releases.release': PluginContentReleasesRelease;
@@ -962,10 +966,6 @@ declare module '@strapi/types' {
       'plugin::users-permissions.role': PluginUsersPermissionsRole;
       'plugin::users-permissions.user': PluginUsersPermissionsUser;
       'plugin::i18n.locale': PluginI18NLocale;
-      'api::booking.booking': ApiBookingBooking;
-      'api::highlight.highlight': ApiHighlightHighlight;
-      'api::plan.plan': ApiPlanPlan;
-      'api::tour.tour': ApiTourTour;
     }
   }
 }

@@ -1,0 +1,538 @@
+/* /components/Touid.css */
+
+@import url('https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+.Tourid{
+  background-color: rgba(217, 217, 217, 0.39);;;
+}
+.relative {
+  position: relative;
+  left: 0px;
+  /* border: 3px solid #73AD21; */
+}
+
+.photomenu{
+  background: #FFF;
+  stroke-width: 1px;
+  stroke: rgba(0, 0, 0, 0.25);
+  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.50));
+  width: 100%;
+  height: 604px;
+}
+
+.Textphotomenu{
+  color: #000;
+  font-family: "Kanit", sans-serif;
+  font-size: 2vw;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+
+}
+
+.namephoto{
+  color: #FFF;
+  font-family: "Kanit", sans-serif;
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  background: rgba(0, 0, 0, 0.62);
+  height: 27px;
+  flex-shrink: 0;
+}
+
+.barmenu{
+  width: 235px;
+  height: 45px;
+  flex-shrink: 0;
+  background: #371F77;
+  border-radius: 15px 0px 0px 0px
+}
+
+.barmenu0{
+  width: 242px;
+  height: 45px;
+  flex-shrink: 0;
+  background: #D9D9D9;
+  border-radius: 0px 15px 0px 0px
+}
+
+.textbarmenu0{
+  color: #000;
+  text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  font-family: "Kanit", sans-serif;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+}
+
+.triangle-up {
+	width: 0;
+	height: 0;
+	border-left: 25px solid transparent;
+	border-right: 25px solid transparent;
+	border-bottom: 45px solid #371F77;
+}
+
+.Text{
+  color: #000;
+  font-family:  "Kanit", sans-serif;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.Tour{
+  border-radius: 15px;
+  border: 1px solid rgba(0, 0, 0, 0.25);
+  background: #FFF;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.50);
+  position: fixed;
+  bottom: 0;
+  right: 100px;
+  width: 436px;
+  height: 527px;
+  /* border: 5px solid #73AD21; */
+}
+
+.NameTour{
+  color: #000;
+  font-family: "Kanit", sans-serif;
+  font-size: 30px;
+  font-weight: 700;
+}
+
+.NameTour0{
+  color: #FFF;
+  text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  font-family: "Kanit", sans-serif;
+  font-size: 30px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  width: 181px;
+  height: 21px;
+  flex-shrink: 0;
+}
+
+.price{
+  border: 1px solid rgba(0, 0, 0, 0.13);
+  background: #FFF;
+  width: 426px;
+  height: 62px;
+  color: rgba(0, 0, 0, 0.50);
+  font-family: "Kanit", sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.textprice{
+  color: rgba(0, 0, 0, 0.50);
+  font-family: "Kanit", sans-serif;
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+}
+
+.namehightlight{
+  color: rgba(55, 31, 119, 0.75);
+  text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  font-family: "Kanit", sans-serif;
+  font-size: 35px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+}
+
+.texthigthlight{
+  color: rgba(0, 0, 0, 0.50);
+  font-family: "Kanit", sans-serif;;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+}
+
+.hightlight {
+  border-radius: 15px;
+  border: 1px solid rgba(0, 0, 0, 0.50);
+  background: #FFF;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  width: 127px;
+  height: 108px;
+  flex-shrink: 0;
+}
+
+.hightlight0{
+  width: 289px;
+  height: 60px;
+  flex-shrink: 0;
+  border-radius: 15px;
+  border: 1px solid rgba(0, 0, 0, 0.25);
+  background: #FFF;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+}
+
+.highlighttour{
+  border-radius: 15px;
+  border: 1px solid rgba(0, 0, 0, 0.25);
+  background: #FFF;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  width: 830px;
+  height: 527px;
+  margin-left: 100px;
+  /* border: 5px solid #73AD21; */
+}
+
+.textmenuhightlight{
+  color: rgba(0, 0, 0, 0.50);
+  font-family: "Kanit", sans-serif;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.texthigthlight0{
+  color: rgba(55, 31, 119, 0.80);
+  font-family: "Kanit", sans-serif;
+  font-size: 35px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.bookbutton {
+    border-radius: 15px; /* ค่าความงของปุ่ม */
+    background-color: #F36C60; /* สีของปุ่ม */
+    font-size: 30px; /* ขนาดตัวอักษร */
+    padding: 10px 80px; /* ขนาดของปุ่ม */
+    color: #FFF; /* สีตัวอักษร */
+    border: 1px solid rgba(0, 0, 0, 0.25); /* ขนาดขอบของปุ่ม */
+    font-family: "Kanit", sans-serif;
+    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    font-weight: 700;/*ความหนาตัวอัษร*/
+    width: 418px;
+    height: 65px;
+}
+
+.Detail{
+  width: 830px;
+  flex-shrink: 0;
+  border-radius: 15px;
+  border: 1px solid rgba(0, 0, 0, 0.25);
+  background: #FFF;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  margin-left: 100px;
+}
+
+.DetailHighlihgt{
+  border-radius: 7px;
+  border: 0.5px solid rgba(0, 0, 0, 0.50);
+  background: #FFF;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  color: rgba(0, 0, 0, 0.50);
+  font-family: "Kanit", sans-serif;
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+}
+
+.menuDetail{
+  width: 740px;
+  height: 354px;
+  flex-shrink: 0;
+  border-radius: 15px;
+  border: 1px solid rgba(55, 31, 119, 0.80);
+  background: #FFF;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+}
+
+.TextDetail{
+  width: 252px;
+  height: 42px;
+  flex-shrink: 0;
+  color: rgba(55, 31, 119, 0.75);
+  text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  font-family: "Kanit", sans-serif;
+  font-size: 35px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+}
+
+.TextDetail0{
+  width: 192px;
+  height: 33px;
+  flex-shrink: 0;
+  color: rgba(55, 31, 119, 0.50);
+  font-family: "Kanit", sans-serif;
+  font-size: 25px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal; 
+}
+
+.dayhighlight{
+  color: rgba(55, 31, 119, 0.75);
+  font-family: "Kanit", sans-serif;
+  font-size: 25px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  width: 108px;
+  height: 31.084px;
+  flex-shrink: 0;
+}
+
+.phighlight{
+  color: #371F77;
+  font-family: "Kanit", sans-serif;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  width: 700px;
+  height: 129px;
+  flex-shrink: 0;
+}
+
+.deleteButton {
+  width: 50px;
+  height: 50px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  background-color: transparent;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s;
+  position: relative;
+  overflow: hidden;
+}
+.deleteButton svg {
+  width: 44%;
+}
+.deleteButton:hover {
+  background-color: rgb(237, 56, 56,0.95);
+  overflow: visible;
+}
+.bin path {
+  transition: all 0.2s;
+}
+.deleteButton:hover .bin path {
+  fill: #fff;
+}
+.deleteButton:active {
+  transform: scale(0.98);
+}
+.tooltip {
+  --tooltip-color: rgb(41, 41, 41);
+  position: absolute;
+  top: -40px;
+  background-color: var(--tooltip-color);
+  color: white;
+  border-radius: 5px;
+  font-size: 12px;
+  padding: 8px 12px;
+  font-weight: 600;
+  box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.105);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: all 0.5s;
+}
+.tooltip::before {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  transform: rotate(45deg);
+  content: "";
+  background-color: var(--tooltip-color);
+  bottom: -10%;
+}
+.deleteButton:hover .tooltip {
+  opacity: 1;
+}
+
+.Btn {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  width: 45px;
+  height: 45px;
+  border: none;
+  border-radius: 0px;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition-duration: .3s;
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.199);
+  background-color: rgba(55, 31, 119, 1);
+}
+
+/* plus sign */
+.sign {
+  width: 100%;
+  font-size: 2em;
+  color: white;
+  transition-duration: .3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+/* text */
+.text {
+  position: absolute;
+  right: 0%;
+  width: 0%;
+  opacity: 0;
+  color: white;
+  font-size: 1.2em;
+  font-weight: 500;
+  transition-duration: .3s;
+}
+/* hover effect on button width */
+.Btn:hover {
+  width: 125px;
+  border-radius: 0px;
+  transition-duration: .3s;
+}
+
+.Btn:hover .sign {
+  width: 30%;
+  transition-duration: .3s;
+  padding-left: 20px;
+}
+/* hover effect button's text */
+.Btn:hover .text {
+  opacity: 1;
+  width: 70%;
+  transition-duration: .3s;
+  padding-right: 20px;
+}
+/* button click effect*/
+.Btn:active {
+  transform: translate(2px ,2px);
+}
+
+@media screen and (max-width: 450px) {
+  .Tourid {
+    background-color: rgba(217, 217, 217, 0.39);
+  }
+
+  .photomenu {
+    width: 100%;
+  }
+
+  .highlighttour {
+    width: 90%;
+    margin: 5%;
+    height: 50%;
+  }
+
+  .hightlight {
+    flex-direction: column;
+  }
+
+  .Tour {
+    position: none;
+    width: 100%;
+  }
+
+  .photomenu {
+    height: auto;
+  }
+
+  .bookbutton{
+    width: 360px;
+  }
+
+  .menuDetail{
+    width: 25%;
+  }
+
+  .namephoto,
+  .textbarmenu0,
+  .Textphotomenu {
+    font-size: 12px;
+  }
+
+  .namephoto,
+  .textbarmenu0,
+  .Textphotomenu,
+  .Text {
+    margin-left: 5%;
+  }
+
+  .barmenu,
+  .barmenu0 {
+    width: 100%;
+    border-radius: 0;
+  }
+
+  .triangle-up {
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-bottom: 20px solid #371f77;
+  }
+
+  .namehightlight,
+  .texthigthlight {
+    font-size: 18px;
+  }
+
+  .highlighttour,
+  .hightlight {
+    width: 120px;
+    margin-left: 0;
+  }
+
+  .Detail,
+  .menuDetail {
+    width: 350px;
+    margin-left: 0;
+  }
+
+  .TextDetail,
+  .TextDetail0,
+  .DetailHighlihgt,
+  .dayhighlight,
+  .phighlight,
+  .textmenuhightlight {
+    font-size: 14px;
+  }
+
+  .Tour {
+    right: 0;
+    margin: 0;
+    border-radius: 0;
+  }
+
+  .Tourid {
+    padding: 0 5%;
+  }
+
+  .photomenu {
+    margin-top: 80px;
+  }
+
+  .Tourid > div {
+    width: 100%;
+  }
+
+  .namephoto,
+  .Text,
+  .textprice,
+  .NameTour0 {
+    margin-left: 0;
+  }
+}

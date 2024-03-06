@@ -93,7 +93,11 @@ function Tour() {
         TourDateFinish: element.attributes.TourDateFinish,
         TourAmount: element.attributes.TourAmount,
         EventName: element.attributes.EventName,
-        image: element.attributes.Image?.data[0].attributes.url
+        Free: element.attributes.free,
+        EventCount: element.attributes.EventCount,
+        ShoppingCount: element.attributes.ShoppingCount,
+        Vehicle: element.attributes.Vehicle,
+        image: element.attributes.Image?.data[0].attributes.url,
       })).filter((element) => {
         return (
           element.EventName.toLowerCase().includes(searchTerm.toLowerCase())

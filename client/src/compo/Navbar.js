@@ -63,7 +63,7 @@ function NavigateBar(props) {
                 <div className="test"> 
                     <img src={logo} width="75" height="75">
                     </img>
-                    <b className="webname kanit-medium">
+                    <b className="webname">
                     Nakhon Si  Tour Travel Agent
                     </b>
                     <img className="reverse" src={logo} width="75" height="75">

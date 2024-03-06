@@ -78,7 +78,7 @@ function Payment(){
                                 <input
                                     type="number"
                                     max={max}
-                                    min={0}
+                                    min={1}
                                     className='seat-input'
                                     placeholder='จำนวนที่นั่ง'
                                     value={isNaN(seat) ? '' : seat}
@@ -90,8 +90,8 @@ function Payment(){
                         </div>
                         <div style={{height:"100px"}}></div>
                         <div className='box-bottom'>
-                            <a href="#" style={{color:"rgba(0, 0, 0, 0.75)"}}onClick={() => { navigate(-1) }} className='kanit-medium'>&lt; ย้อนกลับ</a>
-                            <button className="next-button kanit-medium"onClick={handleClick}>ถัดไป</button>
+                            <a href="#" style={{color:"rgba(0, 0, 0, 0.75)"}} onClick={() => { navigate(-1) }} className='kanit-medium'>&lt; ย้อนกลับ</a>
+                            <button className="next-button kanit-medium" onClick={handleClick}>ถัดไป</button>
                         </div>
                     </div>
                 </div>

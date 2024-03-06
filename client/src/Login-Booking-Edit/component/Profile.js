@@ -186,6 +186,7 @@ const Profile = () => {
                 console.error('Error fetching user profile:', error);
                 setError('โหลดโปรไฟล์ไม่สำเร็จ กรุณาลองใหม่อีกครั้งในภายหลัง');
             });
+        
     }, []);
     const handleEditProfileChange = (e) => {
         setEditProfile({ ...editProfile, [e.target.name]: e.target.value });

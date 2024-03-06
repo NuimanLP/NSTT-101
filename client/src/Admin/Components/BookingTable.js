@@ -85,7 +85,7 @@ export default function BookingTable(props) {
 ]
     return (
         <div>
-            <div id="modal" className="modal">
+            <div id="modal" className="modal-hell">
                 <div class="modal-content-custom">
                     <RxCross2 size={30} id="close" className="close" onClick={()=>{hidemodal()}}/>
                     <div style={{display:"flex",justifyContent:"center"}}>

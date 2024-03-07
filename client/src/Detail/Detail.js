@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import './Tourid.css';
+import config from '../config';
 
 function Detail(props) {
   const [data, setData] = useState(null);
@@ -15,7 +16,7 @@ function Detail(props) {
 
   const fetchAPI = async () => {
     try {
-      const response = await axios.get(`http://localhost:1337/api/tours/${props.id}`);
+      const response = await axios.get(`${config.serverUrlPrefix}/tours/${props.id}`);
       setData(response.data.data);
     } catch (error) {
       console.error("Error fetching tour data:", error);
@@ -24,7 +25,7 @@ function Detail(props) {
 
   const fetchAPIPlan = async () => {
     try {
-      const response = await axios.get(`http://localhost:1337/api/tours/${props.id}?populate[Plans][populate]=Highlights`);
+      const response = await axios.get(`${config.serverUrlPrefix}/tours/${props.id}?populate[Plans][populate]=Highlights`);
       setPlan(response.data.data.attributes.Plans.data);
     } catch (error) {
       console.error("Error fetching tour plans:", error);
@@ -34,16 +35,16 @@ function Detail(props) {
   const handleCreatePlan = async () => {
     try {
       // Create a new plan
-      const response = await axios.post('http://localhost:1337/api/plans', {data:{
+      const response = await axios.post(`${config.serverUrlPrefix}/plans`, {
         data: {
           Day: "+",
           Description: "กดเพื่อแก้ไข",
           // ... other properties
         }
-      }});
+      });
 
       // Connect the newly created plan to the tour
-      const updateTourResponse = await axios.put(`http://localhost:1337/api/tours/${props.id}`, {
+      const updateTourResponse = await axios.put(`${config.serverUrlPrefix}/tours/${props.id}`, {
         data: {
           Plans: {
             connect: [
@@ -63,7 +64,7 @@ function Detail(props) {
   const handleDeletePlan = async (planId) => {
     try {
       // Delete the plan
-      const response = await axios.delete(`http://localhost:1337/api/plans/${planId}`);
+      const response = await axios.delete(`${config.serverUrlPrefix}/plans/${planId}`);
 
       // Optionally, you can update the state to remove the deleted plan
       setPlan(plan.filter(val => val.id !== planId));
@@ -76,7 +77,7 @@ function Detail(props) {
   const handleEditPlan = async (planId) => {
     try {
       // Update the plan with edited values
-      const response = await axios.put(`http://localhost:1337/api/plans/${planId}`, {
+      const response = await axios.put(`${config.serverUrlPrefix}/plans/${planId}`, {
         data: {
           Day: editDay,
           Description: editDescription,
@@ -95,25 +96,7 @@ function Detail(props) {
       console.log('Error details:', error.response.data);
     }
   };
-  function isAdmin() {
-    if(sessionStorage.getItem("role")=="Admin"){
-      return(
-        <button id="Btn" className='Btn' style={{ marginTop: '2%', marginBottom: '2%' }} onClick={handleCreatePlan}>
-          <div className='sign'>+</div>
-          <div className='text'>Create</div>
-        </button>
-      )
-    }
-  }
-  function isAdmin2(id){
-    if(sessionStorage.getItem("role")==="Admin"){
-      return (
-        <button className='deleteButton' onClick={() => handleDeletePlan(id)}>
-          <img src='https://cdn-icons-png.flaticon.com/128/10741/10741845.png' alt='' width="30px" />
-        </button>
-      )
-    }
-  }
+  function isAdmin() { if(sessionStorage.getItem("role")=="Admin"){ return( <button id="Btn" className='Btn' style={{ marginTop: '2%', marginBottom: '2%' }} onClick={handleCreatePlan}> <div className='sign'>+</div> <div className='text'>Create</div> </button> ) } } function isAdmin2(id){ if(sessionStorage.getItem("role")==="Admin"){ return ( <button className='deleteButton' onClick={() => handleDeletePlan(id)}> <img src='https://cdn-icons-png.flaticon.com/128/10741/10741845.png' alt='' width="30px" /> </button> ) } }
   useEffect(() => {
     fetchAPI();
     fetchAPIPlan();

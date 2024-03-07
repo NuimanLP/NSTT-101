@@ -12,9 +12,6 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "Day": {
-      "type": "integer"
-    },
     "Description": {
       "type": "text"
     },
@@ -29,6 +26,9 @@
       "relation": "manyToOne",
       "target": "api::tour.tour",
       "inversedBy": "Plans"
+    },
+    "Day": {
+      "type": "string"
     }
   }
 }

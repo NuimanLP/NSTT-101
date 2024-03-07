@@ -17,7 +17,7 @@ import Transaction from './Payment/transaction.jsx'
 import Booking from './Payment/booking.jsx'
 import PaidPayment from './Payment/paidPayment.jsx'
 import Tourid from "./Detail/Tourid.js"
-import Tour from "./Home/Components/MenuTour/Tour.js"
+import Tour from "./Home/Tour.js"
 const router = createBrowserRouter([
   {
     path: "/login",

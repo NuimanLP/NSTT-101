@@ -7,7 +7,7 @@ import { useParams } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import NavigateBar from '../compo/Navbar';
 import Sidebar from '../compo/sidebar';
-
+import config from '../config';
 function Tourid() {
   const[data,setData] = useState(null);
   const[img,setImg] = useState(null);
@@ -15,16 +15,29 @@ function Tourid() {
   const {id} = useParams(null)
 
   const fetchAPI = async () =>{
-    const response = await axios.get(`http://localhost:1337/api/tours/${id}`);
+    const response = await axios.get(`${config.serverUrlPrefix}/tours/${id}`);
     setData(response.data.data)
   } 
 
   const fetchAPIImg = async () =>{
-    const response = await axios.get(`http://localhost:1337/api/tours/${id}/?populate=Image`);
+    const response = await axios.get(`${config.serverUrlPrefix}/tours/${id}/?populate=Image`);
     setImg(response.data.data.attributes.Image.data)
 
   } 
-
+  function check(){
+    if (data.attributes.TourDateInit == data.attributes.TourDateFinish){
+      return (
+      <div>
+        {new Date(data.attributes.TourDateInit).toLocaleDateString('th-TH')}
+      </div>)
+    }else{
+      return (
+        <div>
+          {new Date(data.attributes.TourDateInit).toLocaleDateString('th-TH')} ถึง {new Date(data.attributes.TourDateFinish).toLocaleDateString('th-TH')}
+        </div>
+      )
+    }
+  }
   useEffect(() =>{
     fetchAPI()
     fetchAPIImg()
@@ -40,7 +53,7 @@ function Tourid() {
               <div className='barmenu0' style={{ position: 'absolute', left: '192px' }}><img /></div>
               <div className='Triangle' style={{ position: 'absolute', left: '210px' }}><img src='https://cdn-icons-png.flaticon.com/128/3916/3916882.png' alt='Marker' width='26px' height='26px' style={{ marginLeft: '20px', marginTop: '10px' }} /></div>
               <div className='barmenu' style={{ position: 'absolute', left: 0 }}>
-                <div className='NameTour0' style={{ marginLeft: '37px', marginTop: '0px' }}><h>รหัส{data.attributes.Tourid}</h></div>
+                <div className='NameTour0' style={{ marginLeft: '37px', marginTop: '0px' }}><h>รหัส {data.id}</h></div>
               </div>
               <div className='textbarmenu0' style={{ position: 'absolute', left: '285px', marginTop: '5px' }}>{data.attributes.Category}</div>
             </div>
@@ -52,8 +65,8 @@ function Tourid() {
                 <h1 className='Text' style={{ marginTop: '25px', marginLeft: '30px' }}>
                   <img src="https://cdn-icons-png.flaticon.com/128/7602/7602655.png" alt="Clock-nine" style={{ width: '28px', height: '28px', marginRight: '10px' }} /> {data.attributes.TimeCount}
                 </h1>
-                <h1 className='Text' style={{ marginTop: '20px', marginLeft: '30px' }}>
-                  <img src="https://cdn-icons-png.flaticon.com/128/7602/7602592.png" alt="Calendar-lines" style={{ width: '28px', height: '28px', marginRight: '10px' }} /> {data.attributes.TourDateStart} ถึง {data.attributes.TourDateFinish}
+                <h1 className='Text' style={{ marginTop: '20px', marginLeft: '30px',display:"flex",flexDirection:"row" }}>
+                  <img src="https://cdn-icons-png.flaticon.com/128/7602/7602592.png" alt="Calendar-lines" style={{ width: '28px', height: '28px', marginRight: '10px' }} />{check()}
                 </h1>
                 <h1 className='Text' style={{ marginTop: '20px', marginLeft: '30px' }}>
                   <img src="https://cdn-icons-png.flaticon.com/128/3914/3914149.png" alt="" style={{ width: '28px', height: '28px', marginRight: '10px' }} /> {data.attributes.EventDescription}
@@ -81,11 +94,11 @@ function Tourid() {
               {img && img.map(val => (
                 <div style={{ marginTop: '50px', marginLeft: '11.5%' }}>
                   <div style={{ position: 'relative' }}>
-                    <div style={{ position: 'absolute', width: '38.219rem', height: '25.479rem' }}><img src={`http://localhost:1337${img[1].attributes.url}`} alt='' width={'100%'} height={'100%'} style={{ objectFit: 'cover' }} /></div>
-                    <div style={{ position: 'absolute', left: '619px', width: '18.364rem', height: '12.5rem' }} ><img src={`http://localhost:1337${img[2].attributes.url}`} alt='' width={'100%'} height={'100%'} /></div>
-                    <div style={{ position: 'absolute', left: '619px', top: '208px', width: '18.364rem', height: '12.5rem' }} ><img src={`http://localhost:1337${img[3].attributes.url}`} alt='' width={'100%'} height={'100%'} /></div>
-                    <div style={{ position: 'absolute', left: '919px', width: '18.364rem', height: '12.5rem' }} ><img src={`http://localhost:1337${img[4].attributes.url}`} alt='' width={'100%'} height={'100%'} /></div>
-                    <div className='namephoto' style={{ position: 'absolute', left: '919px', top: '208px', width: '293.821px', height: '200px' }} ><img src={`http://localhost:1337${img[5].attributes.url}`} alt='' width={'293.821px'} height={'200px'} /></div>
+                    <div style={{ position: 'absolute', width: '38.219rem', height: '25.479rem' }}><img src={`${config.serverReceipt}${img[1].attributes.url}`} alt='' width={'100%'} height={'100%'} style={{ objectFit: 'cover' }} /></div>
+                    <div style={{ position: 'absolute', left: '619px', width: '18.364rem', height: '12.5rem' }} ><img src={`${config.serverReceipt}${img[2].attributes.url}`} alt='' width={'100%'} height={'100%'} /></div>
+                    <div style={{ position: 'absolute', left: '619px', top: '208px', width: '18.364rem', height: '12.5rem' }} ><img src={`${config.serverReceipt}${img[3].attributes.url}`} alt='' width={'100%'} height={'100%'} /></div>
+                    <div style={{ position: 'absolute', left: '919px', width: '18.364rem', height: '12.5rem' }} ><img src={`${config.serverReceipt}}${img[4].attributes.url}`} alt='' width={'100%'} height={'100%'} /></div>
+                    <div className='namephoto' style={{ position: 'absolute', left: '919px', top: '208px', width: '293.821px', height: '200px' }} ><img src={`${config.serverReceipt}${img[5].attributes.url}`} alt='' width={'293.821px'} height={'200px'} /></div>
                     {data && (
                       <div key={data.id}>
                         <div className='namephoto' style={{ position: 'absolute', left: '818px', top: '161px' }}>{data.attributes.NamePhoto2}</div>

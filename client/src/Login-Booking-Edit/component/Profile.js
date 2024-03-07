@@ -6,6 +6,7 @@ import '../../compo/Navbar.css';
 import '../CSS/Profile.css';
 import { Receipt } from 'react-bootstrap-icons';
 import config from '../../config.js';
+import Sidebar from '../../compo/sidebar.js';
 const Profile = () => {
     const [profile, setProfile] = useState({
         username: '', Firstname: '', Lastname: '', email: '', PhoneNumber: ''
@@ -237,6 +238,7 @@ const Profile = () => {
         return <div>Error: {error}</div>;
     }
 
+
     return (
         <>
             <Modal show={showReceiptModal} onHide={() => setShowReceiptModal(false)}>
@@ -250,8 +252,10 @@ const Profile = () => {
                     <Button variant="secondary" onClick={() => setShowReceiptModal(false)}>ปิด</Button>
                 </Modal.Footer>
             </Modal>
-            <NavigateBar />
-            <div>
+            <NavigateBar main="profile"/>
+            <Sidebar main="profile"/>
+            <div style={{height:"150px"}}></div>
+            <div id="profile" style={{transition:"0.5s"}}>
                 <h2 className="profile-title">โปรไฟล์</h2>
                 <p className="profile-info"><strong>ชื่อผู้ใช้:</strong> {profile.username}</p>
                 <p className="profile-info"><strong>ชื่อ:</strong> {profile.Firstname}</p>
@@ -356,7 +360,7 @@ const Profile = () => {
                                     {renderPaymentStatus(booking, booking.BookingID)}
                                 </td>
                                 <td>
-                                    <Receipt onClick={() => handleReceiptClick(booking.Receipt.formats.small.url)} style={{ cursor: 'pointer' }} />
+                                    <Receipt onClick={() => handleReceiptClick(booking.Receipt.url)} style={{ cursor: 'pointer' }} />
                                 </td>
                             </tr>
                         ))}

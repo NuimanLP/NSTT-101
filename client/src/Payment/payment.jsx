@@ -7,6 +7,7 @@ import ResetScroll from '../Payment/resetScroll.jsx';
 import { API } from './axiosAPI.js';
 import axios from 'axios';
 import Sidebar from "../compo/sidebar.js";
+import config from "../config.js";
 function Payment(){
     const [userData, setUserData] = useState()
     const [seat, setSeat] = useState(1);
@@ -23,7 +24,7 @@ function Payment(){
         }
     };
     const fetchBooking = async() => {
-        const response = await axios.get(`http://localhost:1337/api/tours/${id}`)
+        const response = await axios.get(`${config.serverUrlPrefix}/tours/${id}`)
         setMax(response.data.data.attributes.AvailableSeat - response.data.data.attributes.CurrentSeat)
     }
     const handleAdd = () => {

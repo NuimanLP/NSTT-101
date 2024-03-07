@@ -3,12 +3,13 @@ import { RxCross2 } from "react-icons/rx";
 import axios from "axios";
 import { useState } from "react";
 import { Table } from "antd"
+import config from "../../config";
 
 export default function BookingTable(props) {
 
     function showmodal(url) {
         if(url){
-            document.getElementById("img").src = `http://localhost:1337${url}`
+            document.getElementById("img").src = `${config.serverReceipt}${url}`
             document.getElementById("img").style.visibility = "visible"
             document.getElementById("none").style.visibility = "hidden"
         }else{
@@ -32,7 +33,7 @@ export default function BookingTable(props) {
         }
     }
     const summit = async(id) => {
-        await axios.put(`http://localhost:1337/api/bookings/${id}/Check`)
+        await axios.put(`${config.serverUrlPrefix}/bookings/${id}/Check`)
     }
     const col = 
 [
@@ -85,8 +86,8 @@ export default function BookingTable(props) {
 ]
     return (
         <div>
-            <div id="modal" className="modal-hell">
-                <div class="modal-content-custom">
+            <div id="modal" className="modal2">
+                <div class="modal2-content">
                     <RxCross2 size={30} id="close" className="close" onClick={()=>{hidemodal()}}/>
                     <div style={{display:"flex",justifyContent:"center"}}>
                         <img id="img" src="" style={{width:"30vw"}}></img>

@@ -12,6 +12,7 @@ import 'react-calendar/dist/Calendar.css';
 import Sidebar from "../../../compo/sidebar.js"
 import config from "../../../config.js"
 import { Input } from "antd"
+import { useRef } from "react"
 function Admin() {
     const [selectedDate, setSelectedDate] = useState(new Date());
     const [date, setDate] = useState(new Date());
@@ -21,6 +22,11 @@ function Admin() {
     const [data, setData] = useState();
     const [searchTerm, setSearchTerm] = useState("");
     const [sliderValue, setSliderValue] = useState(10000);
+    const [image, setImage] = useState(null);
+    const imageref = useRef(null);
+
+
+  
     const [check, setCheck] = useState({
         oneDayTrip: true,
         multiDayTrip: true
@@ -32,7 +38,55 @@ function Admin() {
         const day = String(date.getDate()).padStart(2, '0');
         return `${year}-${month}-${day}`;
     };
-
+    const [tourFile, setTourFile] = useState(null);
+    const handleCreateTour = async () => {
+        try {
+          const tourResponse = await axios.post('http://localhost:1337/api/tours', {
+            data: {
+              "EventName": "------",
+              "Price": 9999,
+              "Category": "One-day Trip"
+            }
+          });
+    
+          const tourId = tourResponse.data.data.id;
+    
+          const uploadPromises = [];
+          for (const file of tourFile) {
+            const formData = new FormData();
+            formData.append('ref', 'api::tour.tour');
+            formData.append('field', 'Image');
+            formData.append('refId', tourId);
+            formData.append('files', file);
+    
+            const uploadPromise = axios.post('http://localhost:1337/api/upload', formData);
+            uploadPromises.push(uploadPromise);
+          }
+    
+          const uploadResponses = await Promise.all(uploadPromises);
+    
+          console.log("Tour created successfully with images:", uploadResponses);
+    
+        } catch (error) {
+          console.error('Error creating tour:', error);
+        }
+      };
+    
+      const handleFileChange = (e) => {
+        const files = Array.from(imageref.current.files);
+        setTourFile(files);
+      };
+    
+      const handleDeleteTour = async (tourId) => {
+        try {
+          const response = await axios.delete(`http://localhost:1337/api/tours/${tourId}`);
+          console.log(response);
+          filter(); // Refresh the tour list after deletion
+        } catch (error) {
+          console.error('Error deleting tour:', error);
+        }
+      };
+    
     const fetchData = async () => {
         try {
             let response;
@@ -291,6 +345,16 @@ function Admin() {
 
 
                                 <div className="entries-list">
+                                <div style={{ display: 'flex' }}>
+                  <button onClick={() => handleCreateTour(image)} className="button" style={{ width: '160px', borderRadius: '0px' }}>
+                    <span className="button__text" style={{ marginLeft: '15px' }}>Add</span>
+                    <span className="button__icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" viewBox="0 0 24 24" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" stroke="currentColor" height="24" fill="none" className="svg"><line y2="19" y1="5" x2="12" x1="12"></line><line y2="12" y1="12" x2="19" x1="5"></line></svg></span>
+                  </button>
+                  <div>
+                    <input type="file" ref={imageref} onChange={handleFileChange} multiple />
+                  </div>
+                </div>
+
                                     <div style={{ height: "70px" }}></div>
                                     <div className="border-shadow" style={{ borderRadius: "10px", width: "100%", height: "1200px" }}>
                                         <ListTour data={data} />

@@ -82,6 +82,9 @@
     },
     "Lastname": {
       "type": "string"
+    },
+    "Fullname": {
+      "type": "string"
     }
   }
 }

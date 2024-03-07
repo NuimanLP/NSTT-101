@@ -36,7 +36,7 @@ function NavigateBar(props) {
 
             return (
                 <div style={{height:"100%",display:"flex",alignItems:"center"}}>
-                    <a href="login" className="kanit-medium loginbutton" style={{color:"white"}}>เข้าสู่ระบบ</a>
+                    <a href="/login" className="kanit-medium loginbutton" style={{color:"white"}}>เข้าสู่ระบบ</a>
                 </div>
             )
         }

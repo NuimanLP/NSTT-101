@@ -1,6 +1,7 @@
 import "./payment.css"
 import React from "react";
 import NavigateBar from '../compo/Navbar.js';
+import config from "../config.js";
 function PaidPayment(){
 
     return(
@@ -27,7 +28,7 @@ function PaidPayment(){
                     </div>
                     
                     <div className='box'>
-                        <form action="http://localhost:3000/">
+                        <form action={`${config.windowlocateHome}`}>
                             <button type="submit">กลับหน้าเเรก</button>
                         </form>
                     </div>

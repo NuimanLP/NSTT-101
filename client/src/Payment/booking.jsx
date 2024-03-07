@@ -4,6 +4,7 @@ import NavigateBar from '../compo/Navbar.js';
 import axios from 'axios';
 import { useParams, useNavigate } from 'react-router-dom';
 import { API } from './axiosAPI.js';
+import config from "../config.js";
 
 function Booking() {
     const [TourData, setTourData] = useState();
@@ -37,7 +38,7 @@ function Booking() {
         }
     };
     const fetchAPIImg = async () =>{
-        const response = await axios.get(`http://localhost:1337/api/tours/${id}/?populate=Image`);
+        const response = await axios.get(`${config.serverUrlPrefix}/tours/${id}/?populate=Image`);
         setImg(response.data.data.attributes.Image.data)
     
       } 
@@ -103,7 +104,7 @@ function Booking() {
                         <div style={{display:"flex"}}>
                             {img && img.map((val, index) => (
                                 <div key={index}>
-                                    <img src={`http://localhost:1337${val.attributes.url}`} alt='' width={'30%'} height={'30%'} />
+                                    <img src={`${config.serverReceipt}${val.attributes.url}`} alt='' width={'30%'} height={'30%'} />
                                 </div>
                             ))}
                             <div>

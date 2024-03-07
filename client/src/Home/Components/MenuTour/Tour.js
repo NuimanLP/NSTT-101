@@ -66,7 +66,7 @@ import Sidebar from "../../../compo/sidebar.js";
                     TotalSeat: element.attributes.AvailableSeat,
                     Tourplan: element.attributes.EventDescription,
                     DayCount: element.attributes.TimeCount,
-                    TourDateStart: element.attributes.TourDateStart,
+                    TourDateStart: element.attributes.TourDateInit,
                     TourDateFinish: element.attributes.TourDateFinish,
                     TourAmount: element.attributes.TourAmount,
                     EventName: element.attributes.EventName,

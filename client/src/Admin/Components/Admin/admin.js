@@ -41,7 +41,7 @@ function Admin() {
     const [tourFile, setTourFile] = useState(null);
     const handleCreateTour = async () => {
         try {
-          const tourResponse = await axios.post('http://localhost:1337/api/tours', {
+          const tourResponse = await axios.post(`${config.serverUrlPrefix}/tours`, {
             data: {
               "EventName": "------",
               "Price": 9999,
@@ -59,13 +59,13 @@ function Admin() {
             formData.append('refId', tourId);
             formData.append('files', file);
     
-            const uploadPromise = axios.post('http://localhost:1337/api/upload', formData);
+            const uploadPromise = axios.post(`${config.serverUrlPrefix}/upload`, formData);
             uploadPromises.push(uploadPromise);
           }
     
           const uploadResponses = await Promise.all(uploadPromises);
     
-          console.log("Tour created successfully with images:", uploadResponses);
+        //   console.log("Tour created successfully with images:", uploadResponses);
     
         } catch (error) {
           console.error('Error creating tour:', error);
@@ -79,8 +79,8 @@ function Admin() {
     
       const handleDeleteTour = async (tourId) => {
         try {
-          const response = await axios.delete(`http://localhost:1337/api/tours/${tourId}`);
-          console.log(response);
+          const response = await axios.delete(`${config.serverUrlPrefix}/tours/${tourId}`);
+        //   console.log(response);
           filter(); // Refresh the tour list after deletion
         } catch (error) {
           console.error('Error deleting tour:', error);
@@ -92,9 +92,9 @@ function Admin() {
             let response;
 
             if (formattedDate) {
-                response = await axios.get(`http://localhost:1337/api/tours?filters[TourDateStart][$eq]=${formattedDate}`);
+                response = await axios.get(`${config.serverUrlPrefix}/tours?filters[TourDateStart][$eq]=${formattedDate}`);
             } else {
-                response = await axios.get("http://localhost:1337/api/tours");
+                response = await axios.get(`${config.serverUrlPrefix}/tours`);
             }
 
             setData(response.data.data.map(item => item.attributes));
@@ -109,7 +109,7 @@ function Admin() {
 
     const sliders = async () => {
         try {
-            const response = await axios.get(`http://localhost:1337/api/tours?filters[Price][$lte]=${sliderValue}`);
+            const response = await axios.get(`${config.serverUrlPrefix}/tours?filters[Price][$lte]=${sliderValue}`);
             setData(response.data.data.map(item => item.attributes));
         } catch (error) {
             console.error("Error fetching data:", error);
@@ -118,7 +118,7 @@ function Admin() {
 
     const filter = async () => {
         try {
-            const response = await axios.get(`http://localhost:1337/api/tours?populate=*&filters[$and][0][Price][$lte]=${
+            const response = await axios.get(`${config.serverUrlPrefixz}/tours?populate=*&filters[$and][0][Price][$lte]=${
                 sliderValue}&filters[$or][1][Category][$eq]=${check.oneDayTrip ? 'One-day Trip' : ''}&filters[$or][2][Category][$eq]=${
                     check.multiDayTrip ? 'Multi-day Trip' : ''}`);
             const responsebook = await axios.get(`${config.serverUrlPrefix}/bookings`)
@@ -150,10 +150,10 @@ function Admin() {
             setData(filteredData);
     
             if (date === formattedDate) {
-                console.log("yes");
+                // console.log("yes");
             } else {
-                console.log("no");
-                console.log(date);
+                // console.log("no");
+                // console.log(date);
             }
             
         } catch (error) {

@@ -38,11 +38,11 @@ const RegisterPage = () => {
             setErrorMsg('รหัสผ่านไม่ตรงกัน');
             return;
         }
-        if (!password.match(/[!"#$%&'()*+,-./<=>?@[\]^_`{|}~]/)) {
+        else if (!password.match(/[!"#$%&'()*+,-./<=>?@[\]^_`{|}~]/)) {
             setErrorMsg('รหัสผ่านต้องประกอบด้วยอักขระพิเศษอย่างน้อย 1 ตัว');
             return;
         }
-        if (password.length < 8) {
+        else if (password.length < 8) {
             setErrorMsg('รหัสผ่านต้องมีความยาวอย่างน้อย 8 ตัว');
             return;
         }

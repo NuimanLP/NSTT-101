@@ -8,6 +8,7 @@ import Checklogin from "../../../compo/Navigate.js";
 import { FaDirections, FaTrash } from "react-icons/fa";
 import noimg from "../../Source/noimg.webp";
 import "./Tour.css";
+import config from "../config.js";
 
 function Tour() {
   const [data, setData] = useState([]);
@@ -29,7 +30,7 @@ function Tour() {
 
   const handleCreateTour = async () => {
     try {
-      const tourResponse = await axios.post('http://localhost:1337/api/tours', {
+      const tourResponse = await axios.post(`${config.serverUrlPrefix}/tours`, {
         data: {
           "EventName": "------",
           "Price": 9999,
@@ -47,7 +48,7 @@ function Tour() {
         formData.append('refId', tourId);
         formData.append('files', file);
 
-        const uploadPromise = axios.post('http://localhost:1337/api/upload', formData);
+        const uploadPromise = axios.post(`${config.serverUrlPrefix}/upload`, formData);
         uploadPromises.push(uploadPromise);
       }
 
@@ -67,7 +68,7 @@ function Tour() {
 
   const handleDeleteTour = async (tourId) => {
     try {
-      const response = await axios.delete(`http://localhost:1337/api/tours/${tourId}`);
+      const response = await axios.delete(`${config.serverUrlPrefix}/${tourId}`);
       console.log(response);
       filter(); // Refresh the tour list after deletion
     } catch (error) {
@@ -77,7 +78,7 @@ function Tour() {
 
   const filter = async () => {
     try {
-      const response = await axios.get(`http://localhost:1337/api/tours?populate=*&filters[$and][0][Price][$lte]=${sliderValue}&filters[$or][1][Category][$eq]=${check.oneDayTrip ? 'One-day Trip' : ''}&filters[$or][2][Category][$eq]=${check.multiDayTrip ? 'Multi-day Trip' : ''}`);
+      const response = await axios.get(`${config.serverUrlPrefix}/tours?populate=*&filters[$and][0][Price][$lte]=${sliderValue}&filters[$or][1][Category][$eq]=${check.oneDayTrip ? 'One-day Trip' : ''}&filters[$or][2][Category][$eq]=${check.multiDayTrip ? 'Multi-day Trip' : ''}`);
       setRaw(response);
       const map = response.data.data.map((element) => ({
         Price: element.attributes.Price,

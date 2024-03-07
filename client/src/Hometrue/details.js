@@ -14,6 +14,7 @@ import edit from "../../Source/edit.png"
 import { IoMdStar } from "react-icons/io"
 import rocket from "../../Source/rocket.png"
 import { useNavigate } from "react-router-dom"
+import config from "../config";
 
 
 function ListTour(props) {
@@ -27,7 +28,7 @@ function ListTour(props) {
       try {
         console.log("Deleting tour with ID:", TourId);
   
-        const response = await axios.delete(`http://localhost:1337/api/tours/${TourId}`);
+        const response = await axios.delete(`${config.serverUrlPrefix}/tours/${TourId}`);
         console.log("Delete response:", response);
   
         setTour((Tour) => Tour.filter((record) => record.id !== TourId));
@@ -48,7 +49,7 @@ function ListTour(props) {
     const handleSaveEdit = async () => {
       try {
         // ทำการอัปเดตข้อมูลทัวร์
-        const response = await axios.put(`http://localhost:1337/api/tours/${editTourId}`,{  
+        const response = await axios.put(`${config.serverUrlPrefix}/tours/${editTourId}`,{  
             data:{
                 EventName: eventName,
                 Price: price,

@@ -4,12 +4,12 @@ import axios from 'axios';
 import NavigateBar from "../../compo/Navbar.js";
 import '../../compo/Navbar.css';
 import '../CSS/Profile.css';
-import { Receipt } from 'react-bootstrap-icons';
+import {  Receipt } from 'react-bootstrap-icons';
 import config from '../../config.js';
 import Sidebar from '../../compo/sidebar.js';
 const Profile = () => {
     const [profile, setProfile] = useState({
-        username: '', Firstname: '', Lastname: '', email: '', PhoneNumber: ''
+        username: '', Firstname: '', Lastname: '', email: '', PhoneNumber: '',Gender:''
     });
     const [error, setError] = useState('');
     const [showModal, setShowModal] = useState(false);
@@ -48,7 +48,7 @@ const Profile = () => {
     };
     //RenderPaymentText
     const renderPaymentStatus = (booking, bookingID) => {
-        console.log('renderPaymentStatus bookingId:', bookingID);
+        // console.log('renderPaymentStatus bookingId:', bookingID);
         const status = capitalizeFirstLetter(booking.PaymentStatus);
         const statusStyle = {
             fontWeight: 'bold',
@@ -72,7 +72,7 @@ const Profile = () => {
     };
     //Cancel PopOver
     const cancelPopover = (bookingID) => {
-        console.log('cancelPopover bookingId:', bookingID);
+        // console.log('cancelPopover bookingId:', bookingID);
         return (
             <Popover id="popover-cancel-tour">
                 <Popover.Header as="h3">ยกเลิกทัวร์</Popover.Header>
@@ -88,7 +88,7 @@ const Profile = () => {
     //CanclePayment
     const cancelBookingPayment = async (bookingsId) => {
         try {
-            console.log(`Cancelling booking payment for ID: ${bookingsId}`);
+            // console.log(`Cancelling booking payment for ID: ${bookingsId}`);
             const response = await axios.put(
                 `${config.serverUrlPrefix}/bookings/${bookingsId}/update-payment-status`,
                 { PaymentStatus: "ยกเลิก" },
@@ -134,7 +134,7 @@ const Profile = () => {
                     Lastname: response.data.Lastname || '',
                     email: response.data.email,
                     phoneNumber: response.data.phoneNumber || '',
-                    gender: response.data.gender || '',
+                    gender: response.data.Gender || '',
                     emergencyContact: response.data.emergencyContact || '',
                 });
                 setShowModal(false);
@@ -153,58 +153,26 @@ const Profile = () => {
                 .then(response => {
                     const userbookedTours = response.data;
                     setBookings(userbookedTours);
-                    console.log(userbookedTours);
+                    // console.log(userbookedTours);
                 })
         } catch (error) {
             console.error('Error fetching bookings:', error);
         }
     };
 
-
-
-    useEffect(() => {
-        const jwt = sessionStorage.getItem('jwt');
-        if (!jwt) {
-            setError('คุณต้องเข้าสู่ระบบเพื่อดูหน้านี้');
-            return;
-        }
-        axios.get(`${config.serverUrlPrefix}/users/me`, {
-            headers: { Authorization: `Bearer ${jwt}` },
-        })
-            .then(response => {
-                const userData = response.data;
-                setProfile({
-                    id: userData.id,
-                    username: userData.username,
-                    Firstname: response.data.Firstname || '',
-                    Lastname: response.data.Lastname || '',
-                    email: userData.email,
-                    phoneNumber: userData.PhoneNumber || '',
-                    gender: userData.Gender || '',
-                    emergencyContact: userData.EmergencyContact || '',
-                });
-            })
-            .catch(error => {
-                console.error('Error fetching user profile:', error);
-                setError('โหลดโปรไฟล์ไม่สำเร็จ กรุณาลองใหม่อีกครั้งในภายหลัง');
-            });
-    }, []);
     const handleEditProfileChange = (e) => {
         setEditProfile({ ...editProfile, [e.target.name]: e.target.value });
     };
-    // const handleFullnameChange = (e) => {
-    //     const fullname = e.target.value;
-    //     const [Firstname, Lastname = ''] = fullname.split(' ');
-    //     setEditProfile({ ...editProfile, Firstname, Lastname });
-    // };
 
+
+    
     const handleSaveChanges = () => {
         const jwt = sessionStorage.getItem('jwt');
         if (!jwt) {
             setError('คุณต้องเข้าสู่ระบบเพื่อดูหน้านี้');
             return;
         }
-        if (editProfile.username === '') {
+        else if (editProfile.username === '') {
             setErrorMsg('กรุณากรอกชื่อผู้ใช้');
             return;
         }
@@ -221,7 +189,7 @@ const Profile = () => {
             headers: { Authorization: `Bearer ${jwt}` },
         })
             .then(response => {
-                console.log('Profile updated successfully:', response.data);
+                // console.log('Profile updated successfully:', response.data);
                 setProfile(prev => ({ ...prev, ...response.data }));
                 fetchUserProfile();
                 setShowModal(false);
@@ -360,7 +328,7 @@ const Profile = () => {
                                     {renderPaymentStatus(booking, booking.BookingID)}
                                 </td>
                                 <td>
-                                    <Receipt onClick={() => handleReceiptClick(booking.Receipt.url)} style={{ cursor: 'pointer' }} />
+                                    <Receipt onClick={() => handleReceiptClick(booking.Receipt.formats.small.url)} style={{ cursor: 'pointer' }} />
                                 </td>
                             </tr>
                         ))}

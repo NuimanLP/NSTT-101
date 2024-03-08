@@ -304,7 +304,7 @@ const Profile = () => {
                             <Form.Group className="mb-3">
                                 <Form.Label>เบอร์โทรศัพท์</Form.Label>
                                 <Form.Control
-                                    type="text"
+                                    type="number"
                                     name="PhoneNumber"
                                     value={editProfile.PhoneNumber}
                                     onChange={handleEditProfileChange}

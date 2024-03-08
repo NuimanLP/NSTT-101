@@ -324,7 +324,7 @@ const Profile = () => {
                                 <td>{booking.TourDateInit} ถึง {booking.TourDateFinish}</td>
                                 <td>{booking.Total_Price}   บาท</td>
                                 <td>{booking.Amount} ท่าน</td>
-                                <td style={{ color: getStatusColor(booking.PaymentStatus), fontWeight: 'bold' }}>
+                                <td style={{ color: getStatusColor(booking.PaymentStatus)}}>
                                     {renderPaymentStatus(booking, booking.BookingID)}
                                 </td>
                                 <td>

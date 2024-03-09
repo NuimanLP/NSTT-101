@@ -34,14 +34,14 @@ describe('LoginForm', () => {
     );
 
     fireEvent.change(screen.getByPlaceholderText(/ชื่อผู้ใช้/i), {
-      target: { value: 'testUser' },
+      target: { value: 'Authen0' },
     });
     fireEvent.change(screen.getByPlaceholderText(/รหัสผ่าน/i), {
-      target: { value: 'password123' },
+      target: { value: '123456' },
     });
 
-    expect(screen.getByPlaceholderText(/ชื่อผู้ใช้/i).value).toBe('testUser');
-    expect(screen.getByPlaceholderText(/รหัสผ่าน/i).value).toBe('password123');
+    expect(screen.getByPlaceholderText(/ชื่อผู้ใช้/i).value).toBe('Authen0');
+    expect(screen.getByPlaceholderText(/รหัสผ่าน/i).value).toBe('123456');
   });
 
   test('toggles password visibility', () => {
@@ -61,7 +61,7 @@ describe('LoginForm', () => {
   });
 
   test('submits form and handles server response', async () => {
-    const mockResponse = { data: { jwt: 'fakeToken', user: { username: 'testUser', role: { name: 'Login-User' } } } };
+    const mockResponse = { data: { jwt: 'fakeToken', user: { username: 'Authen0', role: { name: 'Login-User' } } } };
     axios.post.mockResolvedValue(mockResponse);
 
     render(

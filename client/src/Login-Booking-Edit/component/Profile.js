@@ -161,7 +161,7 @@ const Profile = () => {
 
 
     const handleEditProfileChange = (e) => {
-        setEditProfile({ ...editProfile, [e.target.name]: e.target.value });//create property
+        setEditProfile({ ...editProfile, [e.target.name]: e.target.value });//update editProfile
     };
     const handleSaveChanges = () => {
         const jwt = sessionStorage.getItem('jwt');

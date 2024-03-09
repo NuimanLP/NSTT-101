@@ -137,7 +137,6 @@ const Profile = () => {
                     gender: response.data.Gender || '',
                     emergencyContact: response.data.emergencyContact || '',
                 });
-                setShowModal(false);
             })
             .catch(error => {
                 console.error('Error fetching user profile:', error);

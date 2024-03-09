@@ -159,12 +159,10 @@ const Profile = () => {
         }
     };
 
+
     const handleEditProfileChange = (e) => {
-        setEditProfile({ ...editProfile, [e.target.name]: e.target.value });
+        setEditProfile({ ...editProfile, [e.target.name]: e.target.value });//create property
     };
-
-
-    
     const handleSaveChanges = () => {
         const jwt = sessionStorage.getItem('jwt');
         if (!jwt) {
@@ -189,8 +187,8 @@ const Profile = () => {
         })
             .then(response => {
                 // console.log('Profile updated successfully:', response.data);
-                setProfile(prev => ({ ...prev, ...response.data }));
-                fetchUserProfile();
+                setProfile(prev => ({ ...prev, ...response.data })); //above update
+                fetchUserProfile();//fetch new data
                 setShowModal(false);
             })
             .catch(error => {

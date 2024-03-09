@@ -31,24 +31,6 @@
     font-size: 16px;
   }
   
-  .btn-primary {
-    background-color: #800080; /* Purple color */
-    border-color: #800080;
-    color: white;
-    font-weight: bold;
-    text-transform: uppercase;
-    margin-top: 10px;
-    padding: 10px 15px;
-  }
-  
-  .btn-link {
-    color: #800080;
-    text-decoration: underline;
-    padding: 10px 0;
-    display: block;
-    text-align: center;
-  }
-  
   .alert-danger {
     color: #721c24;
     background-color: #f8d7da;

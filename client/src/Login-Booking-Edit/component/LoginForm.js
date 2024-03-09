@@ -127,11 +127,11 @@ const LoginForm = () => {
                         {isLoading ? 'Loading...' : 'เข้าสู่ระบบ'}
                         {isLoading && (
                             <Spinner animation="border" role="status">
-                                <span className="visually-hidden">Loading...</span>
+                                <span >Loading...</span>
                             </Spinner>
                         )}
                     </Button>
-                    <Link to="/register" className="btn btn-link">สมัครสมาชิก</Link>
+                    <Link to="/register" >สมัครสมาชิก</Link>
                 </Form>
             </Container>
         </div>

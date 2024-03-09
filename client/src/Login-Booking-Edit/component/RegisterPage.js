@@ -60,7 +60,7 @@ const RegisterPage = () => {
             });
             // console.log('Registration successful:', response.data);
             sessionStorage.setItem('username', username);
-            window.location.href = `${config.windowlocateHome}/login`;
+            handleGoback();
         } catch (error) {
             console.error('Registration failed:', error);
             setErrorMsg('สมัครสมาชิกไม่สำเร็จ');

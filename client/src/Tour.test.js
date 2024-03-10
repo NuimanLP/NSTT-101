@@ -16,7 +16,7 @@ describe('Tour component', () => {
       const filteredItems = screen.getAllByTestId('tour-item');
       expect(filteredItems.length).toBeGreaterThan(0);
       filteredItems.forEach(item => {
-        expect(item).toHaveTextContent('ชื่อทัวร์ที่ต้องการค้นหา');
+        expect(item).toHaveTextContent('ชื่อทัวร์การค้นหา');
       });
     });
   });

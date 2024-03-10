@@ -9,7 +9,6 @@ import { FaFacebook } from "react-icons/fa";
 import { FaLine } from "react-icons/fa6";
 
 export default function Sidebar(props) {
-    const navigate = useNavigate()
 
     function closeNav() {
         document.getElementById(`${props.main}`).style.marginLeft = "0px"
@@ -19,7 +18,7 @@ export default function Sidebar(props) {
     function isAdmin() {
         if (sessionStorage.getItem("role") === "Admin") {
             return (
-                <div id="bookside" className="sidebar-element kanit-regular">
+                <div id="bookside" data-testid="bookside" className="sidebar-element kanit-regular">
                     <IoTicketSharp style={{ color: "white" }} size={30} />
                     <a href="booking">Booking</a>
                 </div>
